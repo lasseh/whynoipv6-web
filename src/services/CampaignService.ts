@@ -13,6 +13,9 @@ class CampaignService {
   getCampaignDomain(uuid: string, domain: string) {
     return API().get(`/campaign/${uuid}/${domain}`);
   }
+  SearchDomain(domain: string, offset: number) {
+    return API().get(`/campaign/search/${domain}?offset=${offset}`);
+  }
 }
 
 export default new CampaignService();

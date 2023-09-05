@@ -21,6 +21,8 @@
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4">{{ domain.domain }}</h1>
                 <p class="text-xl text-gray-400">Provider: {{ domain.asn }}</p>
+                <p class="text-xl text-gray-400">Alexa Rank:</p>
+                <div class="inline-flex text-center text-gray-400 py-1 px-3 rounded-sm bg-zinc-700/50 hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
               </div>
             </header>
 

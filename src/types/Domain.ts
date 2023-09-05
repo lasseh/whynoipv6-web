@@ -10,6 +10,5 @@ export namespace Domain {
     country: string;
     ts_check: Date;
     ts_updated: Date;
-    campaign_uuid?: string;
   }
 }

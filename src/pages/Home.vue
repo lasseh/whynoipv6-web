@@ -1,12 +1,10 @@
 <template>
   <div class="flex flex-col min-h-screen overflow-hidden">
-
     <!-- Site header -->
     <Header />
 
     <!-- Page content -->
     <main class="grow">
-
       <!-- Page illustration -->
       <div class="relative max-w-6xl mx-auto h-0 pointer-events-none" aria-hidden="true">
         <PageIllustration />
@@ -18,13 +16,10 @@
       <MetricTotals />
       <TopSinners />
       <HomeDomains />
-
-
     </main>
 
     <!-- Site footer -->
     <Footer />
-
   </div>
 </template>
 
@@ -33,23 +28,19 @@ import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
-import {
-  Header,
-  PageIllustration,
-  Footer,
-} from '@/partials';
+import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
-import HomeInfo from '@/partials/HomeInfo.vue'
-import MetricTotals from '@/partials/MetricTotals.vue'
-import TopSinners from '@/partials/Sinners.vue'
-import Searchbar from '@/partials/Searchbar.vue'
-import HomeDomains from '@/partials/HomeDomains.vue'
+import HomeInfo from "@/partials/HomeInfo.vue";
+import MetricTotals from "@/partials/MetricTotals.vue";
+import TopSinners from "@/partials/Sinners.vue";
+import Searchbar from "@/partials/Searchbar.vue";
+import HomeDomains from "@/partials/HomeDomains.vue";
 
 // Services
 
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   components: {
     Header,
     PageIllustration,

@@ -36,7 +36,7 @@
                   </form>
 
                   <!-- Create campaign button -->
-                  <button class="btn bg-pink-700 hover:bg-pink-800 text-white">
+                  <button class="btn bg-fuchsia-700 hover:bg-fuchsia-800 text-white">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
@@ -69,7 +69,7 @@
                     <footer class="mt-5">
                       <div class="flex justify-between items-center">
                         <div>
-                          <div class="text-xs inline-flex font-medium bg-emerald-400/30 text-emerald-400 rounded-full text-center px-2.5 py-1">Rating: Good</div>
+                          <div class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
                         </div>
                         <div>
                           <div class="text-sm font-medium text-zinc-500 mb-2">{{ campaign.count }} Domains</div>
@@ -80,7 +80,7 @@
                 </router-link>
               </div>
 
-        <!-- Pagination -->
+              <!-- Pagination -->
               <!-- TODO: Needs work -->
               <div class="mt-8">
                 <div class="flex justify-center">
@@ -94,23 +94,6 @@
                         </svg>
                       </span>
                     </div>
-                    <ul class="inline-flex text-sm font-medium -space-x-px shadow-sm">
-                      <li>
-                        <span class="inline-flex items-center justify-center rounded-l leading-5 px-3.5 py-2 bg-zinc-800 border border-zinc-700 text-indigo-500">1</span>
-                      </li>
-                      <li>
-                        <a class="inline-flex items-center justify-center leading-5 px-3.5 py-2 bg-zinc-800 hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white" href="#0">2</a>
-                      </li>
-                      <li>
-                        <a class="inline-flex items-center justify-center leading-5 px-3.5 py-2 bg-zinc-800  hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white" href="#0">3</a>
-                      </li>
-                      <li>
-                        <span class="inline-flex items-center justify-center leading-5 px-3.5 py-2 bg-zinc-800 border border-zinc-700 text-zinc-500">…</span>
-                      </li>
-                      <li>
-                        <a class="inline-flex items-center justify-center rounded-r leading-5 px-3.5 py-2 bg-zinc-800 hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white" href="#0">9</a>
-                      </li>
-                    </ul>
                     <div class="ml-2">
                       <a href="#0" class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-zinc-800 hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white shadow-sm">
                         <span class="sr-only">Next</span>
@@ -123,8 +106,6 @@
                   </nav>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -140,11 +121,7 @@ import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
-import {
-  Header,
-  PageIllustration,
-  Footer,
-} from '@/partials';
+import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
 
@@ -166,15 +143,42 @@ export default defineComponent({
       campaignList: [] as Campaign.Campaign[],
     });
 
-async function fetchCampaignList() {
+    async function fetchCampaignList() {
       try {
         const response = await CampaignService.getCampaignList();
         state.campaignList = response.data;
       } catch (error) {
-        console.error('Failed to fetch campaign list:', error);
+        console.error("Failed to fetch campaign list:", error);
         // Optionally handle error here, e.g. set an error message in the state.
       }
+      // calculate rating per campaign
+      state.campaignList.forEach(campaign => {
+        const { rating, colorClass } = calculateCampaignRating(campaign);
+        campaign.rating = rating;
+        campaign.colorClass = colorClass;
+      });
+    }
+
+    function calculateCampaignRating(campaign: any) {
+      const { count, v6_ready } = campaign;
+      const ratingPercentage = (v6_ready / count) * 100;
+
+      let rating = "";
+      let colorClass = "";
+
+      if (ratingPercentage >= 60) {
+        rating = "Good";
+        colorClass = "bg-emerald-400/30 text-emerald-400";
+      } else if (ratingPercentage >= 40) {
+        rating = "Medium";
+        colorClass = "bg-amber-400/30 text-amber-400";
+      } else {
+        rating = "Bad";
+        colorClass = "bg-rose-400/30 text-rose-400";
       }
+
+      return { rating, colorClass };
+    }
 
     onMounted(() => {
       fetchCampaignList();

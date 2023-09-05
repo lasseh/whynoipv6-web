@@ -49,13 +49,12 @@
       </tbody>
     </table>
 
-  <!-- Empty state -->
-  <div v-else class="flex justify-center">
-    <div class="text-center">
-      <div class="text-xl font-medium">No domains found</div>
+    <!-- Empty state -->
+    <div v-else class="flex justify-center">
+      <div class="text-center">
+        <div class="text-xl font-medium">No domains found</div>
+      </div>
     </div>
-  </div>
-  
   </div>
 </template>
 
@@ -64,10 +63,7 @@ import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
 
 // Page Layout
-import {
-  CheckIcon,
-  CrossIcon,
-} from '@/partials';
+import { CheckIcon, CrossIcon } from "@/partials";
 
 // Services
 import { Campaign } from "@/types/Campaign";
@@ -88,7 +84,8 @@ export default defineComponent({
     const route = useRoute();
 
     function getCampaignUrl(domain: Campaign.CampaignDomain) {
-      return `/campaign/${route.params.uuid}/${domain.domain}`;
+      // return `/campaign/${route.params.uuid}/${domain.domain}`;
+      return `/campaign/${domain.campaign_uuid}/${domain.domain}`;
     }
 
     return {

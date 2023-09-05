@@ -80,6 +80,7 @@ import CampaignDomainTable from "@/components/CampaignDomainTable.vue";
 import DomainService from "@/services/DomainService";
 import { Domain } from "@/types/Domain";
 import { Campaign } from "@/types/Campaign";
+import CampaignService from "@/services/CampaignService";
 
 export default defineComponent({
   name: "SearchPage",
@@ -105,9 +106,12 @@ export default defineComponent({
     });
 
     async function fetchSearchResult() {
-      const response = await DomainService.SearchDomain(props.query, state.offset);
-      state.domainList = response.data.domains;
-      state.campaignDomains = response.data.campaignDomains;
+      const domainResponse = await DomainService.SearchDomain(props.query, state.offset);
+      state.domainList = domainResponse.data.data;
+
+      const campaignResponse = await CampaignService.SearchDomain(props.query, state.offset);
+      state.campaignDomains = campaignResponse.data.data;
+
       state.searchString = props.query;
     }
 

@@ -16,7 +16,8 @@
             <div class="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6" data-aos="fade-right" data-aos-anchor="[data-aos-id-features-home]">
               <div class="md:pr-4 lg:pr-12 xl:pr-16">
                 <h3 class="h3 mb-3">Top IPv6 Sinners</h3>
-                <p class="text-l text-gray-400 mb-4">The following domains are the top offenders of the IPv6 protocol. These domains are the most visited websites in the world, yet they have not embraced the IPv6 technology. Shame on them!</p>
+                <p class="text-l text-gray-400 mb-0">The following domains are the top offenders of the IPv6 protocol. These domains are the most visited websites in the world, yet they have not embraced the future, IPv6.</p>
+                <p class="text-l text-gray-400 mb-4">Shame on them!</p>
 
                 <div class="grid grid-cols-2 gap-4">
                   <ul v-for="list in splitDomainShamers" class="max-w-md space-y-1 list-inside text-gray-400">
@@ -32,7 +33,9 @@
                   <div>
                     <blockquote class="text-gray-400 italic m-0 mb-3">"IPv6 is no longer an option, it's mandatory".</blockquote>
                     <div class="text-gray-700 font-medium">
-                      <cite class="text-gray-200 not-italic">Scott Hogg</cite> - <a href="https://packetpushers.net/series/ipv6-buzz/" target="_blank"  class="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">IPv6 Buzz</a>
+                      <cite class="text-gray-200 not-italic">Scott Hogg</cite>
+                      -
+                      <a href="https://packetpushers.net/series/ipv6-buzz/" target="_blank" class="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">IPv6 Buzz</a>
                     </div>
                   </div>
                 </div>

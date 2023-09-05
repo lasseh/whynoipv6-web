@@ -1,11 +1,9 @@
 <template>
   <footer>
     <div class="py-12 md:py-16">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 border-t border-gray-700 ">
-
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 border-t border-gray-700">
         <!-- Bottom area -->
         <div class="md:flex md:items-center md:justify-between">
-
           <!-- Social links -->
           <ul class="flex mb-4 md:order-1 md:ml-4 md:mb-0 mt-4">
             <li>
@@ -27,9 +25,7 @@
           <!-- Copyrights note -->
           <div class="text-gray-400 text-sm mr-4">&copy; WhyNoIPv6.com.</div>
           <div class="text-gray-400 text-sm mr-4"></div>
-
         </div>
-
       </div>
     </div>
   </footer>
@@ -37,6 +33,6 @@
 
 <script lang="ts">
 export default {
-  name: 'Footer'
-}
+  name: "Footer",
+};
 </script>

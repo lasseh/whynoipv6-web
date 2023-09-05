@@ -100,7 +100,7 @@ import { Campaign } from "@/types/Campaign";
 import { Changelog } from "@/types/Changelog";
 
 export default defineComponent({
-  name: "CampaignDetail",
+  name: "CountryDetail",
   components: {
     Header,
     PageIllustration,

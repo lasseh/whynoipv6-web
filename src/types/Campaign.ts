@@ -5,6 +5,9 @@ export namespace Campaign {
     name: string;
     description: string;
     count: number;
+    v6_ready: number;
+    rating: string;
+    colorClass: string;
   }
 
   export interface CampaignDomain {
@@ -21,5 +24,6 @@ export namespace Campaign {
     ts_curl: Date;
     ts_check: Date;
     ts_updated: Date;
+    campaign_uuid: string;
   }
 }

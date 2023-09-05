@@ -25,23 +25,23 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/search",
-    name: 'Search',
+    name: "Search",
     component: () => import("@/pages/Search.vue"),
-    props: (route) => ({ query: route.query.q })
+    props: route => ({ query: route.query.q }),
   },
   // {
   //   path: "/metrics",
   //   component: () => import("./views/Metrics.vue"),
   // },
-  // {
-  //   path: "/country",
-  //   component: () => import("./views/CountryList.vue"),
-  // },
-  // {
-  //   path: "/country/:id",
-  //   name: "CountryDetail",
-  //   component: () => import("./views/CountryDetail.vue"),
-  // },
+  {
+    path: "/countries",
+    component: () => import("@/pages/CountryList.vue"),
+  },
+  {
+    path: "/country/:id",
+    name: "CountryDetail",
+    component: () => import("@/pages/CountryDetail.vue"),
+  },
   {
     path: "/campaign",
     component: () => import("@/pages/CampaignList.vue"),
