@@ -15,15 +15,15 @@ export namespace Campaign {
     v6_aaaa: boolean;
     v6_www: boolean;
     v6_ns: boolean;
-    asn: string;
     v6_curl: boolean;
-    country: string;
     ts_aaaa: Date;
     ts_www: Date;
     ts_ns: Date;
     ts_curl: Date;
     ts_check: Date;
     ts_updated: Date;
+    asn: string;
+    country: string;
     campaign_uuid: string;
   }
 }

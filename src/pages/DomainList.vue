@@ -14,22 +14,17 @@
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
           <div class="pt-32 pb-12 md:pt-40 md:pb-20">
-            <!-- <div class="max-w-3xl mx-auto"> -->
-
-            <header class="mb-8" ref="tableTop">
-              <!-- Title and excerpt -->
+            <header class="mb-8" ref="anchorTop">
               <div class="text-center md:text-left">
-                <h1 class="h2 mb-4" data-aos="fade-up">Domain List</h1>
-                <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">List of sinners</p>
+                <h1 class="h2 mb-4" data-aos="fade-up">Unmasking the Top 1M Websites of the World</h1>
+                <p class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="200">Within the elite realm of the internet's top 1 million websites lies a distinct divide: the forward-thinking Heroes who've embraced IPv6, propelling us toward a brighter digital future, and the Sinners, who, despite their influence, hold us back by neglecting this advancement. Dive in as we spotlight these websites, celebrating the innovators and calling out those resisting progress.</p>
               </div>
             </header>
 
-            <!-- Filter domains -->
             <div class="mb-4">
               <div class="w-full flex flex-wrap -space-x-px">
-                <button @click="getDomainList(0)" class="btn grow bg-zinc-800 border-zinc-700 text-fuchsia-600 rounded-none first:rounded-l last:rounded-r">All</button>
-                <button class="btn grow bg-zinc-800 border-zinc-700 hover:bg-zinc-700/20 text-slate-300 rounded-none first:rounded-l last:rounded-r">Sinners</button>
-                <button @click="getDomainHeroes(0)" class="btn grow bg-zinc-800 border-zinc-700 hover:bg-zinc-700/20 text-slate-300 rounded-none first:rounded-l last:rounded-r">Heroes</button>
+                <button @click="applyFilter('sinners')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'sinners' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Sinners</button>
+                <button @click="applyFilter('heroes')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'heroes' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Heroes</button>
               </div>
             </div>
 
@@ -37,12 +32,12 @@
             <div>
               <DomainTable :domains="domainList" />
             </div>
-          </div>
-        </div>
 
-        <!-- Pagination -->
-        <div class="mt-8">
-          <Pagination :offset="offset" :itemsCount="domainList.length" :pageSize="50" :onPageChange="updateOffset" />
+            <!-- Pagination -->
+            <div class="mt-6">
+              <Pagination :offset="offset" :domainsLength="domainList.length" :updateOffset="updateOffset" :scrollToAnchor="scrollToAnchor" />
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -53,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -67,11 +62,6 @@ import Pagination from "@/components/Pagination.vue";
 import DomainService from "@/services/DomainService";
 import { Domain } from "@/types/Domain";
 
-// Domain filters
-const ALL = "All";
-const SINNERS = "Sinners";
-const HEROES = "Heroes";
-
 export default defineComponent({
   name: "DomainList",
   components: {
@@ -84,57 +74,65 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
-    const selectedCategory = ref(ALL);
-    const tableTop: Ref<HTMLElement | null> = ref(null);
+    const initialOffset = parseInt(route.query.offset as string) || 0;
     const state = reactive({
       domainList: [] as Domain.Domain[],
-      offset: 0,
+      offset: initialOffset,
     });
 
-    async function getDomainList(offset: number) {
-      const response = await DomainService.getDomainList();
-      state.domainList = response.data;
-      console.log(response.data);
+    async function fetchDomains() {
+      await getDomains(state.offset, queryFilter.value);
     }
 
-    async function getDomainHeroes(offset: number) {
-      const response = await DomainService.getDomainHeroes();
+    async function getDomains(offset: number, filter: string) {
+      let response;
+      switch (filter.toLowerCase()) {
+        case "heroes":
+          response = await DomainService.getDomainHeroes(offset);
+          break;
+        case "sinners":
+        default:
+          response = await DomainService.getDomainList(offset);
+          break;
+      }
       state.domainList = response.data;
-      console.log(response.data);
     }
 
+    function applyFilter(filter: string) {
+      state.offset = 0; // Reset offset to 0 when a new filter is applied
+      router.push({ query: { filter } });
+    }
+
+    const queryFilter = computed(() => {
+      const filterValue = route.query.filter;
+      if (filterValue === null || typeof filterValue === "undefined") return "sinners";
+      return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
+    });
+
+    onMounted(fetchDomains);
+
+    watch([() => state.offset, queryFilter], fetchDomains);
+
+    // Pagination
+    const anchorTop: Ref<HTMLElement | null> = ref(null);
     const scrollToAnchor = () => {
-      if (tableTop.value) {
-        tableTop.value.scrollIntoView({ behavior: "auto" });
+      if (anchorTop.value) {
+        anchorTop.value.scrollIntoView({ behavior: "auto" });
       }
     };
-
     const updateOffset = (newOffset: number) => {
       scrollToAnchor();
       state.offset = newOffset;
+      router.push({ query: { ...route.query, offset: newOffset.toString() } });
     };
-
-    // Fetch the campaign on component mount
-    onMounted(() => {
-      getDomainList(0);
-    });
-
-    // Watch for changes in the offset
-    watch(
-      () => state.offset,
-      newValue => {
-        getDomainList(newValue);
-      }
-    );
 
     return {
       ...toRefs(state),
-      route,
-      getDomainList,
-      getDomainHeroes,
       scrollToAnchor,
-      tableTop,
+      anchorTop,
+      applyFilter,
       updateOffset,
+      queryFilter,
     };
   },
 });

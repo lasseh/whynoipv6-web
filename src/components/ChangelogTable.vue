@@ -13,7 +13,7 @@
           <tr v-for="(logItem, index) in changelogs" :key="index" :class="index % 2 === 0 ? '' : 'bg-gray-800'">
             <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap">
               <div class="flex">
-                <div class="text-slate-100">{{ formatDateTime2(logItem.ts) }}</div>
+                <div class="text-slate-100">{{ formatDateTime(logItem.ts) }}</div>
               </div>
             </td>
             <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap text-right">
@@ -54,17 +54,6 @@ export default defineComponent({
   },
   methods: {
     formatDateTime(datetime: Date | string) {
-      const date = new Date(datetime);
-      const formatter = new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      return formatter.format(date);
-    },
-    formatDateTime2(datetime: Date | string) {
       const date = new Date(datetime);
 
       // Format the time part

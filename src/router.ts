@@ -34,7 +34,8 @@ const routes: Array<RouteRecordRaw> = [
   //   component: () => import("./views/Metrics.vue"),
   // },
   {
-    path: "/countries",
+    path: "/country",
+    name: "CountryList",
     component: () => import("@/pages/CountryList.vue"),
   },
   {
@@ -44,6 +45,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/campaign",
+    name: "CampaignList",
     component: () => import("@/pages/CampaignList.vue"),
   },
   {
@@ -62,6 +64,11 @@ const routes: Array<RouteRecordRaw> = [
         next();
       }
     },
+  },
+  {
+    path: "/changelog",
+    name: "Changelog",
+    component: () => import("@/pages/Changelog.vue"),
   },
   {
     path: "/:catchAll(.*)",

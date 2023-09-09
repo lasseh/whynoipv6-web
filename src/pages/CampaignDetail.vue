@@ -16,7 +16,7 @@
           <div class="pt-32 pb-4 md:pt-32 md:pb-4">
             <!-- <div class="max-w-3xl mx-auto"> -->
 
-            <header class="mb-8" ref="tableTop">
+            <header class="mb-8" ref="anchorTop">
               <!-- Title and excerpt -->
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4" data-aos="fade-up">{{ campaign.name }}</h1>
@@ -24,49 +24,25 @@
               </div>
             </header>
 
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-base inline-flex font-medium rounded-md text-center px-2.5 py-1" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-zinc-500 mb-2">{{ campaign.count }} Domains</div>
+                <div class="text-sm font-medium text-zinc-500 mb-2">{{ campaign.v6_ready }} Domains V6 Ready</div>
+              </div>
+            </div>
+
             <!-- CampaingDomains -->
-            <!-- <div ref="tableTop"> -->
             <div>
               <CampaignDomainTable :domains="domains" />
             </div>
           </div>
-        </div>
 
-        <!-- Pagination -->
-        <div class="mt-8">
-          <div class="flex justify-center">
-            <nav class="flex" role="navigation" aria-label="Navigation">
-              <div class="mr-2">
-                <button
-                  @click="
-                    () => {
-                      scrollToAnchor();
-                      offset = Math.max(0, offset - 50);
-                    }
-                  "
-                  :disabled="offset === 0"
-                  class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-zinc-800 hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white shadow-sm"
-                  :class="{ 'cursor-not-allowed opacity-50': offset === 0 }"
-                >
-                  <span class="">Previous</span>
-                </button>
-              </div>
-              <div class="ml-2">
-                <button
-                  @click="
-                    () => {
-                      scrollToAnchor();
-                      offset = offset + 50;
-                    }
-                  "
-                  :disabled="domains.length < 50"
-                  class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-zinc-800 hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white shadow-sm"
-                  :class="{ 'cursor-not-allowed opacity-50': domains.length < 50 }"
-                >
-                  <span class="">Next</span>
-                </button>
-              </div>
-            </nav>
+          <!-- Pagination -->
+          <div class="mt-6">
+            <Pagination :offset="offset" :domainsLength="domains.length" :updateOffset="updateOffset" :scrollToAnchor="scrollToAnchor" />
           </div>
         </div>
 
@@ -86,16 +62,19 @@
 import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
-// Page Layout
+// Page Layout components
 import { Header, PageIllustration, Footer } from "@/partials";
 
-// Partials
+// Components
 import ChangelogTable from "@/components/ChangelogTable.vue";
 import CampaignDomainTable from "@/components/CampaignDomainTable.vue";
+import Pagination from "@/components/Pagination.vue";
 
 // Services
 import CampaignService from "@/services/CampaignService";
 import ChangelogService from "@/services/ChangelogService";
+
+// Types
 import { Campaign } from "@/types/Campaign";
 import { Changelog } from "@/types/Changelog";
 
@@ -107,50 +86,71 @@ export default defineComponent({
     Footer,
     ChangelogTable,
     CampaignDomainTable,
+    Pagination,
   },
   setup() {
     const router = useRouter();
     const route = useRoute();
-    const tableTop: Ref<HTMLElement | null> = ref(null);
+    const initialOffset = parseInt(route.query.offset as string) || 0;
     const state = reactive({
       campaign: {} as Campaign.Campaign,
       domains: [] as Campaign.CampaignDomain[],
       campaignChangelog: [] as Changelog.Log[],
-      offset: 0,
+      offset: initialOffset,
     });
 
-    async function getCampaign(uuid: string, offset: number) {
-      const response = await CampaignService.getCampaign2(uuid, offset);
+    // Fetch campaign and domain details
+    async function getCampaign(uuid: string, offset: number): Promise<void> {
+      const response = await CampaignService.getCampaign(uuid, state.offset);
+
       // Populate the campaign_uuid field in the domains
       response.data.domains.forEach((domain: Campaign.CampaignDomain) => {
         domain.campaign_uuid = response.data.campaign.uuid;
       });
+
       state.domains = response.data.domains;
       state.campaign = response.data.campaign;
+
+      // Calculate campaign rating
+      const { rating, colorClass } = CampaignService.calculateCampaignRating(state.campaign);
+      state.campaign.rating = rating;
+      state.campaign.colorClass = colorClass;
     }
 
-    async function getCampaignChangelog(uuid: string) {
+    // Fetch changelog details
+    async function getCampaignChangelog(uuid: string): Promise<void> {
       const response = await ChangelogService.getCampaignChangelog(uuid);
       state.campaignChangelog = response.data;
     }
 
-    const scrollToAnchor = () => {
-      if (tableTop.value) {
-        tableTop.value.scrollIntoView({ behavior: "auto" });
-      }
-    };
-
-    // Fetch the campaign on component mount
+    // Fetch the campaign details on component mount
     onMounted(() => {
-      getCampaign(route.params.uuid.toString(), state.offset);
+      getCampaign(route.params.uuid.toString(), initialOffset);
       getCampaignChangelog(route.params.uuid.toString());
     });
 
-    // Watch for changes in the offset
+    // Pagination stuff
+    const anchorTop: Ref<HTMLElement | null> = ref(null);
+    const scrollToAnchor = () => {
+      if (anchorTop.value) {
+        anchorTop.value.scrollIntoView({ behavior: "auto" });
+      }
+    };
+    // Update offset and update URL
+    const updateOffset = (newOffset: number) => {
+      scrollToAnchor();
+      state.offset = newOffset;
+      router.push({ query: { ...route.query, offset: newOffset.toString() } });
+    };
+    // Watch for changes in the offset query parameter
     watch(
-      () => state.offset,
-      newValue => {
-        getCampaign(route.params.uuid.toString(), newValue);
+      () => route.query.offset,
+      newOffset => {
+        const offsetValue = parseInt(newOffset as string);
+        if (!isNaN(offsetValue)) {
+          state.offset = offsetValue;
+          getCampaign(route.params.uuid.toString(), offsetValue);
+        }
       }
     );
 
@@ -158,7 +158,8 @@ export default defineComponent({
       ...toRefs(state),
       route,
       scrollToAnchor,
-      tableTop,
+      anchorTop,
+      updateOffset,
     };
   },
 });

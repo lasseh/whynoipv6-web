@@ -1,11 +1,6 @@
 <template>
   <section v-if="!isLoading && totalsData.length > 0">
     <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6">
-      <!-- Section header -->
-      <!-- <div class="max-w-3xl  text-left">
-          <h1 class="h3 mb-4">IPv6 Crawler Status</h1>
-        </div> -->
-
       <div class="grid md:grid-cols-4 bg-gray-800 divide-y md:divide-y-0 md:divide-x divide-gray-700 px-6 md:px-0 md:py-4 text-center">
         <!-- 1st item -->
         <div class="py-6 md:py-0 md:px-8">

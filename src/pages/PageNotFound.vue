@@ -22,7 +22,9 @@
                 </svg>
               </div>
               <!-- 404 content -->
-              <h1 class="h1 mb-4" data-aos="fade-up" data-aos-delay="200">Uh oh. That page doesn’t exist.</h1>
+              <!-- <h1 class="h1 mb-4" data-aos="fade-up" data-aos-delay="200">Uh oh. That page doesn’t exist.</h1> -->
+              <!-- <h1 class="h2 mb-4" data-aos="fade-up" data-aos-delay="200">Just like IPv4's addresses, this page vanished.</h1> -->
+              <h1 class="h2 mb-4" data-aos="fade-up" data-aos-delay="200">IPv4 and this page: both elusive.</h1>
               <p class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="400">
                 Head to our
                 <router-link to="/" class="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">homepage</router-link>

@@ -10,7 +10,7 @@
         <PageIllustration />
       </div>
 
-      <section>
+      <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
           <div class="py-12 md:py-20">
             <div class="py-4 max-w-9xl mx-auto">
@@ -25,8 +25,8 @@
                 <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                   <!-- Search form -->
                   <form class="relative">
-                    <label for="action-search" class="sr-only">Search</label>
-                    <input id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Search…" />
+                    <label for="action-search" class="sr-only">Filter</label>
+                    <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Search…" />
                     <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search">
                       <svg class="w-4 h-4 shrink-0 fill-current text-zinc-500 group-hover:text-zinc-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -36,12 +36,12 @@
                   </form>
 
                   <!-- Create campaign button -->
-                  <button class="btn bg-fuchsia-700 hover:bg-fuchsia-800 text-white">
+                  <a href="https://github.com/lasseh/whynoipv6-campaign" target="_blank" title="Add Campaign on Github" class="btn bg-fuchsia-700 hover:bg-fuchsia-800 text-white">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span class="hidden xs:block ml-2">Create Campaign</span>
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -58,7 +58,7 @@
               <!-- Cards -->
               <div class="grid grid-cols-8 gap-6" data-aos="fade-up" data-aos-delay="300">
                 <!-- Card -->
-                <router-link v-for="campaign in campaignList" :key="campaign.id" :to="{ name: 'CampaignDetail', params: { uuid: campaign.uuid } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800 shadow-lg rounded-sm border border-zinc-700">
+                <router-link v-for="campaign in filteredCampaignList" :key="campaign.id" :to="{ name: 'CampaignDetail', params: { uuid: campaign.uuid } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800 shadow-lg rounded-sm border border-zinc-700">
                   <div class="flex flex-col h-full p-5">
                     <div class="grow mt-2">
                       <div class="inline-flex text-zinc-100 hover:text-white mb-1">
@@ -69,7 +69,7 @@
                     <footer class="mt-5">
                       <div class="flex justify-between items-center">
                         <div>
-                          <div class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
+                          <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
                         </div>
                         <div>
                           <div class="text-sm font-medium text-zinc-500 mb-2">{{ campaign.count }} Domains</div>
@@ -81,31 +81,9 @@
               </div>
 
               <!-- Pagination -->
-              <!-- TODO: Needs work -->
-              <div class="mt-8">
-                <div class="flex justify-center">
-                  <nav class="flex" role="navigation" aria-label="Navigation">
-                    <div class="mr-2">
-                      <span class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-zinc-800 border border-zinc-700 text-zinc-600">
-                        <span class="sr-only">Previous</span>
-                        <wbr />
-                        <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
-                          <path d="M9.4 13.4l1.4-1.4-4-4 4-4-1.4-1.4L4 8z" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div class="ml-2">
-                      <a href="#0" class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-zinc-800 hover:bg-indigo-500 border border-zinc-700 text-zinc-300 hover:text-white shadow-sm">
-                        <span class="sr-only">Next</span>
-                        <wbr />
-                        <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
-                          <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
-                        </svg>
-                      </a>
-                    </div>
-                  </nav>
-                </div>
-              </div>
+              <!-- <div class="mt-8">
+          <Pagination :offset="offset" :domainsLength="campaignList.length" :updateOffset="updateOffset" :scrollToAnchor="scrollToAnchor" />
+        </div> -->
             </div>
           </div>
         </div>
@@ -117,13 +95,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
+import Pagination from "@/components/Pagination.vue";
 
 // Services
 import CampaignService from "@/services/CampaignService";
@@ -135,12 +114,16 @@ export default defineComponent({
     Header,
     PageIllustration,
     Footer,
+    Pagination,
   },
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const initialOffset = parseInt(route.query.offset as string) || 0;
     const state = reactive({
       campaignList: [] as Campaign.Campaign[],
+      searchQuery: "",
+      offset: initialOffset,
     });
 
     async function fetchCampaignList() {
@@ -153,32 +136,19 @@ export default defineComponent({
       }
       // calculate rating per campaign
       state.campaignList.forEach(campaign => {
-        const { rating, colorClass } = calculateCampaignRating(campaign);
+        const { rating, colorClass } = CampaignService.calculateCampaignRating(campaign);
         campaign.rating = rating;
         campaign.colorClass = colorClass;
       });
     }
 
-    function calculateCampaignRating(campaign: any) {
-      const { count, v6_ready } = campaign;
-      const ratingPercentage = (v6_ready / count) * 100;
-
-      let rating = "";
-      let colorClass = "";
-
-      if (ratingPercentage >= 60) {
-        rating = "Good";
-        colorClass = "bg-emerald-400/30 text-emerald-400";
-      } else if (ratingPercentage >= 40) {
-        rating = "Medium";
-        colorClass = "bg-amber-400/30 text-amber-400";
-      } else {
-        rating = "Bad";
-        colorClass = "bg-rose-400/30 text-rose-400";
+    // A computed property to get the filtered country list based on the search query
+    const filteredCampaignList = computed(() => {
+      if (!state.searchQuery) {
+        return state.campaignList;
       }
-
-      return { rating, colorClass };
-    }
+      return state.campaignList.filter(campaign => campaign.name.toLowerCase().includes(state.searchQuery.toLowerCase()));
+    });
 
     onMounted(() => {
       fetchCampaignList();
@@ -186,6 +156,11 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      filteredCampaignList,
+      // offset,
+      // anchorTop,
+      // scrollToAnchor,
+      // updateOffset,
     };
   },
 });

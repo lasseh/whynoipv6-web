@@ -1,8 +1,9 @@
 import API from "./API";
+import { Changelog } from "@/types/Changelog";
 
 class ChangelogService {
-  getChangelog() {
-    return API().get("/changelog");
+  getChangelog(offset: number) {
+    return API().get(`/changelog?offset=${offset}`);
   }
   getDomainChangelog(domain: string) {
     return API().get(`/changelog/${domain}`);

@@ -13,39 +13,42 @@
         <!-- Desktop navigation -->
         <nav class="hidden md:flex md:grow">
           <!-- Desktop menu links -->
-          <ul class="flex grow justify-end flex-wrap items-center">
+          <ul class="flex grow justify-center flex-wrap items-center">
             <li>
-              <router-link to="/domain" active-class="underline" class="text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold">Domains</router-link>
+              <router-link to="/domain" :class="[isActiveRoute('/domain') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Domains</router-link>
             </li>
             <li>
-              <router-link to="/campaign" active-class="underline" class="text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold">Campaigns</router-link>
+              <router-link to="/campaign" :class="[isActiveRoute('/campaign') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Campaigns</router-link>
             </li>
             <li>
-              <router-link to="/countries" active-class="underline" class="text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold">Countries</router-link>
+              <router-link to="/country" :class="[isActiveRoute('/country') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Countries</router-link>
             </li>
             <li>
-              <router-link to="/metric" active-class="underline" class="text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold">Metrics</router-link>
+              <router-link to="/metrics" :class="[isActiveRoute('/metrics') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Metrics</router-link>
             </li>
             <!-- 1st level: hover -->
             <Dropdown title="More">
               <li>
-                <router-link to="/contact" class="font-medium text-sm text-gray-400 hover:text-purple-600 flex py-2 px-4 leading-tight">Contact us</router-link>
+                <router-link to="/changelog" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Changelog</router-link>
               </li>
               <li>
-                <router-link to="/help" class="font-medium text-sm text-gray-400 hover:text-purple-600 flex py-2 px-4 leading-tight">Help center</router-link>
+                <router-link to="/contact" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
               </li>
               <li>
-                <router-link to="/404" class="font-medium text-sm text-gray-400 hover:text-purple-600 flex py-2 px-4 leading-tight">404</router-link>
+                <router-link to="/help" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">FAQ</router-link>
+              </li>
+              <li>
+                <router-link to="/404" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
               </li>
             </Dropdown>
           </ul>
 
           <!-- Desktop sign in links -->
-          <ul class="flex grow justify-end flex-wrap items-center">
+          <!-- <ul class="flex grow justify-end flex-wrap items-center">
             <li>
               <router-link to="/search" class="btn-sm text-white bg-fuchsia-700 hover:bg-fuchsia-800 ml-3">Search Domain</router-link>
             </li>
-          </ul>
+          </ul> -->
         </nav>
 
         <!-- Mobile menu -->
@@ -61,6 +64,7 @@
           </button>
 
           <!-- Mobile navigation -->
+          <!-- PLS HELP, I DONT KNOW HOW TO FIX THIS!-->
           <!-- <nav id="mobile-nav" ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out" :style="[ mobileNavOpen ? { maxHeight: $refs.mobileNav.scrollHeight + 'px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
           <!-- <nav id="mobile-nav" :ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out" :style="[ mobileNavOpen ? { maxHeight: mobileNav.value?.scrollHeight + 'px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
           <!-- <nav id="mobile-nav" :ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"  -->
@@ -68,8 +72,6 @@
           <!-- <nav id="mobile-nav" :ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"
  :style="[ mobileNavOpen ? { maxHeight: mobileNav.value?.scrollHeight + 'px' || '0px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
 
-          <!-- ... -->
-          <!-- ... -->
           <!-- <ul class="bg-gray-800 px-4 py-2">
               <li>
                 <router-link to="/features" class="flex text-gray-300 hover:text-gray-200 py-2">Domains</router-link>
@@ -106,12 +108,18 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount } from "vue";
+import { useRoute } from "vue-router";
+
 import Dropdown from "@/utils/Dropdown.vue";
 
-export default {
-  components: { Dropdown },
+export default defineComponent({
+  name: "Header",
+  components: {
+    Dropdown,
+  },
   setup() {
+    const route = useRoute();
     // State
     const mobileNav = ref<HTMLElement | null>(null);
     const mobileNavOpen = ref(false);
@@ -127,6 +135,10 @@ export default {
       mobileNavOpen.value = false;
     };
 
+    const isActiveRoute = (basePath: string): boolean => {
+      return route.path.startsWith(basePath);
+    };
+
     // Lifecycle hooks
     onMounted(() => {
       document.addEventListener("click", clickOutside);
@@ -139,7 +151,11 @@ export default {
     });
 
     // Expose the required variables and methods to the template
-    return { mobileNav, mobileNavOpen };
+    return {
+      mobileNav,
+      mobileNavOpen,
+      isActiveRoute,
+    };
   },
-};
+});
 </script>

@@ -32,8 +32,8 @@ import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
 import HomeInfo from "@/partials/HomeInfo.vue";
-import MetricTotals from "@/partials/MetricTotals.vue";
-import TopSinners from "@/partials/Sinners.vue";
+import MetricTotals from "@/partials/HomeMetric.vue";
+import TopSinners from "@/partials/HomeSinners.vue";
 import Searchbar from "@/partials/Searchbar.vue";
 import HomeDomains from "@/partials/HomeDomains.vue";
 

@@ -3,7 +3,7 @@
   <div class="overflow-x-auto">
     <table v-if="domains.length > 0" class="table-auto w-full text-slate-300">
       <!-- Table header -->
-      <thead class="text-xs font-semibold uppercase text-slate-500 border-t border-b border-slate-700">
+      <thead class="text-xs font-semibold uppercase text-fuchsia-600 border-t border-b border-slate-700">
         <tr>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
             <div class="font-semibold text-left">Rank</div>
@@ -27,7 +27,7 @@
         <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emeraldddd-900': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }, { 'bg-grayyyyyy-800': index % 2 !== 0 }]">
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
             <div class="flex items-center">
-              <div class="inline-flex text-center text-gray-400 py-1 px-3 rounded-sm bg-zinc-700/50 hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
+              <div class="inline-flex text-center text-slate-300 py-1 px-3 rounded-sm bg-zinc-700/50 hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2 text-left">

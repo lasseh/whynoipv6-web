@@ -10,7 +10,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
-            <input type="search" name="q" id="search" class="block w-full p-4 pl-10 text-sm border rounded-sm bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-fuchsia-900 focus:border-fuchsia-900" placeholder="Search Domains" required />
+            <input type="search" name="q" id="search" class="block w-full p-4 pl-10 text-sm border rounded-sm bg-gray-800 border-gray-700 placeholder-gray-400 text-white focus:ring-fuchsia-900 focus:border-fuchsia-900" placeholder="Search Domains" required />
             <button type="submit" class="text-white absolute right-2.5 bottom-2.5 focus:ring-3 focus:outline-none font-medium rounded-sm text-sm px-4 py-2 bg-fuchsia-700 hover:bg-fuchsia-900 focus:ring-fuchsia-800">Search</button>
           </div>
         </form>

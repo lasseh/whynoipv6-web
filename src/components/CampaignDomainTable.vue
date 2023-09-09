@@ -3,7 +3,7 @@
   <div class="overflow-x-auto">
     <table v-if="domains.length > 0" class="table-auto w-full text-slate-300">
       <!-- Table header -->
-      <thead class="text-xs font-semibold uppercase text-slate-500 border-t border-b border-slate-700">
+      <thead class="text-xs font-semibold uppercase text-fuchsia-600 border-t border-b border-slate-700">
         <tr>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
             <div class="font-semibold text-left">Domain</div>
@@ -21,7 +21,7 @@
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
-        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }, { 'bg-grayyyyyyyyyyy-800': index % 2 !== 0 }]">
+        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }, { 'bg-grayyyyyyyyyyy-800': index % 2 !== 0 }]">
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2 text-left">
             <div class="flex items-center">
               <RouterLink :to="getCampaignUrl(domain)" class="font-medium text-slate-100">{{ domain.domain }}</RouterLink>
@@ -84,7 +84,6 @@ export default defineComponent({
     const route = useRoute();
 
     function getCampaignUrl(domain: Campaign.CampaignDomain) {
-      // return `/campaign/${route.params.uuid}/${domain.domain}`;
       return `/campaign/${domain.campaign_uuid}/${domain.domain}`;
     }
 

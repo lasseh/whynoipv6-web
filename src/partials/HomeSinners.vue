@@ -35,7 +35,7 @@
                     <div class="text-gray-700 font-medium">
                       <cite class="text-gray-200 not-italic">Scott Hogg</cite>
                       -
-                      <a href="https://packetpushers.net/series/ipv6-buzz/" target="_blank" class="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">IPv6 Buzz</a>
+                      <a href="https://packetpushers.net/series/ipv6-buzz/" target="_blank" class="text-fuchsia-600 hover:text-gray-200 transition duration-150 ease-in-out">IPv6 Buzz</a>
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,5 @@
 import API from "./API";
+import { Metric } from "@/types/Metric";
 
 class MetricService {
   getTotals() {

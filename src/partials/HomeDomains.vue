@@ -7,7 +7,7 @@
           <div class="text-center md:text-left">
             <h1 class="h3 mb-4" data-aos="fade-up">Top Alexa Sinners</h1>
             <p class="text-l text-gray-400" data-aos="fade-up" data-aos-delay="200">As a part of this shaming-strategy, we supply all interested parties with an updated list over Alexa’s top 1 million websites and their corresponding (lack of) IPv6 support clearly stated.</p>
-            <p class="text-l text-gray-400" data-aos="fade-up" data-aos-delay="200">Each of the listed websites (top 100) lack an AAAA-record. In addition the nameserver-support for IPv6 is displayed.</p>
+            <p class="text-l text-gray-400" data-aos="fade-up" data-aos-delay="200">Each of the listed websites (top 50) lack an AAAA-record. In addition the nameserver-support for IPv6 is displayed.</p>
           </div>
         </header>
 
@@ -21,14 +21,7 @@
           <div class="flex justify-center">
             <nav class="flex" role="navigation" aria-label="Navigation">
               <div class="ml-2">
-                <!-- <a href="#0" class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-zinc-800 hover:bg-indigo-500 borderborder-zinc-700 text-zinc-300 hover:text-white shadow-sm">
-                        <span class="sr-only">Load More</span>
-                        View Domains
-                      </a> -->
-                <a href="/domain" class="inline-flex items-center justify-center right-2.5 bottom-2.5 focus:ring-3 focus:outline-none font-medium rounded-sm text-sm px-4 py-2 bg-fuchsia-700 hover:bg-fuchsia-900 focus:ring-fuchsia-800">
-                  <span class="sr-only">Load More</span>
-                  View Domains
-                </a>
+                <a href="/domain" class="inline-flex items-center justify-center right-2.5 bottom-2.5 focus:ring-3 focus:outline-none font-medium rounded-sm text-sm px-4 py-2 bg-fuchsia-900 hover:bg-zinc-800 focus:ring-fuchsia-800">Load More Domains</a>
               </div>
             </nav>
           </div>

@@ -14,8 +14,6 @@
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
           <div class="pt-32 pb-12 md:pt-40 md:pb-20">
-            <!-- <div class="max-w-3xl mx-auto"> -->
-
             <div class="pt-4 pb-4 md:pt-4 md:pb-4">
               <form action="/search" method="get">
                 <label for="search" class="mb-2 text-sm font-medium sr-only text-white">Search</label>
@@ -25,17 +23,16 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                   </div>
-                  <input type="search" name="q" v-model="searchString" id="search" class="block w-full p-4 pl-10 text-sm border rounded-sm bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-fuchsia-900 focus:border-fuchsia-900" placeholder="Search Domains" required />
+                  <input type="search" name="q" v-model="searchString" id="search" class="block w-full p-4 pl-10 text-sm border rounded-sm bg-gray-800 border-gray-700 placeholder-gray-400 text-white focus:ring-fuchsia-900 focus:border-fuchsia-900" placeholder="Search Domains" required />
                   <button type="submit" class="text-white absolute right-2.5 bottom-2.5 focus:ring-3 focus:outline-none font-medium rounded-sm text-sm px-4 py-2 bg-fuchsia-700 hover:bg-fuchsia-900 focus:ring-fuchsia-800">Search</button>
                 </div>
               </form>
             </div>
 
             <div v-if="domainList">
-              <header class="mb-8">
+              <header class="mb-4">
                 <div class="text-center md:text-left">
                   <h1 class="h2 mb-4" data-aos="fade-up">Domains</h1>
-                  <!-- <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">List of sinners</p> -->
                 </div>
               </header>
               <!-- Domains -->
@@ -45,11 +42,10 @@
             </div>
           </div>
 
-          <div v-if="campaignDomains">
-            <header class="mb-8">
+          <div v-if="campaignDomains && campaignDomains.length > 0">
+            <header class="mb-4">
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4" data-aos="fade-up">Campaign Domains</h1>
-                <!-- <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">List of sinners</p> -->
               </div>
             </header>
             <!-- CampaingDomains -->
@@ -68,6 +64,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs, watch, ref, PropType } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
@@ -78,9 +75,9 @@ import CampaignDomainTable from "@/components/CampaignDomainTable.vue";
 
 // Services
 import DomainService from "@/services/DomainService";
+import CampaignService from "@/services/CampaignService";
 import { Domain } from "@/types/Domain";
 import { Campaign } from "@/types/Campaign";
-import CampaignService from "@/services/CampaignService";
 
 export default defineComponent({
   name: "SearchPage",
@@ -94,22 +91,32 @@ export default defineComponent({
   props: {
     query: {
       type: String as PropType<string>,
-      required: true,
+      default: "",
     },
   },
   setup(props) {
+    const router = useRouter();
+    const route = useRoute();
+    const initialOffset = parseInt(route.query.offset as string) || 0;
     const state = reactive({
       domainList: Array<Domain.Domain>(),
       campaignDomains: Array<Campaign.CampaignDomain>(),
       searchString: ref(props.query),
-      offset: 0,
+      offset: initialOffset,
     });
 
     async function fetchSearchResult() {
-      const domainResponse = await DomainService.SearchDomain(props.query, state.offset);
+      // If the query is empty, don't fetch anything
+      if (!props.query || props.query === "undefined") {
+        state.domainList = [];
+        state.campaignDomains = [];
+        return;
+      }
+
+      const domainResponse = await DomainService.searchDomain(props.query, state.offset);
       state.domainList = domainResponse.data.data;
 
-      const campaignResponse = await CampaignService.SearchDomain(props.query, state.offset);
+      const campaignResponse = await CampaignService.searchDomain(props.query, state.offset);
       state.campaignDomains = campaignResponse.data.data;
 
       state.searchString = props.query;

@@ -1,20 +1,24 @@
 import API from "./API";
+import { Domain } from "@/types/Domain";
 
 class DomainService {
-  getDomainList() {
-    return API().get("/domain");
+  getDomainList(offset?: number) {
+    const queryParam = offset !== undefined ? `?offset=${offset}` : "";
+    return API().get(`/domain${queryParam}`);
   }
-  getDomainHeroes() {
-    return API().get("/domain/heroes");
+  getDomainHeroes(offset?: number) {
+    const queryParam = offset !== undefined ? `?offset=${offset}` : "";
+    return API().get(`/domain/heroes${queryParam}`);
   }
   getTopShame() {
-    return API().get("/domain/shamers");
+    return API().get("/domain/topsinner");
   }
   getDomainDetails(domain: string) {
     return API().get(`/domain/${domain}`);
   }
-  SearchDomain(domain: string, offset: number) {
-    return API().get(`/domain/search/${domain}?offset=${offset}`);
+  searchDomain(domain: string, offset: number) {
+    const queryParam = offset !== undefined ? `?offset=${offset}` : "";
+    return API().get(`/domain/search/${domain}${queryParam}`);
   }
 }
 
