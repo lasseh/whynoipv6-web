@@ -11,9 +11,10 @@
       </div>
 
       <!-- Page sections -->
-      <HomeInfo />
+      <!-- <HomeInfo /> -->
+      <HomeSaaS />
       <Searchbar />
-      <MetricTotals />
+      <!-- <MetricTotals /> -->
       <TopSinners />
       <HomeDomains />
     </main>
@@ -32,6 +33,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
 import HomeInfo from "@/partials/HomeInfo.vue";
+import HomeSaaS from "@/partials/HomeSaaS.vue";
 import MetricTotals from "@/partials/HomeMetric.vue";
 import TopSinners from "@/partials/HomeSinners.vue";
 import Searchbar from "@/partials/Searchbar.vue";
@@ -46,6 +48,7 @@ export default defineComponent({
     PageIllustration,
     Footer,
     HomeInfo,
+    HomeSaaS,
     Searchbar,
     MetricTotals,
     TopSinners,

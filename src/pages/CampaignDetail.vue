@@ -26,7 +26,7 @@
 
             <div class="flex justify-between items-center">
               <div>
-                <div class="text-base inline-flex font-medium rounded-md text-center px-2.5 py-1" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
+                <div class="text-base inline-flex font-medium rounded-md text-center px-2.5 py-1 ring-1 ring-inset" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
               </div>
               <div>
                 <div class="text-sm font-medium text-zinc-500 mb-2">{{ campaign.count }} Domains</div>
@@ -46,7 +46,6 @@
           </div>
         </div>
 
-        <!-- Changelog -->
         <div>
           <ChangelogTable :changelogs="campaignChangelog" />
         </div>
@@ -69,6 +68,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 import ChangelogTable from "@/components/ChangelogTable.vue";
 import CampaignDomainTable from "@/components/CampaignDomainTable.vue";
 import Pagination from "@/components/Pagination.vue";
+import { calculateRating } from "@/utils/Rating";
 
 // Services
 import CampaignService from "@/services/CampaignService";
@@ -112,14 +112,14 @@ export default defineComponent({
       state.campaign = response.data.campaign;
 
       // Calculate campaign rating
-      const { rating, colorClass } = CampaignService.calculateCampaignRating(state.campaign);
+      const { rating, colorClass } = calculateRating(state.campaign);
       state.campaign.rating = rating;
       state.campaign.colorClass = colorClass;
     }
 
     // Fetch changelog details
     async function getCampaignChangelog(uuid: string): Promise<void> {
-      const response = await ChangelogService.getCampaignChangelog(uuid);
+      const response = await ChangelogService.getChangelogByCampaign(uuid);
       state.campaignChangelog = response.data;
     }
 

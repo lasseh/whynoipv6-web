@@ -22,11 +22,20 @@
 
             <div class="flex justify-between items-center">
               <div>
-                <div class="text-base inline-flex font-medium rounded-md text-center px-2.5 py-1" :class="countryInfo.colorClass">Rating: {{ countryInfo.rating }}</div>
+                <div class="text-base inline-flex font-medium rounded-md text-center px-2.5 py-1 ring-1 ring-inset" :class="countryInfo.colorClass">Rating: {{ countryInfo.rating }}</div>
               </div>
               <div>
                 <div class="text-sm font-medium text-zinc-500 mb-2">{{ countryInfo.sites }} Domains</div>
                 <div class="text-sm font-medium text-zinc-500 mb-2">{{ countryInfo.v6sites }} Domains V6 Ready</div>
+              </div>
+            </div>
+            <div class="mt-3 mb-4">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm font-medium text-white">v6 Ready</span>
+                <span class="text-sm font-medium text-white">{{ countryInfo.percent }}%</span>
+              </div>
+              <div class="w-full rounded-full h-2.5 bg-gray-700">
+                <div class="bg-gradient-to-r from-fuchsia-500 to-fuchsia-700 h-2.5 rounded-full" :style="{ width: countryInfo.percent + '%' }"></div>
               </div>
             </div>
 
@@ -37,9 +46,9 @@
               </div>
             </div>
 
-            <!-- Domains -->
             <div>
-              <DomainTable :domains="domainList" />
+              <DomainTable v-if="domainList.length > 0" :domains="domainList" />
+              <div v-else class="text-center mt-4">No domains found for this country.</div>
             </div>
 
             <!-- Pagination -->
@@ -66,6 +75,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 // Partials
 import DomainTable from "@/components/DomainTable.vue";
 import Pagination from "@/components/Pagination.vue";
+import { calculateRating } from "@/utils/Rating";
 
 // Services
 import CountryService from "@/services/CountryService";
@@ -89,19 +99,22 @@ export default defineComponent({
       countryInfo: {} as Country.Country,
       domainList: [] as Domain.Domain[],
       offset: initialOffset,
+      isLoading: false,
     });
 
     async function getCountryInfo(country: string) {
       const response = await CountryService.getCountryInfo(country);
       state.countryInfo = response.data;
       // Calculate rating and color class
-      const { rating, colorClass } = CountryService.calculateCountryRating(state.countryInfo);
+      const { rating, colorClass } = calculateRating(state.countryInfo);
       state.countryInfo.rating = rating;
       state.countryInfo.colorClass = colorClass;
     }
 
     async function fetchDomains() {
+      state.isLoading = true;
       await getDomains(route.params.id.toString(), state.offset, queryFilter.value);
+      state.isLoading = false;
     }
 
     async function getDomains(country: string, offset: number, filter: string) {
@@ -115,10 +128,11 @@ export default defineComponent({
           response = await CountryService.getCountrySinners(country, offset);
           break;
       }
-      state.domainList = response.data;
+      state.domainList = response.data || [];
     }
 
     function applyFilter(filter: string) {
+      state.isLoading = true;
       state.offset = 0; // Reset offset to 0 when a new filter is applied
       router.push({ query: { filter } });
     }

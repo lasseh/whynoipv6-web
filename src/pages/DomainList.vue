@@ -23,8 +23,8 @@
 
             <div class="mb-4">
               <div class="w-full flex flex-wrap -space-x-px">
-                <button @click="applyFilter('sinners')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'sinners' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Sinners</button>
-                <button @click="applyFilter('heroes')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'heroes' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Heroes</button>
+                <button @click="applyFilter('sinners')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/40 rounded-none first:rounded-l last:rounded-r', queryFilter === 'sinners' ? 'text-fuchsia-600 bg-zinc-600/20' : 'text-slate-300 bg-zinc-800/20']">Sinners</button>
+                <button @click="applyFilter('heroes')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/40 rounded-none first:rounded-l last:rounded-r', queryFilter === 'heroes' ? 'text-fuchsia-600 bg-zinc-600/20' : 'text-slate-300 bg-zinc-800/20']">Heroes</button>
               </div>
             </div>
 

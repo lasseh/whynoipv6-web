@@ -7,14 +7,31 @@
     <main class="grow">
       <!-- Page illustration -->
       <div class="relative max-w-6xl mx-auto h-0 pointer-events-none" aria-hidden="true">
-        <PageIllustration />
+        <!-- <PageIllustration /> -->
       </div>
 
       <!-- Page sections -->
       <section class="relative">
-        <div class="pt-32 pb-4 md:pt-32 md:pb-4">
-          <ChangelogTable :changelogs="changelog" />
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="pt-32 pb-4 md:pt-32 md:pb-4">
+            <header class="mb-8" ref="anchorTop">
+              <!-- Title and excerpt -->
+              <div class="text-center md:text-left">
+                <h1 class="h2 mb-4" data-aos="fade-up">Changelog</h1>
+                <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">Live changelog from the crawler</p>
+              </div>
+            </header>
+
+            <div class="mb-4">
+              <div class="w-full flex flex-wrap -space-x-px">
+                <button @click="applyFilter('alexa')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'alexa' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Alexa 1M</button>
+                <button @click="applyFilter('campaign')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'campaign' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Campaigns</button>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <ChangelogTable :changelogs="changelog" :header="changelogHeader" />
 
         <!-- Pagination -->
         <div class="mt-4">
@@ -29,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onBeforeUnmount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout components
@@ -58,20 +75,57 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const initialOffset = parseInt(route.query.offset as string) || 0;
+    let intervalId: number | undefined;
     const state = reactive({
       changelog: [] as Changelog.Log[],
       offset: initialOffset,
     });
 
-    // Fetch changelogs
-    async function getChangelog(offset: number): Promise<void> {
-      const response = await ChangelogService.getChangelog(offset);
+    async function fetchChangelog() {
+      await getChangelog(state.offset, queryFilter.value);
+    }
+
+    async function getChangelog(offset: number, filter: string): Promise<void> {
+      let response;
+      switch (filter.toLowerCase()) {
+        case "campaign":
+          response = await ChangelogService.getCampaignChangelog(offset);
+          break;
+        case "alexa":
+        default:
+          response = await ChangelogService.getChangelog(offset);
+          break;
+      }
       state.changelog = response.data;
     }
 
+    function applyFilter(filter: string) {
+      state.offset = 0; // Reset offset to 0 when a new filter is applied
+      router.push({ query: { filter } });
+    }
+
+    const queryFilter = computed(() => {
+      const filterValue = route.query.filter;
+      if (filterValue === null || typeof filterValue === "undefined") return "alexa";
+      return Array.isArray(filterValue) ? filterValue[0] || "alexa" : filterValue;
+    });
+
+    // Computed property for header text
+    const changelogHeader = computed(() => {
+      return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Alexa";
+    });
+
     // Fetch the campaign details on component mount
     onMounted(() => {
-      getChangelog(state.offset);
+      fetchChangelog();
+      intervalId = window.setInterval(fetchChangelog, 30000);
+    });
+
+    // Clear the component before unmounting
+    onBeforeUnmount(() => {
+      if (intervalId !== undefined) {
+        clearInterval(intervalId);
+      }
     });
 
     // Pagination
@@ -86,23 +140,18 @@ export default defineComponent({
       state.offset = newOffset;
       router.push({ query: { ...route.query, offset: newOffset.toString() } });
     };
+
     // Watch for changes in the offset query parameter
-    watch(
-      () => route.query.offset,
-      newOffset => {
-        const offsetValue = parseInt(newOffset as string);
-        if (!isNaN(offsetValue)) {
-          state.offset = offsetValue;
-          getChangelog(offsetValue);
-        }
-      }
-    );
+    watch([() => state.offset, queryFilter], fetchChangelog);
 
     return {
       ...toRefs(state),
       scrollToAnchor,
       anchorTop,
       updateOffset,
+      applyFilter,
+      queryFilter,
+      changelogHeader,
     };
   },
 });

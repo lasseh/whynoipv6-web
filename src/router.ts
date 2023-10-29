@@ -29,10 +29,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/pages/Search.vue"),
     props: route => ({ query: route.query.q }),
   },
-  // {
-  //   path: "/metrics",
-  //   component: () => import("./views/Metrics.vue"),
-  // },
+  {
+    path: "/metrics",
+    component: () => import("@/pages/Metrics.vue"),
+  },
   {
     path: "/country",
     name: "CountryList",
@@ -69,6 +69,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/changelog",
     name: "Changelog",
     component: () => import("@/pages/Changelog.vue"),
+  },
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: () => import("@/pages/FAQ.vue"),
   },
   {
     path: "/:catchAll(.*)",

@@ -32,14 +32,14 @@
                 <router-link to="/changelog" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Changelog</router-link>
               </li>
               <li>
-                <router-link to="/contact" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
+                <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
               </li>
               <li>
-                <router-link to="/help" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">FAQ</router-link>
+                <router-link to="/faq" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">FAQ</router-link>
               </li>
-              <li>
+              <!-- <li>
                 <router-link to="/404" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
-              </li>
+              </li> -->
             </Dropdown>
           </ul>
 

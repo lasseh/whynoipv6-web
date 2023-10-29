@@ -7,7 +7,7 @@
       </svg>
     </a>
     <transition enter-active-class="transition ease-out duration-200 transform" enter-from-class="opacity-0 -translate-y-2" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-out duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
-      <ul v-show="dropdownOpen" class="origin-top-right absolute top-full right-0 w-40 bg-gray-800 py-2 ml-4 rounded-sm">
+      <ul v-show="dropdownOpen" class="origin-top-right absolute top-full right-0 w-60 bg-gray-800 py-2 ml-4 rounded-sm">
         <slot />
       </ul>
     </transition>

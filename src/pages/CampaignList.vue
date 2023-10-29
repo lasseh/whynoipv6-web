@@ -50,7 +50,7 @@
                 <p class="mb-4" data-aos="fade-up">Our Campaigns page serves as a rallying point for users like you who recognize the importance of IPv6. Here, we highlight user-submitted lists of domains that are still operating in the IPv4 realm. This page is more than just a compilation of domains; it's a call to action for businesses, website owners, and service providers to step up their game and move towards an IPv6-supported future.</p>
                 <p class="mb-8" data-aos="fade-up">
                   Have you discovered a domain that hasn't embraced the IPv6 technology yet? We invite you to take an active role in our initiative. By submitting a issue to our
-                  <a href="https://github.com/lasseh/whynoipv6-campaign" class="underline" target="_blank">GitHub Repository</a>
+                  <a href="https://github.com/lasseh/whynoipv6-campaign" class="underline a-gradient" target="_blank">GitHub Repository</a>
                   , we can collectively advocate for the adoption of IPv6. Act today and help us promote the adoption of IPv6, one shame campaign at a time.
                 </p>
               </div>
@@ -67,13 +67,12 @@
                       <div class="text-sm">{{ campaign.description }}</div>
                     </div>
                     <footer class="mt-5">
-                      <div class="flex justify-between items-center">
-                        <div>
-                          <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1" :class="campaign.colorClass">Rating: {{ campaign.rating }}</div>
-                        </div>
-                        <div>
-                          <div class="text-sm font-medium text-zinc-500 mb-2">{{ campaign.count }} Domains</div>
-                        </div>
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-white">v6 Ready</span>
+                        <span class="text-sm font-medium text-white">{{ campaign.percent }}%</span>
+                      </div>
+                      <div class="w-full rounded-full h-2.5 bg-gray-700">
+                        <div class="bg-gradient-to-r from-fuchsia-500 to-fuchsia-700 h-2.5 rounded-full" :style="{ width: campaign.percent + '%' }"></div>
                       </div>
                     </footer>
                   </div>
@@ -103,6 +102,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
 import Pagination from "@/components/Pagination.vue";
+import { calculateRating } from "@/utils/Rating";
 
 // Services
 import CampaignService from "@/services/CampaignService";
@@ -136,9 +136,11 @@ export default defineComponent({
       }
       // calculate rating per campaign
       state.campaignList.forEach(campaign => {
-        const { rating, colorClass } = CampaignService.calculateCampaignRating(campaign);
+        const { rating, colorClass } = calculateRating(campaign);
         campaign.rating = rating;
         campaign.colorClass = colorClass;
+        // Calculate percentage of domains with IPv6
+        campaign.percent = Math.round((campaign.v6_ready / campaign.count) * 100);
       });
     }
 
@@ -157,10 +159,6 @@ export default defineComponent({
     return {
       ...toRefs(state),
       filteredCampaignList,
-      // offset,
-      // anchorTop,
-      // scrollToAnchor,
-      // updateOffset,
     };
   },
 });

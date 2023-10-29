@@ -2,7 +2,7 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <header class="mb-4">
       <div class="text-center md:text-left">
-        <h1 class="h3" data-aos="fade-up">Changelog</h1>
+        <h1 class="h3" data-aos="fade-up">{{ header }}</h1>
       </div>
     </header>
 
@@ -43,6 +43,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Changelog } from "@/types/Changelog";
+import { formatDateTime } from "@/utils/Date";
 
 export default defineComponent({
   name: "ChangelogTable",
@@ -51,29 +52,15 @@ export default defineComponent({
       type: Array as () => Changelog.Log[],
       default: () => [],
     },
-  },
-  methods: {
-    formatDateTime(datetime: Date | string) {
-      const date = new Date(datetime);
-
-      // Format the time part
-      const timeFormatter = new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      const timePart = timeFormatter.format(date);
-
-      // Format the date part
-      const dateFormatter = new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-      const datePart = dateFormatter.format(date);
-
-      // Combine the time and date parts with the desired separator
-      return `${datePart} ${timePart}`;
+    header: {
+      type: String,
+      default: "Changelog",
     },
+  },
+  setup() {
+    return {
+      formatDateTime,
+    };
   },
 });
 </script>

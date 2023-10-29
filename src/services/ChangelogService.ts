@@ -5,13 +5,16 @@ class ChangelogService {
   getChangelog(offset: number) {
     return API().get(`/changelog?offset=${offset}`);
   }
-  getDomainChangelog(domain: string) {
+  getCampaignChangelog(offset: number) {
+    return API().get(`/changelog/campaign?offset=${offset}`);
+  }
+  getChangelogByDomain(domain: string) {
     return API().get(`/changelog/${domain}`);
   }
-  getCampaignChangelog(uuid: string) {
+  getChangelogByCampaign(uuid: string) {
     return API().get(`/changelog/campaign/${uuid}`);
   }
-  getCampaignChangelogByDomain(uuid: string, domain: string) {
+  getChangelogByCampaignDomain(uuid: string, domain: string) {
     return API().get(`/changelog/campaign/${uuid}/${domain}`);
   }
 }

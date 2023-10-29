@@ -9,7 +9,7 @@
             <!-- Image -->
             <div class="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1" data-aos="fade-up" data-aos-anchor="[data-aos-id-features-home]">
               <div class="relative">
-                <img class="hidden md:block md:max-w-none" src="../images/Unella.png" width="540" height="520" alt="Shame" />
+                <img class="hidden md:block md:max-w-none" src="/images/Unella.png" width="540" height="520" alt="Shame" />
               </div>
             </div>
             <!-- Content -->
@@ -28,17 +28,19 @@
                   </ul>
                 </div>
 
+                <!-- Testimonial -->
                 <div class="flex items-start mt-8">
-                  <img class="rounded-full shrink-0 mr-4" src="../images/scott.jpg" width="40" height="40" alt="Scott" />
+                  <img :src="randomTestimonial.imageUrl" alt="Testimonial Image" class="rounded-full shrink-0 mr-4" width="40" height="40" />
                   <div>
-                    <blockquote class="text-gray-400 italic m-0 mb-3">"IPv6 is no longer an option, it's mandatory".</blockquote>
+                    <blockquote class="text-gray-400 italic m-0 mb-3">"{{ randomTestimonial.statement }}"</blockquote>
                     <div class="text-gray-700 font-medium">
-                      <cite class="text-gray-200 not-italic">Scott Hogg</cite>
+                      <cite class="text-gray-200 not-italic">{{ randomTestimonial.name }}</cite>
                       -
-                      <a href="https://packetpushers.net/series/ipv6-buzz/" target="_blank" class="text-fuchsia-600 hover:text-gray-200 transition duration-150 ease-in-out">IPv6 Buzz</a>
+                      <a :href="randomTestimonial.url" target="_blank" class="text-fuchsia-600 hover:text-fuchsia-800 transition duration-150 ease-in-out">{{ randomTestimonial.urlTitle }}</a>
                     </div>
                   </div>
                 </div>
+                <!-- End Testimonial -->
               </div>
             </div>
           </div>
@@ -58,6 +60,8 @@ import { CrossIcon } from "@/partials";
 import DomainService from "@/services/DomainService";
 import { Domain } from "@/types/Domain";
 
+// Images
+
 export default defineComponent({
   name: "Sinners",
   components: {
@@ -67,7 +71,31 @@ export default defineComponent({
     const state = reactive({
       domainSinners: [] as Domain.Domain[],
       splitDomainShamers: [] as Domain.Domain[][], // Split domains
+      randomTestimonial: {} as { statement: string; name: string; url: string; urlTitle: string; imageUrl: string },
     });
+
+    const testimonials = [
+      {
+        statement: "IPv6 is no longer an option, it's mandatory",
+        name: "Scott Hogg",
+        url: "https://packetpushers.net/series/ipv6-buzz/",
+        urlTitle: "IPv6 Buzz",
+        imageUrl: "/images/scott.jpg",
+      },
+      {
+        statement: "Get IPv6, or get bust!",
+        name: "Karl Gustav",
+        url: "https://example.com",
+        urlTitle: "king.se",
+        imageUrl: "/images/sweden.png",
+      },
+      // Add more testimonials here
+    ];
+
+    function getRandomTestimonial() {
+      const randomIndex = Math.floor(Math.random() * testimonials.length);
+      state.randomTestimonial = testimonials[randomIndex];
+    }
 
     async function getDomainShamers() {
       const response = await DomainService.getTopShame();
@@ -77,6 +105,7 @@ export default defineComponent({
     }
     onMounted(() => {
       getDomainShamers();
+      getRandomTestimonial();
     });
     return {
       ...toRefs(state),

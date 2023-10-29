@@ -21,10 +21,10 @@
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
-        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }, { 'bg-grayyyyyyyyyyy-800': index % 2 !== 0 }]">
+        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }]">
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2 text-left">
             <div class="flex items-center">
-              <RouterLink :to="getCampaignUrl(domain)" class="font-medium text-slate-100">{{ domain.domain }}</RouterLink>
+              <RouterLink :to="generateDomainUrl(domain)" class="font-medium text-slate-100">{{ domain.domain }}</RouterLink>
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -81,14 +81,13 @@ export default defineComponent({
     CrossIcon,
   },
   setup() {
-    const route = useRoute();
-
-    function getCampaignUrl(domain: Campaign.CampaignDomain) {
+    // Generate URL for domain
+    function generateDomainUrl(domain: Campaign.CampaignDomain) {
       return `/campaign/${domain.campaign_uuid}/${domain.domain}`;
     }
 
     return {
-      getCampaignUrl,
+      generateDomainUrl,
     };
   },
 });

@@ -12,27 +12,27 @@
             <div class="font-semibold text-left">Domain</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left">IPv6 at Domain Root</div>
+            <div class="font-semibold text-left">Base Domain</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left">IPv6 at WWW</div>
+            <div class="font-semibold text-left">WWW</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
-            <div class="font-semibold text-right">IPv6 Nameserver</div>
+            <div class="font-semibold text-right">Nameserver</div>
           </th>
         </tr>
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
-        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emeraldddd-900': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }, { 'bg-grayyyyyy-800': index % 2 !== 0 }]">
+        <tr v-for="(domain, index) in domains" :key="index" @mouseover="handleMouseOver(index, true)" @mouseout="handleMouseOver(index, false)" class="hover:bg-gray-800">
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
             <div class="flex items-center">
-              <div class="inline-flex text-center text-slate-300 py-1 px-3 rounded-sm bg-zinc-700/50 hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
+              <div :class="computeRankClass(index)" class="inline-flex text-center font-mono text-xs text-slate-300 py-1 px-3 rounded-sm hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2 text-left">
             <div class="flex items-center">
-              <RouterLink :to="getDomainUrl(domain)" class="font-medium text-slate-100">{{ domain.domain }}</RouterLink>
+              <RouterLink :to="generateDomainUrl(domain)" class="font-medium text-slate-100">{{ domain.domain }}</RouterLink>
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -57,7 +57,7 @@
       </tbody>
     </table>
 
-    <!-- Empty state -->
+    <!-- No Data Available State -->
     <div v-else class="flex justify-center">
       <div class="text-center">
         <div class="text-xl font-medium">No domains found</div>
@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 
 // Page Layout
@@ -89,14 +89,28 @@ export default defineComponent({
     CrossIcon,
   },
   setup() {
-    const route = useRoute();
+    // Ref for tracking hover state
+    const hoverIndex = ref<number | null>(null);
 
-    function getDomainUrl(domain: Domain.Domain) {
+    // Handler for mouseover and mouseout events
+    const handleMouseOver = (index: number, isHovered: boolean) => {
+      hoverIndex.value = isHovered ? index : null;
+    };
+
+    // Compute class for rank based on hover state
+    const computeRankClass = (index: number) => {
+      return hoverIndex.value === index ? "bg-fuchsia-900" : "bg-zinc-700/50";
+    };
+
+    // Generate URL for domain
+    const generateDomainUrl = (domain: Domain.Domain) => {
       return `/domain/${domain.domain}`;
-    }
+    };
 
     return {
-      getDomainUrl,
+      generateDomainUrl,
+      handleMouseOver,
+      computeRankClass,
     };
   },
 });

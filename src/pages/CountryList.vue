@@ -42,25 +42,31 @@
                 <p class="mb-4 mr-32" data-aos="fade-up">This resource tracks the progress of IPv6 adoption globally by listing countries and their top domains that lack IPv6 support. Aimed at network administrators, policymakers, and anyone interested in the transition from IPv4 to IPv6, the data aims to highlight areas that need attention to build a more robust and future-proof Internet infrastructure.</p>
               </div>
 
-              <div class="grid grid-cols-12 gap-4">
+              <div class="grid grid-cols-8 gap-4">
                 <router-link v-for="(country, index) in filteredCountryList" :key="index" :to="{ name: 'CountryDetail', params: { id: country.country_code } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800/50 shadow-lg rounded-sm border border-zinc-700">
                   <div class="flex flex-col h-full p-5">
                     <div class="grow mt-1">
-                      <div class="inline-flex text-zinc-100 hover:text-white mb-1">
-                        <div class="flex items-center">
-                          <CountryFlag :countryCode="country.country_code" class="rounded-full" />
-                          <h2 class="text-xl leading-snug font-semibold pl-2">{{ country.country }}</h2>
+                      <div class="text-zinc-100 hover:text-white mb-1">
+                        <div class="flex justify-between items-center">
+                          <div class="inline-flex text-zinc-100 hover:text-white mb-1">
+                            <div class="flex items-center">
+                              <CountryFlag :countryCode="country.country_code" class="rounded-full" />
+                              <h2 class="text-xl leading-snug font-semibold pl-2">{{ country.country }}</h2>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="text-sm inline-flex font-medium rounded-md text-center px-2.5 py-1 ring-1 ring-inset" :class="country.colorClass">Rating: {{ country.rating }}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <footer class="mt-2">
-                      <div class="flex justify-between items-center">
-                        <div>
-                          <div class="text-sm font-medium mb-2">{{ country.sites }} Domains</div>
-                        </div>
-                        <div>
-                          <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1" :class="country.colorClass">Rating: {{ country.rating }}</div>
-                        </div>
+                    <footer class="mt-3">
+                      <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-white">v6 Ready</span>
+                        <span class="text-sm font-medium text-white">{{ country.percent }}%</span>
+                      </div>
+                      <div class="w-full rounded-md h-4 bg-gray-700">
+                        <div class="h-4 rounded-md bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-rose-700 to-pink-600" :style="{ width: country.percent + '%' }"></div>
                       </div>
                     </footer>
                   </div>
@@ -85,6 +91,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
 import CountryFlag from "@/components/CountryFlag.vue";
+import { calculateRating } from "@/utils/Rating";
 
 // Services
 import CountryService from "@/services/CountryService";
@@ -113,7 +120,7 @@ export default defineComponent({
 
       // calculate rating per country
       state.countryList.forEach(country => {
-        const { rating, colorClass } = CountryService.calculateCountryRating(country);
+        const { rating, colorClass } = calculateRating(country);
         country.rating = rating;
         country.colorClass = colorClass;
       });

@@ -8,6 +8,7 @@ export namespace Campaign {
     v6_ready: number;
     rating: string;
     colorClass: string;
+    percent: number;
   }
 
   export interface CampaignDomain {
