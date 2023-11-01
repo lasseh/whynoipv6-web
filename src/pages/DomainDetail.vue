@@ -17,7 +17,7 @@
             <!-- <div class="max-w-3xl mx-auto"> -->
 
             <div class="flex justify-between items-center mb-8">
-              <div class="text-center md:text-left">
+              <div class="text-left">
                 <h1 class="h2">{{ domain.domain }}</h1>
                 <p class="text-base text-gray-400 pl-1">Provider: {{ domain.asn }}</p>
               </div>

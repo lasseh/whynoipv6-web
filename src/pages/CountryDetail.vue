@@ -18,6 +18,10 @@
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4" data-aos="fade-up">{{ countryInfo.country }}</h1>
               </div>
+              <!-- <div class="text-center md:text-left inline-flex items-center justify-center">
+                <CountryFlag v-if="countryInfo && countryInfo.country_code" :countryCode="countryInfo.country_code" class="rounded-full mr-2 align-middle" />
+                <h1 class="h2 mb-4 align-middle" data-aos="fade-up">{{ countryInfo.country }}</h1>
+              </div> -->
             </header>
 
             <div class="flex justify-between items-center">
@@ -34,8 +38,8 @@
                 <span class="text-sm font-medium text-white">v6 Ready</span>
                 <span class="text-sm font-medium text-white">{{ countryInfo.percent }}%</span>
               </div>
-              <div class="w-full rounded-full h-2.5 bg-gray-700">
-                <div class="bg-gradient-to-r from-fuchsia-500 to-fuchsia-700 h-2.5 rounded-full" :style="{ width: countryInfo.percent + '%' }"></div>
+              <div class="w-full rounded-md h-4 bg-gray-700">
+                <div :class="`h-4 rounded-md bg-gradient-to-r ${countryInfo.gradientColor}`" :style="{ width: countryInfo.percent + '%' }"></div>
               </div>
             </div>
 
@@ -76,6 +80,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 import DomainTable from "@/components/DomainTable.vue";
 import Pagination from "@/components/Pagination.vue";
 import { calculateRating } from "@/utils/Rating";
+import CountryFlag from "@/components/CountryFlag.vue";
 
 // Services
 import CountryService from "@/services/CountryService";
@@ -90,6 +95,7 @@ export default defineComponent({
     Footer,
     DomainTable,
     Pagination,
+    CountryFlag,
   },
   setup() {
     const router = useRouter();
@@ -106,9 +112,10 @@ export default defineComponent({
       const response = await CountryService.getCountryInfo(country);
       state.countryInfo = response.data;
       // Calculate rating and color class
-      const { rating, colorClass } = calculateRating(state.countryInfo);
+      const { rating, colorClass, gradientColor } = calculateRating(state.countryInfo);
       state.countryInfo.rating = rating;
       state.countryInfo.colorClass = colorClass;
+      state.countryInfo.gradientColor = gradientColor;
     }
 
     async function fetchDomains() {

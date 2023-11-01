@@ -26,29 +26,27 @@
             <li>
               <router-link to="/metrics" :class="[isActiveRoute('/metrics') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Metrics</router-link>
             </li>
-            <!-- 1st level: hover -->
+            <!-- Hover -->
             <Dropdown title="More">
               <li>
                 <router-link to="/changelog" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Changelog</router-link>
               </li>
               <li>
-                <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
-              </li>
-              <li>
                 <router-link to="/faq" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">FAQ</router-link>
               </li>
-              <!-- <li>
-                <router-link to="/404" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
-              </li> -->
+              <li>
+                <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
+              </li>
             </Dropdown>
           </ul>
 
-          <!-- Desktop sign in links -->
-          <!-- <ul class="flex grow justify-end flex-wrap items-center">
-            <li>
-              <router-link to="/search" class="btn-sm text-white bg-fuchsia-700 hover:bg-fuchsia-800 ml-3">Search Domain</router-link>
+          <!-- Hidden button to keep menu placement -->
+          <ul class="flex grow justify-end flex-wrap items-center">
+            <li class="invisible">
+              <!-- Placeholder with same styling as the button -->
+              <div class="btn-sm text-white bg-fuchsia-700 hover:bg-fuchsia-800 ml-3 opacity-0">Search Domain</div>
             </li>
-          </ul> -->
+          </ul>
         </nav>
 
         <!-- Mobile menu -->

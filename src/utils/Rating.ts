@@ -33,6 +33,7 @@ export function calculateRating(entity: RatingEntity) {
 
   let rating = "";
   let colorClass = "";
+  let gradientColor = "";
 
   // Determine the rating and color class based on IPv6 readiness percentage
   if (ratingPercentage >= 60) {
@@ -46,5 +47,18 @@ export function calculateRating(entity: RatingEntity) {
     colorClass = "bg-rose-600/10 text-rose-600/80 ring-rose-600/20";
   }
 
-  return { rating, colorClass };
+  // Determine the gradient color based on IPv6 readiness percentage
+  if (ratingPercentage >= 60) {
+    gradientColor = "from-teal-700 to-teal-800";
+  } else if (ratingPercentage >= 40) {
+    gradientColor = "from-amber-700 to-amber-800";
+  } else {
+    gradientColor = "from-pink-700 to-pink-800";
+  }
+
+  return {
+    rating,
+    colorClass,
+    gradientColor,
+  };
 }

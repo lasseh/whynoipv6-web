@@ -1,31 +1,34 @@
 <template>
   <!-- Table -->
   <div class="overflow-x-auto">
-    <table v-if="domains.length > 0" class="table-auto w-full text-slate-300">
+    <table v-if="domains.length > 0" class="table-auto min-w-full text-slate-300">
       <!-- Table header -->
       <thead class="text-xs font-semibold uppercase text-fuchsia-600 border-t border-b border-slate-700">
         <tr>
-          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
+          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left md:table-cell hidden">
             <div class="font-semibold text-left">Rank</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
             <div class="font-semibold text-left">Domain</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left">Base Domain</div>
+            <div class="font-semibold text-left md:block hidden">Base Domain</div>
+            <div class="font-semibold text-left md:hidden">Base</div>
           </th>
+
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-left">WWW</div>
           </th>
-          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
-            <div class="font-semibold text-right">Nameserver</div>
+          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="font-semibold text-left md:block hidden">Nameserver</div>
+            <div class="font-semibold text-left md:hidden">NS</div>
           </th>
         </tr>
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
         <tr v-for="(domain, index) in domains" :key="index" @mouseover="handleMouseOver(index, true)" @mouseout="handleMouseOver(index, false)" class="hover:bg-gray-800">
-          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left">
+          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left md:table-cell hidden">
             <div class="flex items-center">
               <div :class="computeRankClass(index)" class="inline-flex text-center font-mono text-xs text-slate-300 py-1 px-3 rounded-sm hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
             </div>

@@ -66,7 +66,7 @@
                         <span class="text-sm font-medium text-white">{{ country.percent }}%</span>
                       </div>
                       <div class="w-full rounded-md h-4 bg-gray-700">
-                        <div class="h-4 rounded-md bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-rose-700 to-pink-600" :style="{ width: country.percent + '%' }"></div>
+                        <div :class="`h-4 rounded-md bg-gradient-to-r ${country.gradientColor}`" :style="{ width: country.percent + '%' }"></div>
                       </div>
                     </footer>
                   </div>
@@ -120,9 +120,10 @@ export default defineComponent({
 
       // calculate rating per country
       state.countryList.forEach(country => {
-        const { rating, colorClass } = calculateRating(country);
+        const { rating, colorClass, gradientColor } = calculateRating(country);
         country.rating = rating;
         country.colorClass = colorClass;
+        country.gradientColor = gradientColor;
       });
     }
 
