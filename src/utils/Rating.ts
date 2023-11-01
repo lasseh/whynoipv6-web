@@ -26,7 +26,7 @@ export function calculateRating(entity: RatingEntity) {
   const v6Total = entity.v6_ready || entity.v6sites || 0;
 
   // Handle case when total count is zero
-  if (total === 0) return { rating: "Unknown", colorClass: "bg-gray-600/10 text-gray-600 ring-gray-600/40" };
+  if (total === 0) return { rating: "Unknown", colorClass: "bg-gray-600/10 text-gray-600 ring-gray-600/40", gradientColor: "from-gray-700 to-gray-800" };
 
   // Calculate the percentage of IPv6 readiness
   const ratingPercentage = (v6Total / total) * 100;

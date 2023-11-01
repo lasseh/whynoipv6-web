@@ -7,7 +7,7 @@ export namespace Country {
     percent: number;
     rating: string;
     colorClass: string;
-    gradientColor?: string;
+    gradientColor: string;
   }
 
   // export interface CountryDomain {
