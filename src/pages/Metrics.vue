@@ -17,7 +17,7 @@
             <header class="mb-8">
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4">Metrics</h1>
-                <p class="text-lg text-gray-400">Graphs be nice.</p>
+                <p class="text-lg text-gray-400">Discover the Stark Reality of IPv6 Deployment</p>
               </div>
             </header>
             <!-- Tab Buttons -->

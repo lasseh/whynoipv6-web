@@ -43,7 +43,7 @@
     <!-- Bars -->
 
     <div class="flex justify-between mb-1">
-      <span class="text-base font-medium text-blue-700 dark:text-white">Flowbite</span>
+      <span class="text-base font-medium text-blue-700 dark:text-white">AS1337</span>
       <span class="text-sm font-medium text-blue-700 dark:text-white">45%</span>
     </div>
     <div class="w-full rounded-md h-6 bg-gray-700">

@@ -78,6 +78,10 @@
                     <h4 class="text-xl font-medium mb-2">How do i create my own campaign?</h4>
                     <p class="text-lg text-gray-400">Create a new issue on the github repo</p>
                   </li>
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2">How can i get my domain removed from the list?</h4>
+                    <p class="text-lg text-gray-400">Yes, you can start using IPv6!</p>
+                  </li>
                 </ul>
               </div>
 

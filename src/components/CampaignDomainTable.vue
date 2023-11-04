@@ -9,13 +9,15 @@
             <div class="font-semibold text-left">Domain</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left">IPv6 at Domain Root</div>
+            <div class="font-semibold text-left md:block hidden">Base Domain</div>
+            <div class="font-semibold text-left md:hidden">Base</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left">IPv6 at WWW</div>
+            <div class="font-semibold text-left">WWW</div>
           </th>
-          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
-            <div class="font-semibold text-right">IPv6 Nameserver</div>
+          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="font-semibold text-left md:block hidden">Nameserver</div>
+            <div class="font-semibold text-left md:hidden">NS</div>
           </th>
         </tr>
       </thead>
@@ -60,7 +62,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useRoute } from "vue-router";
 
 // Page Layout
 import { CheckIcon, CrossIcon } from "@/partials";

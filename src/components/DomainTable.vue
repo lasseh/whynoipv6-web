@@ -15,7 +15,6 @@
             <div class="font-semibold text-left md:block hidden">Base Domain</div>
             <div class="font-semibold text-left md:hidden">Base</div>
           </th>
-
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-left">WWW</div>
           </th>
@@ -71,7 +70,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useRoute } from "vue-router";
 
 // Page Layout
 import { CheckIcon, CrossIcon } from "@/partials";

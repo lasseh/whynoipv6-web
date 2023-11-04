@@ -12,7 +12,7 @@
 
           <!-- Article content -->
           <div class="text-lg text-gray-400">
-            <p class="mb-8" data-aos="fade-up">
+            <p class="mb-2" data-aos="fade-up">
               No, we're not talking about Software as a Service; we're talking about "Shame as a Service!" In the technology-driven world, where SaaS platforms solve complex business problems, we've innovated a new kind of service aimed squarely at solving a critical internet problem,
               <span class="font-semibold a-gradient">the lack of IPv6 adoption.</span>
             </p>
@@ -21,7 +21,7 @@
           </div>
         </article>
 
-        <div class="py-8 md:py-8">
+        <div class="py-2 md:py-8">
           <!-- Items -->
           <div class="grid gap-20" data-aos-id-features-home>
             <!-- Item -->

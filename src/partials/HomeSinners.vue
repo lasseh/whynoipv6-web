@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="py-8 md:py-8">
+      <div class="py-4 md:py-4">
         <!-- Items -->
         <div class="grid gap-20" data-aos-id-features-home>
           <!-- Item -->

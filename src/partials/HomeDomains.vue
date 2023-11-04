@@ -4,7 +4,7 @@
       <div class="pt-4 pb-4 md:pt-4 md:pb-4">
         <header class="mb-6">
           <!-- Title and excerpt -->
-          <div class="text-center md:text-left">
+          <div class="text-left">
             <h1 class="h3 mb-4" data-aos="fade-up">Top Alexa Sinners</h1>
             <p class="text-l text-gray-400" data-aos="fade-up" data-aos-delay="100">As a part of this shaming-strategy, we supply all interested parties with an updated list over Alexa’s top 1 million websites and their corresponding (lack of) IPv6 support clearly stated.</p>
             <p class="text-l text-gray-400" data-aos="fade-up" data-aos-delay="100">Each of the listed websites (top 50) lack an AAAA-record. In addition the nameserver-support for IPv6 is displayed.</p>

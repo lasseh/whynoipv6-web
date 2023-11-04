@@ -10,9 +10,9 @@
         <PageIllustration />
       </div>
 
-      <section>
+      <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div class="py-12 md:py-20">
+          <div class="py-16 md:py-20">
             <div class="py-4 max-w-9xl mx-auto">
               <!-- Page header -->
               <div class="sm:flex sm:justify-between sm:items-center mb-4">
@@ -39,7 +39,7 @@
 
               <!-- content -->
               <div class="text-lg text-gray-400">
-                <p class="mb-4 mr-32" data-aos="fade-up">This resource tracks the progress of IPv6 adoption globally by listing countries and their top domains that lack IPv6 support. Aimed at network administrators, policymakers, and anyone interested in the transition from IPv4 to IPv6, the data aims to highlight areas that need attention to build a more robust and future-proof Internet infrastructure.</p>
+                <p class="mb-4 md:mr-32" data-aos="fade-up">This resource tracks the progress of IPv6 adoption globally by listing countries and their top domains that lack IPv6 support. Aimed at network administrators, policymakers, and anyone interested in the transition from IPv4 to IPv6, the data aims to highlight areas that need attention to build a more robust and future-proof Internet infrastructure.</p>
               </div>
 
               <div class="grid grid-cols-8 gap-4">
@@ -116,7 +116,6 @@ export default defineComponent({
     async function fetchCountryList() {
       const response = await CountryService.getCountryList();
       state.countryList = response.data;
-      console.log(response.data);
 
       // calculate rating per country
       state.countryList.forEach(country => {

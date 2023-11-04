@@ -48,6 +48,7 @@
             </li>
           </ul>
         </nav>
+        <!-- End Desktop nav -->
 
         <!-- Mobile menu -->
         <div class="md:hidden">
@@ -62,43 +63,31 @@
           </button>
 
           <!-- Mobile navigation -->
-          <!-- PLS HELP, I DONT KNOW HOW TO FIX THIS!-->
-          <!-- <nav id="mobile-nav" ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out" :style="[ mobileNavOpen ? { maxHeight: $refs.mobileNav.scrollHeight + 'px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
-          <!-- <nav id="mobile-nav" :ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out" :style="[ mobileNavOpen ? { maxHeight: mobileNav.value?.scrollHeight + 'px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
-          <!-- <nav id="mobile-nav" :ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"  -->
-          <!-- :style="[ mobileNavOpen ? { maxHeight: mobileNav.value?.scrollHeight + 'px' || '0px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
-          <!-- <nav id="mobile-nav" :ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"
- :style="[ mobileNavOpen ? { maxHeight: mobileNav.value?.scrollHeight + 'px' || '0px', opacity: 1 } : { maxHeight: 0, opacity: .8 } ]"> -->
-
-          <!-- <ul class="bg-gray-800 px-4 py-2">
+          <nav id="mobile-nav" ref="mobileNav" class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out" :style="mobileNavStyle">
+            <ul class="bg-gray-800 px-4 py-2 border border-gray-700">
               <li>
-                <router-link to="/features" class="flex text-gray-300 hover:text-gray-200 py-2">Domains</router-link>
+                <router-link to="/domain" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Domains</router-link>
               </li>
               <li>
-                <router-link to="/pricing" class="flex text-gray-300 hover:text-gray-200 py-2">Campaigns</router-link>
+                <router-link to="/campaign" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Campaign</router-link>
               </li>
               <li>
-                <router-link to="/blog" class="flex text-gray-300 hover:text-gray-200 py-2">Countries</router-link>
+                <router-link to="/country" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Countries</router-link>
               </li>
               <li>
-                <router-link to="/about" class="flex text-gray-300 hover:text-gray-200 py-2">Metrics</router-link>
+                <router-link to="/metrics" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Metrics</router-link>
               </li>
-              <li class="py-2 my-2 border-t border-b border-gray-700">
-                <span class="flex text-gray-300 py-2">Support</span>
-                <ul class="pl-4">
-                  <li>
-                    <router-link to="/contact" class="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Contact us</router-link>
-                  </li>
-                  <li>
-                    <router-link to="/help" class="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Help center</router-link>
-                  </li>
-                  <li>
-                    <router-link to="/404" class="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">404</router-link>
-                  </li>
-                </ul>
+              <li>
+                <router-link to="/changelog" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Changelog</router-link>
+              </li>
+              <li>
+                <router-link to="/faq" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">FAQ</router-link>
+              </li>
+              <li>
+                <router-link to="/faq?page=4" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Resources</router-link>
               </li>
             </ul>
-          </nav> -->
+          </nav>
         </div>
       </div>
     </div>
@@ -106,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeUnmount } from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import Dropdown from "@/utils/Dropdown.vue";
@@ -118,21 +107,27 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    // State
     const mobileNav = ref<HTMLElement | null>(null);
     const mobileNavOpen = ref(false);
 
-    // Methods
+    // Computed style based on mobileNavOpen and mobileNav refs
+    const mobileNavStyle = computed(() => ({
+      maxHeight: mobileNavOpen.value ? `${mobileNav.value?.scrollHeight}px` : "0",
+      opacity: mobileNavOpen.value ? 1 : 0.8,
+    }));
+
+    // Close the mobile nav on click outside
     const clickOutside = (e: Event) => {
       if (!mobileNavOpen.value || mobileNav.value?.contains(e.target as Node) || document.querySelector(".hamburger")?.contains(e.target as Node)) return;
       mobileNavOpen.value = false;
     };
-
+    // Close the mobile nav on escape key press
     const keyPress = (event: KeyboardEvent) => {
       if (!mobileNavOpen.value || event.key !== "Escape") return;
       mobileNavOpen.value = false;
     };
 
+    // Underline the active route
     const isActiveRoute = (basePath: string): boolean => {
       return route.path.startsWith(basePath);
     };
@@ -153,6 +148,7 @@ export default defineComponent({
       mobileNav,
       mobileNavOpen,
       isActiveRoute,
+      mobileNavStyle,
     };
   },
 });

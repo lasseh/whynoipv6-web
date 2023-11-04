@@ -9,7 +9,7 @@
     <!-- Mobile Version -->
     <div class="grid grid-cols-1 gap-3 md:hidden">
       <div v-if="changelogs.length > 0" v-for="(logItem, index) in changelogs" :key="index" class="p-3 rounded-lg shadow bg-gray-800">
-        <div class="font-mono">
+        <div class="font-mono text-sm">
           <div class="font-xs" :class="logItem.ipv6_status ? 'text-emerald-600' : 'text-pink-600'">
             {{ logItem.message }}
           </div>

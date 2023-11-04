@@ -3,7 +3,6 @@
     <!-- Site header -->
     <Header />
 
-
     <!-- Page content -->
     <main class="grow">
       <!-- Page illustration -->
@@ -12,10 +11,8 @@
       </div>
 
       <!-- Page sections -->
-      <!-- <HomeInfo /> -->
       <HomeSaaS />
       <Searchbar />
-      <!-- <MetricTotals /> -->
       <TopSinners />
       <HomeDomains />
     </main>
@@ -26,8 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { defineComponent } from "vue";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
