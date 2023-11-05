@@ -31,7 +31,7 @@
 
             <div v-if="domainList">
               <header class="mb-4">
-                <div class="text-center md:text-left">
+                <div class="text-left">
                   <h1 class="h2 mb-4" data-aos="fade-up">Domains</h1>
                 </div>
               </header>
@@ -44,7 +44,7 @@
 
           <div v-if="campaignDomains && campaignDomains.length > 0">
             <header class="mb-4">
-              <div class="text-center md:text-left">
+              <div class="text-left">
                 <h1 class="h2 mb-4" data-aos="fade-up">Campaign Domains</h1>
               </div>
             </header>

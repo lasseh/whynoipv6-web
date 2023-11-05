@@ -24,7 +24,7 @@
       </div>
     </div>
     <!-- </div> -->
-    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+    <hr class="h-px my-8 border-0 bg-gray-700" />
 
     <!-- Top 1k -->
     <div class="grid md:grid-cols-2 bg-gray-800 divide-y md:divide-y-0 md:divide-x divide-gray-700 px-6 md:px-0 md:py-4 text-center">
@@ -43,8 +43,8 @@
     <!-- Bars -->
 
     <div class="flex justify-between mb-1">
-      <span class="text-base font-medium text-blue-700 dark:text-white">AS1337</span>
-      <span class="text-sm font-medium text-blue-700 dark:text-white">45%</span>
+      <span class="text-base font-medium text-white">AS1337</span>
+      <span class="text-sm font-medium text-white">45%</span>
     </div>
     <div class="w-full rounded-md h-6 bg-gray-700">
       <!-- <div class="h-6 rounded-md w-full bg-gradient-to-r from-green-700 to-green-500" style="width: 45%"></div> -->

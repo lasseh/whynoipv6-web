@@ -46,7 +46,7 @@
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Why does a domain show as not supporting IPv6 when it does?</h4>
                     <p class="text-md text-gray-400 mb-2">This could be due to various reasons like DNS propagation delays or temporary server issues. If you notice inconsistencies, please contact us.</p>
-                    <p class="text-md text-gray-400">For instance, DNS propagation delays and the dynamic nature of Content Delivery Networks (CDNs) can alter the data based on the anycast DNS location</p>
+                    <p class="text-md text-gray-400">For instance, DNS propagation delays and the dynamic nature of Content Delivery Networks (CDNs) can alter the data based on the anycast DNS location.</p>
                   </li>
                 </ul>
               </div>

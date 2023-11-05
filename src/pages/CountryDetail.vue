@@ -173,6 +173,7 @@ export default defineComponent({
     });
 
     onMounted(() => {
+      window.scrollTo(0, 0);
       getCountryInfo(route.params.id.toString());
       fetchDomains();
     });

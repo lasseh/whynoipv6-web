@@ -83,9 +83,6 @@
               <li>
                 <router-link to="/faq" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">FAQ</router-link>
               </li>
-              <li>
-                <router-link to="/faq?page=4" class="flex font-medium text-gray-200 hover:text-gray-200 py-2">Resources</router-link>
-              </li>
             </ul>
           </nav>
         </div>

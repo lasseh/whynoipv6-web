@@ -26,7 +26,7 @@
                   <!-- Search form -->
                   <form class="relative">
                     <label for="action-search" class="sr-only">Filter</label>
-                    <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Search…" />
+                    <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Filter…" />
                     <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search">
                       <svg class="w-4 h-4 shrink-0 fill-current text-zinc-500 group-hover:text-zinc-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -42,7 +42,7 @@
                 <p class="mb-4 md:mr-32" data-aos="fade-up">This resource tracks the progress of IPv6 adoption globally by listing countries and their top domains that lack IPv6 support. Aimed at network administrators, policymakers, and anyone interested in the transition from IPv4 to IPv6, the data aims to highlight areas that need attention to build a more robust and future-proof Internet infrastructure.</p>
               </div>
 
-              <div class="grid grid-cols-8 gap-4">
+              <div class="grid grid-cols-2 gap-4">
                 <router-link v-for="(country, index) in filteredCountryList" :key="index" :to="{ name: 'CountryDetail', params: { id: country.country_code } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800/50 shadow-lg rounded-sm border border-zinc-700">
                   <div class="flex flex-col h-full p-5">
                     <div class="grow mt-1">

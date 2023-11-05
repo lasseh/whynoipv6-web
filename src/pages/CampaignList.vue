@@ -26,7 +26,7 @@
                   <!-- Search form -->
                   <form class="relative">
                     <label for="action-search" class="sr-only">Filter</label>
-                    <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Search…" />
+                    <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Filter…" />
                     <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search">
                       <svg class="w-4 h-4 shrink-0 fill-current text-zinc-500 group-hover:text-zinc-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -56,7 +56,7 @@
               </div>
 
               <!-- Cards -->
-              <div class="grid grid-cols-8 gap-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="grid grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="300">
                 <!-- Card -->
                 <router-link v-for="campaign in filteredCampaignList" :key="campaign.id" :to="{ name: 'CampaignDetail', params: { uuid: campaign.uuid } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800 shadow-lg rounded-sm border border-zinc-700">
                   <div class="flex flex-col h-full p-5">
