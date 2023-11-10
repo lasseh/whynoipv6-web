@@ -1,7 +1,13 @@
 <template>
   <section v-if="!isLoading && totalsData.length > 0">
-    <!-- <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6"> -->
-    <div class="grid md:grid-cols-4 bg-gray-800 divide-y md:divide-y-0 md:divide-x divide-gray-700 px-6 md:px-0 md:py-4 text-center">
+    <header class="mb-8">
+      <div class="text-left">
+        <h3 class="h4 mb-1">Data Overview</h3>
+        <p class="text-l text-gray-400">The Alexa list contains 1 million domains, but not all of them exist. Here's the data for valid domains and their support for IPv6.</p>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-4 bg-gray-800 divide-y md:divide-y-0 md:divide-x divide-gray-700 px-6 md:px-0 md:py-4 text-center mb-8">
       <!-- 1st item -->
       <div class="py-6 md:py-0 md:px-8">
         <div class="text-4xl font-bold leading-tight tracking-tighter text-fuchsia-700 mb-2" data-aos="fade-up">{{ formatLargeNumber(totalsData[0].data.total_sites) }}</div>
@@ -23,10 +29,14 @@
         <div class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="200">Fully IPv6 Ready Domains</div>
       </div>
     </div>
-    <!-- </div> -->
-    <hr class="h-px my-8 border-0 bg-gray-700" />
 
     <!-- Top 1k -->
+    <header class="mb-8">
+      <div class="text-left">
+        <h3 class="h4 mb-1">Alexa Top 1000</h3>
+        <p class="text-l text-gray-400">Among the top 1000 domains listed on Alexa, the following are equipped with IPv6 support:</p>
+      </div>
+    </header>
     <div class="grid md:grid-cols-2 bg-gray-800 divide-y md:divide-y-0 md:divide-x divide-gray-700 px-6 md:px-0 md:py-4 text-center">
       <!-- 1st item -->
       <div class="py-6 md:py-0 md:px-8">
@@ -39,19 +49,6 @@
         <div class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="200">Top 1k IPv6 Enabled Nameservers</div>
       </div>
     </div>
-
-    <!-- Bars -->
-
-    <div class="flex justify-between mb-1">
-      <span class="text-base font-medium text-white">AS1337</span>
-      <span class="text-sm font-medium text-white">45%</span>
-    </div>
-    <div class="w-full rounded-md h-6 bg-gray-700">
-      <!-- <div class="h-6 rounded-md w-full bg-gradient-to-r from-green-700 to-green-500" style="width: 45%"></div> -->
-      <div class="h-6 rounded-md w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500" style="width: 45%"></div>
-    </div>
-
-    <!-- End Bars -->
   </section>
 </template>
 
@@ -63,7 +60,7 @@ import MetricService from "@/services/MetricService";
 import { Metric } from "@/types/Metric";
 
 export default defineComponent({
-  name: "Metrics",
+  name: "MetricOverview",
   components: {},
   setup() {
     const state = reactive({

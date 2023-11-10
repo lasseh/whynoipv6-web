@@ -15,4 +15,13 @@ export namespace Metric {
   }
 
   export type Totals = TotalMetric[];
+
+  export interface ASN {
+    name: string;
+    number: number;
+    count_v4: number;
+    count_v6: number;
+    percent_v4?: number;
+    percent_v6?: number;
+  }
 }
