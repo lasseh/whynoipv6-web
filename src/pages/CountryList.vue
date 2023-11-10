@@ -42,7 +42,7 @@
                 <p class="mb-4 md:mr-32" data-aos="fade-up">This resource tracks the progress of IPv6 adoption globally by listing countries and their top domains that lack IPv6 support. Aimed at network administrators, policymakers, and anyone interested in the transition from IPv4 to IPv6, the data aims to highlight areas that need attention to build a more robust and future-proof Internet infrastructure.</p>
               </div>
 
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-2 xl:grid-cols-8 gap-4">
                 <router-link v-for="(country, index) in filteredCountryList" :key="index" :to="{ name: 'CountryDetail', params: { id: country.country_code } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800/50 shadow-lg rounded-sm border border-zinc-700">
                   <div class="flex flex-col h-full p-5">
                     <div class="grow mt-1">
@@ -62,11 +62,11 @@
                     </div>
                     <footer class="mt-3">
                       <div class="flex justify-between mb-1">
-                        <span class="text-sm font-medium text-white">v6 Ready</span>
-                        <span class="text-sm font-medium text-white">{{ country.percent }}%</span>
+                        <span class="text-sm font-medium text-gray-400">v6 Ready</span>
+                        <span class="text-sm font-medium text-gray-400">{{ country.percent }}%</span>
                       </div>
-                      <div class="w-full rounded-md h-4 bg-gray-700">
-                        <div :class="`h-4 rounded-md bg-gradient-to-r ${country.gradientColor}`" :style="{ width: country.percent + '%' }"></div>
+                      <div class="w-full rounded-md h-2.5 bg-gray-700">
+                        <div :class="`h-2.5 rounded-md bg-gradient-to-r ${country.gradientColor}`" :style="{ width: country.percent + '%' }"></div>
                       </div>
                     </footer>
                   </div>

@@ -56,7 +56,7 @@
               </div>
 
               <!-- Cards -->
-              <div class="grid grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="300">
+              <div class="grid grid-cols-2 xl:grid-cols-8 gap-4" data-aos="fade-up" data-aos-delay="300">
                 <!-- Card -->
                 <router-link v-for="campaign in filteredCampaignList" :key="campaign.id" :to="{ name: 'CampaignDetail', params: { uuid: campaign.uuid } }" class="col-span-full sm:col-span-6 xl:col-span-4 bg-zinc-800 shadow-lg rounded-sm border border-zinc-700">
                   <div class="flex flex-col h-full p-5">
@@ -68,8 +68,8 @@
                     </div>
                     <footer class="mt-5">
                       <div class="flex justify-between mb-1">
-                        <span class="text-sm font-medium text-white">v6 Ready</span>
-                        <span class="text-sm font-medium text-white">{{ campaign.percent }}%</span>
+                        <span class="text-sm font-medium text-gray-400">v6 Ready</span>
+                        <span class="text-sm font-medium text-gray-400">{{ campaign.percent }}%</span>
                       </div>
                       <div class="w-full rounded-full h-2.5 bg-gray-700">
                         <div class="bg-gradient-to-r from-fuchsia-500 to-fuchsia-700 h-2.5 rounded-full" :style="{ width: campaign.percent + '%' }"></div>
