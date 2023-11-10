@@ -25,7 +25,7 @@
 
     <!-- info content -->
     <div class="text-lg text-gray-400">
-      <p class="mb-4">Our Campaigns page serves as a rallying point for users like you who recognize the importance of IPv6. Here, we highlight user-submitted lists of domains that are still operating in the IPv4 realm. This page is more than just a compilation of domains; it's a call to action for businesses, website owners, and service providers to step up their game and move towards an IPv6-supported future.</p>
+      <p class="mb-4">Unveil the stark reality of network providers' shortcomings in promoting IPv6 adoption and supporting their customers. Our analysis, based on Alexa data, shines a spotlight on the persisting gaps in IPv6 readiness among these providers. It's time to hold them accountable for hindering progress and leaving customers behind. Explore our data and demand better connectivity for all.</p>
     </div>
 
     <!-- Filter Buttons -->
