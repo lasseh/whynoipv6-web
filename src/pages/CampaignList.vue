@@ -12,7 +12,8 @@
 
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div class="py-12 md:py-20">
+          <!-- <div class="py-12 md:py-20"> -->
+          <div class="pt-20 pb-4 md:pt-24 md:pb-4">
             <div class="py-4 max-w-9xl mx-auto">
               <!-- Page header -->
               <div class="sm:flex sm:justify-between sm:items-center mb-4">
@@ -21,9 +22,8 @@
                   <h1 class="text-2xl md:text-3xl text-zinc-100 font-bold">Campaigns</h1>
                 </div>
 
-                <!-- Right: Actions -->
-                <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                  <!-- Search form -->
+                <!-- Search form -->
+                <div class="hidden md:grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                   <form class="relative">
                     <label for="action-search" class="sr-only">Filter</label>
                     <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800" type="search" placeholder="Filter…" />
@@ -53,6 +53,20 @@
                   <a href="https://github.com/lasseh/whynoipv6-campaign" class="underline a-gradient" target="_blank">GitHub Repository</a>
                   , we can collectively advocate for the adoption of IPv6. Act today and help us promote the adoption of IPv6, one shame campaign at a time.
                 </p>
+              </div>
+
+              <!-- Search mobile -->
+              <div class="md:hidden grid grid-flow-col sm:auto-cols-max gap-2 mb-2">
+                <form class="relative w-full">
+                  <label for="action-search" class="sr-only">Filter</label>
+                  <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800 w-full" type="search" placeholder="Filter…" />
+                  <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search">
+                    <svg class="w-4 h-4 shrink-0 fill-current text-zinc-500 group-hover:text-zinc-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
+                      <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
+                    </svg>
+                  </button>
+                </form>
               </div>
 
               <!-- Cards -->

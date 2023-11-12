@@ -13,9 +13,7 @@
       <!-- Page sections -->
       <section class="relative" ref="anchorTop">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div class="pt-32 pb-12 md:pt-40 md:pb-20">
-            <!-- <div class="max-w-3xl mx-auto"> -->
-
+          <div class="pt-20 pb-4 md:pt-24 md:pb-4">
             <!-- Breadcrumb -->
             <div class="mb-4">
               <nav class="flex" aria-label="Breadcrumb">

@@ -13,13 +13,19 @@
       <!-- Page sections -->
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div class="pt-32 pb-12 md:pt-40 md:pb-20">
-            <header class="mb-6">
-              <div class="text-left">
-                <h1 class="h2 mb-1">Metrics</h1>
-                <p class="text-lg text-gray-400">Discover the Stark Reality of IPv6 Deployment</p>
+          <!-- <div class="py-12 md:py-20"> -->
+          <div class="pt-20 pb-4 md:pt-24 md:pb-4">
+            <div class="py-4 max-w-9xl mx-auto">
+              <!-- Page header -->
+              <div class="sm:flex sm:justify-between sm:items-center mb-4">
+                <!-- Left: Title -->
+                <div class="mb-4 sm:mb-0">
+                  <h1 class="text-2xl md:text-3xl text-zinc-100 font-bold">Metrics</h1>
+                  <p class="text-lg text-gray-400">Insights into IPv6 Deployment Statistics within the Alexa Dataset.</p>
+                </div>
               </div>
-            </header>
+            </div>
+
             <!-- Tab Buttons -->
             <div class="flex mb-4">
               <button @click="applyFilter('overview')" :class="tabClass('overview')">Overview</button>

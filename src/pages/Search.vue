@@ -13,7 +13,8 @@
       <!-- Page sections -->
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+          <!-- <div class="pt-32 pb-12 md:pt-40 md:pb-20"> -->
+          <div class="pt-20 pb-4 md:pt-24 md:pb-4">
             <div class="pt-4 pb-4 md:pt-4 md:pb-4">
               <form action="/search" method="get">
                 <label for="search" class="mb-2 text-sm font-medium sr-only text-white">Search</label>
