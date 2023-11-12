@@ -7,9 +7,8 @@
         <h1 class="text-2xl md:2text-xl text-zinc-100 font-bold">Network Provider Readiness</h1>
       </div>
 
-      <!-- Right: Actions -->
-      <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-        <!-- Search form -->
+      <!-- Search -->
+      <div class="hidden md:grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
         <form class="relative" @submit.prevent="searchAsn(searchQuery)">
           <label for="action-search" class="sr-only">Search</label>
           <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800 h-10" type="search" placeholder="Search…" />
@@ -27,6 +26,20 @@
     <div class="text-lg text-gray-400">
       <p class="mb-4">Unveil the stark reality of network providers' shortcomings in promoting IPv6 adoption and supporting their customers. Our analysis, based on Alexa data, shines a spotlight on the persisting gaps in IPv6 readiness among these providers. It's time to hold them accountable for hindering progress and leaving customers behind. Explore our data and demand better connectivity for all.</p>
     </div>
+
+          <!-- Search -->
+      <div class="md:hidden grid grid-flow-col sm:auto-cols-max justify-end sm:justify-end gap-2 mb-2">
+        <form class="relative" @submit.prevent="searchAsn(searchQuery)">
+          <label for="action-search" class="sr-only">Search</label>
+          <input v-model="searchQuery" id="action-search" class="form-input pl-9 bg-zinc-800 h-10" type="search" placeholder="Search…" />
+          <button class="absolute inset-0 right-auto group text-xs font-medium" type="submit" aria-label="Search">
+            <svg class="w-4 h-4 shrink-0 fill-current text-zinc-500 group-hover:text-zinc-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
+              <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
+            </svg>
+          </button>
+        </form>
+      </div>
 
     <!-- Filter Buttons -->
     <div class="flex h-10 justify-end">
