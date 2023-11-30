@@ -3,19 +3,19 @@ import { Changelog } from "@/types/Changelog";
 
 class ChangelogService {
   getChangelog(offset: number) {
-    return API().get(`/changelog?offset=${offset}`);
+    return API().get(`/changelog?offset=${encodeURIComponent(offset)}`);
   }
   getCampaignChangelog(offset: number) {
-    return API().get(`/changelog/campaign?offset=${offset}`);
+    return API().get(`/changelog/campaign?offset=${encodeURIComponent(offset)}`);
   }
   getChangelogByDomain(domain: string) {
-    return API().get(`/changelog/${domain}`);
+    return API().get(`/changelog/${encodeURIComponent(domain)}`);
   }
   getChangelogByCampaign(uuid: string) {
-    return API().get(`/changelog/campaign/${uuid}`);
+    return API().get(`/changelog/campaign/${encodeURIComponent(uuid)}`);
   }
   getChangelogByCampaignDomain(uuid: string, domain: string) {
-    return API().get(`/changelog/campaign/${uuid}/${domain}`);
+    return API().get(`/changelog/campaign/${encodeURIComponent(uuid)}/${encodeURIComponent(domain)}`);
   }
 }
 

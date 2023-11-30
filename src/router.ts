@@ -1,6 +1,15 @@
 import { createWebHistory, createRouter } from "vue-router";
 import { RouteRecordRaw } from "vue-router";
 
+// Ensure trailing slash
+const ensureTrailingSlash = (to: any, from: any, next: any) => {
+  if (to.path.slice(-1) !== "/") {
+    next(`${to.path}/`);
+  } else {
+    next();
+  }
+};
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -15,13 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/domain/:domain",
     name: "DomainDetail",
     component: () => import("@/pages/DomainDetail.vue"),
-    beforeEnter: (to, from, next) => {
-      if (to.path.slice(-1) !== "/") {
-        next(`${to.path}/`);
-      } else {
-        next();
-      }
-    },
+    beforeEnter: ensureTrailingSlash,
   },
   {
     path: "/search",
@@ -57,13 +60,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/campaign/:uuid/:domain",
     name: "CampaignDomainDetail",
     component: () => import("@/pages/CampaignDomain.vue"),
-    beforeEnter: (to, from, next) => {
-      if (to.path.slice(-1) !== "/") {
-        next(`${to.path}/`);
-      } else {
-        next();
-      }
-    },
+    beforeEnter: ensureTrailingSlash,
   },
   {
     path: "/changelog",

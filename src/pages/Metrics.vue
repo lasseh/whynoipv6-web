@@ -28,8 +28,8 @@
 
             <!-- Tab Buttons -->
             <div class="flex mb-4">
-              <button @click="applyFilter('overview')" :class="tabClass('overview')">Overview</button>
-              <button @click="applyFilter('asn')" :class="tabClass('asn')">Network Providers</button>
+              <button @click="applyFilterAndUpdateRoute('overview')" :class="tabClass('overview')">Overview</button>
+              <button @click="applyFilterAndUpdateRoute('asn')" :class="tabClass('asn')">Network Providers</button>
             </div>
             <!-- Tab Content -->
             <div>
@@ -42,6 +42,11 @@
               <div v-if="queryFilter === 'byIPv6'">ipv6</div>
               <div v-if="queryFilter === 'byIPv4'">ipv4</div>
             </div>
+          </div>
+
+          <!-- Error message -->
+          <div v-if="error" class="alert alert-danger">
+            {{ error }}
           </div>
         </div>
       </section>
@@ -76,6 +81,7 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const queryFilter = ref<string>((route.query.t as string) || "overview");
+    const error = ref<string | null>(null);
 
     // Watch for changes in route query and update the local state
     watch(
@@ -87,10 +93,16 @@ export default defineComponent({
       }
     );
 
-    const applyFilter = (filterType: string) => {
+    const updateRoute = (filterType: string) => {
+      router.push({ query: { ...route.query, t: filterType } }).catch(err => {
+        error.value = "Failed to update route";
+        console.error(error.value, err);
+      });
+    };
+
+    const applyFilterAndUpdateRoute = (filterType: string) => {
       queryFilter.value = filterType;
-      // Update the route query parameter
-      router.push({ query: { ...route.query, t: filterType } }).catch(err => {});
+      updateRoute(filterType);
     };
 
     const tabClass = (filterType: string): string[] => {
@@ -105,9 +117,10 @@ export default defineComponent({
     });
 
     return {
-      applyFilter,
+      applyFilterAndUpdateRoute,
       queryFilter,
       tabClass,
+      error,
     };
   },
 });

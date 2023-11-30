@@ -26,7 +26,9 @@
         <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }]">
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2 text-left">
             <div class="flex items-center">
-              <RouterLink :to="generateDomainUrl(domain)" class="font-medium text-slate-100">{{ domain.domain }}</RouterLink>
+              <router-link :to="{ name: 'CampaignDomainDetail', params: { uuid: domain.campaign_uuid, domain: domain.domain } }" class="font-medium text-slate-100">
+                {{ domain.domain }}
+              </router-link>
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -80,16 +82,6 @@ export default defineComponent({
   components: {
     CheckIcon,
     CrossIcon,
-  },
-  setup() {
-    // Generate URL for domain
-    function generateDomainUrl(domain: Campaign.CampaignDomain) {
-      return `/campaign/${domain.campaign_uuid}/${domain.domain}`;
-    }
-
-    return {
-      generateDomainUrl,
-    };
   },
 });
 </script>

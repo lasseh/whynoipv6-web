@@ -5,7 +5,8 @@
     "dev": "vite --port 3344",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",

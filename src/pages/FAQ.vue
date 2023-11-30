@@ -15,7 +15,6 @@
           <div x-data="{ page: '1' }" class="flex flex-col md:flex-row">
             <!-- Main content -->
             <main class="md:flex-auto md:pl-10 order-1" data-aos="fade-up">
-              <!-- FAQ’s – Frequently Asked Questions -->
               <div v-show="page === '1'">
                 <div class="mb-8">
                   <h2 class="h2 mb-4">FAQ’s – Frequently Asked Questions</h2>
@@ -48,6 +47,15 @@
                     <p class="text-md text-gray-400 mb-2">This could be due to various reasons like DNS propagation delays or temporary server issues. If you notice inconsistencies, please contact us.</p>
                     <p class="text-md text-gray-400">For instance, DNS propagation delays and the dynamic nature of Content Delivery Networks (CDNs) can alter the data based on the anycast DNS location.</p>
                   </li>
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2">Contact</h4>
+                    <p class="text-md text-gray-400">Want to get in contact with me?</p>
+                    <p class="text-md text-gray-400">
+                      Twitter / X:
+                      <a href="https://twitter.com/WhyNoIPv6" target="_blank" class="a-gradient">@whynoipv6</a>
+                    </p>
+                    <p class="text-md text-gray-400">E-Mail: whynoipv6@protonmail.com</p>
+                  </li>
                 </ul>
               </div>
 
@@ -76,7 +84,10 @@
                 <ul class="-my-4">
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">How do i create my own campaign?</h4>
-                    <p class="text-lg text-gray-400">Create a new issue on the github repo</p>
+                    <p class="text-lg text-gray-400">
+                      Create a new issue on the
+                      <a href="https://github.com/lasseh/whynoipv6-campaign" target="_blank" class="a-gradient">github repo</a>
+                    </p>
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">How can i get my domain removed from the list?</h4>
@@ -91,42 +102,33 @@
                   <h2 class="h2 mb-4">Resources</h2>
                 </div>
                 <ul class="-my-4">
-                  <!-- <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2 a-gradient"><a href="#">test-ipv6.com</a></h4>
-                    <p class="text-lg text-gray-400">Test-IPv6.com is a platform that allows users to check their internet connection's readiness for IPv6. By visiting the site, users can swiftly determine if their connection is IPv6-capable, understand potential issues, and receive guidance on how to resolve them.</p>
-                  </li> -->
                   <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">Understanding IPv6</h4>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient" target="_blank">Introduction to IPv6</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">Why IPv6?</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Basics: Quick Guide</a></p>
-                  </li>
-                  <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">How to Implement IPv6 on Your Servers</h4>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Deployment Guide</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">Linux IPv6 HOWTO</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">Enabling IPv6 in Apache, Nginx, and Let’s Encrypt</a></p>
-                  </li>
-                  <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">DNS Configuration</h4>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 DNS Configuration Guide</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">Setting up DNS64</a></p>
+                    <h4 class="text-xl font-medium mb-2">IPv6</h4>
+                    <p class="text-lg text-gray-400"><a href="https://www.internetsociety.org/deploy360/ipv6/" target="_blank" class="a-gradient">Internet Society IPv6</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://ready.chair6.net/" target="_blank" class="a-gradient">IPv6 Ready test</a></p>
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">IPv6 Networking Best Practices</h4>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Subnetting - Best Practices</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Security Considerations</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Checklist for IT Pros</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://blog.apnic.net/2023/04/04/ipv6-architecture-and-subnetting-guide-for-network-engineers-and-operators/" class="a-gradient">IPv6 Subnetting - Best Practices</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.internetsociety.org/deploy360/ipv6/security/" class="a-gradient">IPv6 Security Considerations</a></p>
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Community and Forums</h4>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">Reddit's r/ipv6</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">Stack Overflow IPv6 Questions</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.reddit.com/r/ipv6/" class="a-gradient">Reddit's r/ipv6</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.ipv6forum.com/" class="a-gradient">IPv6 Forum</a></p>
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Online Courses and Webinars</h4>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Fundamentals: A Straightforward Approach to Understanding IPv6 (Coursera)</a></p>
-                    <p class="text-lg text-gray-400"><a href="#" class="a-gradient">IPv6 Certification Program</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://ipv6.he.net/certification/" target="_blank" class="a-gradient">Hurricane Electric IPv6 Certification Project</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.coursera.org/projects/ip-address-v6" target="_blank" class="a-gradient">Getting Started with IPv6 (Coursera)</a></p>
+                  </li>
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2">Reports and IPv6 Status</h4>
+                    <p class="text-lg text-gray-400"><a href="https://bgp.he.net/ipv6-progress-report.cgi" target="_blank" class="a-gradient">Global IPv6 Deployment Progress Report</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.worldipv6launch.org/" target="_blank" class="a-gradient">World IPv6 Launch</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.google.com/intl/en/ipv6/statistics.html" target="_blank" class="a-gradient">Google v6 Statistics</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://www.vyncke.org/ipv6status/" target="_blank" class="a-gradient">IPv6 Deployment Aggregated Status</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://awsipv6.neveragain.de/" target="_blank" class="a-gradient">AWS service endpoints by region and IPv6 support</a></p>
                   </li>
                 </ul>
               </div>
@@ -139,7 +141,7 @@
                 <ul class="-my-4">
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Is the API open?</h4>
-                    <p class="text-lg text-gray-400">Yes</p>
+                    <p class="text-lg text-gray-400">Yes, more info will be added later. If you want to use it now, check the github repo</p>
                   </li>
                 </ul>
               </div>

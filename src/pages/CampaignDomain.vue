@@ -106,6 +106,7 @@
                   </span>
                 </div>
               </li>
+              <!-- Implement the MX Checker first -->
               <!-- <li>
                 <div class="flex justify-between items-center p-3 text-base rounded-sm group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_curl ? 'border-emerald-600' : 'border-pink-600'">
                   <span class="flex-1 ml-3 whitespace-nowrap">Pure v6 connection</span>

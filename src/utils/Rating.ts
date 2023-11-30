@@ -12,13 +12,32 @@ type RatingEntity = {
   v6sites?: number;
 };
 
+function getRatingDetails(ratingPercentage: number) {
+  if (ratingPercentage >= 60) {
+    return {
+      rating: "Good",
+      colorClass: "bg-emerald-600/10 text-emerald-600 ring-emerald-600/40",
+      gradientColor: "from-teal-700 to-teal-800",
+    };
+  } else if (ratingPercentage >= 40) {
+    return {
+      rating: "Medium",
+      colorClass: "bg-amber-600/10 text-amber-600 ring-amber-600/20",
+      gradientColor: "from-amber-700 to-amber-800",
+    };
+  } else {
+    return {
+      rating: "Bad",
+      colorClass: "bg-rose-600/10 text-rose-600/80 ring-rose-600/20",
+      gradientColor: "from-pink-700 to-pink-800",
+    };
+  }
+}
+
 /**
  * Calculate the rating and associated color class for a given entity (campaign or country).
  * The function returns an object containing the rating ("Good", "Medium", "Bad", "Unknown")
  * and a color class for visual representation.
- *
- * @param entity - An object containing count, v6_ready, sites, v6sites.
- * @returns { rating: string, colorClass: string } - Object containing rating and its associated color class.
  */
 export function calculateRating(entity: RatingEntity) {
   // Get the total number and v6 total number for the entity
@@ -31,34 +50,5 @@ export function calculateRating(entity: RatingEntity) {
   // Calculate the percentage of IPv6 readiness
   const ratingPercentage = (v6Total / total) * 100;
 
-  let rating = "";
-  let colorClass = "";
-  let gradientColor = "";
-
-  // Determine the rating and color class based on IPv6 readiness percentage
-  if (ratingPercentage >= 60) {
-    rating = "Good";
-    colorClass = "bg-emerald-600/10 text-emerald-600 ring-emerald-600/40";
-  } else if (ratingPercentage >= 40) {
-    rating = "Medium";
-    colorClass = "bg-amber-600/10 text-amber-600 ring-amber-600/20";
-  } else {
-    rating = "Bad";
-    colorClass = "bg-rose-600/10 text-rose-600/80 ring-rose-600/20";
-  }
-
-  // Determine the gradient color based on IPv6 readiness percentage
-  if (ratingPercentage >= 60) {
-    gradientColor = "from-teal-700 to-teal-800";
-  } else if (ratingPercentage >= 40) {
-    gradientColor = "from-amber-700 to-amber-800";
-  } else {
-    gradientColor = "from-pink-700 to-pink-800";
-  }
-
-  return {
-    rating,
-    colorClass,
-    gradientColor,
-  };
+  return getRatingDetails(ratingPercentage);
 }
