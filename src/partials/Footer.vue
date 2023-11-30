@@ -103,7 +103,7 @@
           <!-- <div class="text-gray-400 text-sm mr-4">&copy; WhyNoIPv6.com. Hosted on Native IPv6 co-location from <a href="https://blix.com/" class="underline">Blix Solutions</a> since 2008</div> -->
           <div class="text-gray-400 text-sm mr-4">
             Hosted on Native IPv6 co-location from
-            <a href="https://blix.com/" class="underline whitespace-nowrap" target="_blank">Blix Solutions</a>
+            <a href="https://blix.com/" class="underline whitespace-nowrap a-gradient" target="_blank">Blix Solutions</a>
             since 2008
           </div>
         </div>
