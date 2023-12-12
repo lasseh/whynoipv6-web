@@ -22,7 +22,7 @@
                 <div class="grid grid-cols-2 gap-4">
                   <ul v-for="list in splitDomainShamers" class="max-w-md space-y-1 list-inside text-gray-400">
                     <li v-for="domain in list" class="flex items-center" :key="domain.rank">
-                      <CrossIcon class="w-3 h-3 fill-current text-red-500 mr-2 shrink-0" />
+                      <CrossIcon class="text-pink-600 mr-2" />
                       <RouterLink :to="`/domain/${domain.domain}`">{{ domain.domain }}</RouterLink>
                     </li>
                   </ul>

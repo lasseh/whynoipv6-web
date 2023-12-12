@@ -12,22 +12,31 @@
             <div class="font-semibold text-left">Domain</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left md:block hidden">Base Domain</div>
-            <div class="font-semibold text-left md:hidden">Base</div>
+            <div class="font-semibold text-center md:block hidden">Base Domain</div>
+            <div class="font-semibold text-center md:hidden">Base</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left">WWW</div>
+            <div class="font-semibold text-center">WWW</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-left md:block hidden">Nameserver</div>
-            <div class="font-semibold text-left md:hidden">NS</div>
+            <div class="font-semibold text-center md:block hidden">Nameserver</div>
+            <div class="font-semibold text-center md:hidden">NS</div>
           </th>
+          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="font-semibold text-center md:block hidden">E-Mail</div>
+            <div class="font-semibold text-center md:hidden">MX</div>
+          </th>
+          <!-- Disable until crawler is ready -->
+          <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="font-semibold text-center md:block hidden">v6 Only</div>
+            <div class="font-semibold text-center md:hidden">v6</div>
+          </th> -->
         </tr>
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
         <tr v-for="(domain, index) in domains" :key="index" @mouseover="handleMouseOver(index, true)" @mouseout="handleMouseOver(index, false)" class="hover:bg-gray-800">
-          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-left md:table-cell hidden">
+          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:table-cell hidden w-px text-center">
             <div class="flex items-center">
               <div :class="computeRankClass(index)" class="inline-flex text-center font-mono text-xs text-slate-300 py-1 px-3 rounded-sm hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
             </div>
@@ -39,24 +48,36 @@
               </router-link>
             </div>
           </td>
-          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="text-xs inline-flex font-medium rounded-full px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_aaaa" class="w-3 h-3 shrink-0 fill-current text-emerald-500" />
-              <CrossIcon v-else class="w-3 h-3 shrink-0 fill-current text-pink-500" />
-            </div>
-          </td>
-          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="text-xs inline-flex font-medium rounded-full px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_www" class="w-3 h-3 shrink-0 fill-current text-emerald-500" />
-              <CrossIcon v-else class="w-3 h-3 shrink-0 fill-current text-pink-500" />
+          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
+            <div class="inline-flex px-2.5 py-1">
+              <CheckIcon v-if="domain.v6_aaaa" class="text-emerald-500" />
+              <CrossIcon v-else class="text-pink-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
-            <div class="text-xs inline-flex font-medium rounded-full px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_ns" class="w-3 h-3 shrink-0 fill-current text-emerald-500" />
-              <CrossIcon v-else class="w-3 h-3 shrink-0 fill-current text-pink-500" />
+            <div class="inline-flex px-2.5 py-1">
+              <CheckIcon v-if="domain.v6_www" class="text-emerald-500" />
+              <CrossIcon v-else class="text-pink-500" />
             </div>
           </td>
+          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
+            <div class="inline-flex px-2.5 py-1">
+              <CheckIcon v-if="domain.v6_ns" class="text-emerald-500" />
+              <CrossIcon v-else class="text-pink-500" />
+            </div>
+          </td>
+          <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
+            <div class="inline-flex px-2.5 py-1">
+              <CheckIcon v-if="domain.v6_curl" class="text-emerald-500" />
+              <MinusIcon v-else class="text-pink-500" />
+            </div>
+          </td>
+          <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
+            <div class="inline-flex px-2.5 py-1">
+              <CheckIcon v-if="domain.v6_curl" class="text-emerald-500" />
+              <MinusIcon v-else class="text-pink-500" />
+            </div>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -74,7 +95,7 @@
 import { defineComponent, ref, computed } from "vue";
 
 // Page Layout
-import { CheckIcon, CrossIcon } from "@/partials";
+import { CheckIcon, CrossIcon, MinusIcon } from "@/partials";
 
 // Services
 import { Domain } from "@/types/Domain";
@@ -90,6 +111,7 @@ export default defineComponent({
   components: {
     CheckIcon,
     CrossIcon,
+    MinusIcon,
   },
   setup() {
     // Ref for tracking hover state
