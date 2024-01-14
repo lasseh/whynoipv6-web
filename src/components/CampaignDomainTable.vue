@@ -32,7 +32,7 @@
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
-        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.v6_aaaa && domain.v6_www && domain.v6_ns }, { 'hover:bg-gray-800': true }]">
+        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.base_domain == 'supported' && domain.www_domain == 'supported' && domain.nameserver == 'supported' }, { 'hover:bg-gray-800': true }]">
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2 text-left">
             <div class="flex items-center">
               <router-link :to="{ name: 'CampaignDomainDetail', params: { uuid: domain.campaign_uuid, domain: domain.domain } }" class="font-medium text-slate-100">
@@ -42,26 +42,30 @@
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_aaaa" class="text-emerald-500" />
-              <CrossIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.base_domain == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.base_domain == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.base_domain == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_www" class="text-emerald-500" />
-              <CrossIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.www_domain == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.www_domain == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.www_domain == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_ns" class="text-emerald-500" />
-              <CrossIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.nameserver == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.nameserver == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.nameserver == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_curl" class="text-emerald-500" />
-              <MinusIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.mx_record == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.mx_record == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.mx_record == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">

@@ -1,11 +1,13 @@
 export namespace Domain {
+  type DomainStatus = "supported" | "unsupported" | "no_record";
   export interface Domain {
     rank: number;
     domain: string;
-    v6_aaaa: boolean;
-    v6_www: boolean;
-    v6_ns: boolean;
-    v6_curl: boolean;
+    base_domain: DomainStatus;
+    www_domain: DomainStatus;
+    nameserver: DomainStatus;
+    mx_record: DomainStatus;
+    v6_only: DomainStatus;
     ts_aaaa: Date;
     ts_www: Date;
     ts_ns: Date;

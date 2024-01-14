@@ -1,4 +1,6 @@
 export namespace Campaign {
+  type DomainStatus = "supported" | "unsupported" | "no_record";
+
   export interface Campaign {
     id: number;
     uuid: string;
@@ -13,10 +15,11 @@ export namespace Campaign {
 
   export interface CampaignDomain {
     domain: string;
-    v6_aaaa: boolean;
-    v6_www: boolean;
-    v6_ns: boolean;
-    v6_curl: boolean;
+    base_domain: DomainStatus;
+    www_domain: DomainStatus;
+    nameserver: DomainStatus;
+    mx_record: DomainStatus;
+    v6_only: DomainStatus;
     ts_aaaa: Date;
     ts_www: Date;
     ts_ns: Date;

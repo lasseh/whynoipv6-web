@@ -75,43 +75,43 @@
             <!-- Domain Status -->
             <ul class="my-4 space-y-3">
               <li>
-                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_aaaa ? 'border-emerald-600' : 'border-pink-600'">
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.base_domain == 'supported' ? 'border-emerald-600' : domain.base_domain == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
                   <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">{{ domain.domain }}</span>
-                  <span :class="domain.v6_aaaa ? 'text-emerald-600' : 'text-pink-600'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
-                    {{ domain.v6_aaaa ? "Success" : "Missing" }}
+                  <span :class="domain.base_domain == 'supported' ? 'text-emerald-600' : domain.base_domain == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.base_domain == "supported" ? "Success" : domain.base_domain == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                 </div>
               </li>
               <li>
-                <div class="flex justify-between items-center p-3 text-base rounded-sm group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_www ? 'border-emerald-600' : 'border-pink-600'">
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.www_domain == 'supported' ? 'border-emerald-600' : domain.www_domain == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
                   <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">www.{{ domain.domain }}</span>
-                  <span :class="domain.v6_www ? 'text-emerald-600' : 'text-pink-600'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
-                    {{ domain.v6_www ? "Success" : "Missing" }}
+                  <span :class="domain.www_domain == 'supported' ? 'text-emerald-600' : domain.www_domain == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.www_domain == "supported" ? "Success" : domain.www_domain == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                 </div>
               </li>
               <li>
-                <div class="flex justify-between items-center p-3 text-base rounded-sm group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_ns ? 'border-emerald-600' : 'border-pink-600'">
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.nameserver == 'supported' ? 'border-emerald-600' : domain.nameserver == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
                   <span class="flex-1 ml-3 whitespace-nowrap">Nameserver</span>
-                  <span :class="domain.v6_ns ? 'text-emerald-600' : 'text-pink-600'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
-                    {{ domain.v6_ns ? "Success" : "Missing" }}
+                  <span :class="domain.nameserver == 'supported' ? 'text-emerald-600' : domain.nameserver == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.nameserver == "supported" ? "Success" : domain.nameserver == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                 </div>
               </li>
               <li>
-                <div class="flex justify-between items-center p-3 text-base rounded-sm group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_aaaa ? 'border-emerald-600' : 'border-pink-600'">
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.mx_record == 'supported' ? 'border-emerald-600' : domain.mx_record == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
                   <span class="flex-1 ml-3 whitespace-nowrap">E-Mail</span>
-                  <span :class="domain.v6_aaaa ? 'text-emerald-600' : 'text-pink-600'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
-                    {{ domain.v6_aaaa ? "Success" : "Missing" }}
+                  <span :class="domain.mx_record == 'supported' ? 'text-emerald-600' : domain.mx_record == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.mx_record == "supported" ? "Success" : domain.mx_record == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                 </div>
               </li>
-              <!-- Implement the MX Checker first -->
+              <!-- Implement v6 Only checker -->
               <!-- <li>
-                <div class="flex justify-between items-center p-3 text-base rounded-sm group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_curl ? 'border-emerald-600' : 'border-pink-600'">
-                  <span class="flex-1 ml-3 whitespace-nowrap">Pure v6 connection</span>
-                  <span :class="domain.v6_curl ? 'text-emerald-600' : 'text-pink-600'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
-                    {{ domain.v6_curl ? "Success" : "Missing" }}
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_only == 'supported' ? 'border-emerald-600' : domain.v6_only == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
+                  <span class="flex-1 ml-3 whitespace-nowrap">v6 Only</span>
+                  <span :class="domain.v6_only == 'supported' ? 'text-emerald-600' : domain.v6_only == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.v6_only == "supported" ? "Success" : domain.v6_only == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                 </div>
               </li> -->
@@ -190,10 +190,10 @@ export default defineComponent({
 
     const numberOfStars = computed(() => {
       let count = 0;
-      if (state.domain.v6_aaaa) count++;
-      if (state.domain.v6_www) count++;
-      if (state.domain.v6_ns) count++;
-      if (state.domain.v6_curl) count++;
+      if (state.domain.base_domain == "supported") count++;
+      if (state.domain.www_domain == "supported") count++;
+      if (state.domain.nameserver == "supported") count++;
+      if (state.domain.mx_record == "supported") count++;
       return count;
     });
 

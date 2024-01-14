@@ -50,26 +50,30 @@
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_aaaa" class="text-emerald-500" />
-              <CrossIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.base_domain == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.base_domain == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.base_domain == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_www" class="text-emerald-500" />
-              <CrossIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.www_domain == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.www_domain == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.www_domain == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_ns" class="text-emerald-500" />
-              <CrossIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.nameserver == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.nameserver == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.nameserver == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.v6_curl" class="text-emerald-500" />
-              <MinusIcon v-else class="text-pink-500" />
+              <CheckIcon v-if="domain.mx_record == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.mx_record == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.mx_record == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
