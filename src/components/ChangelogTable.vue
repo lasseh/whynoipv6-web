@@ -10,7 +10,7 @@
     <div class="grid grid-cols-1 gap-3 md:hidden">
       <div v-if="changelogs.length > 0" v-for="(logItem, index) in changelogs" :key="index" class="p-3 rounded-lg shadow bg-gray-800">
         <div class="font-mono text-sm">
-          <div class="font-xs" :class="logItem.ipv6_status ? 'text-emerald-600' : 'text-pink-600'">
+          <div class="font-xs" :class="logItem.ipv6_status == 'supported' ? 'text-emerald-600' : logItem.ipv6_status == 'unsupported' ? 'text-pink-600' : 'text-amber-500'">
             {{ logItem.message }}
           </div>
           <div class="text-gray-500 text-xs">{{ formatDateTime(logItem.ts) }}</div>
@@ -38,7 +38,7 @@
               </td>
               <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap md:w-1/2 w-1/2">
                 <div class="flex">
-                  <div class="font-medium" :class="logItem.ipv6_status ? 'text-emerald-600' : 'text-pink-600'">
+                  <div class="font-xs" :class="logItem.ipv6_status == 'supported' ? 'text-emerald-600' : logItem.ipv6_status == 'unsupported' ? 'text-pink-600' : 'text-amber-500'">
                     {{ logItem.message }}
                   </div>
                 </div>
