@@ -118,7 +118,8 @@
                     <p class="text-lg text-gray-400"><a href="https://www.ipv6forum.com/" class="a-gradient">IPv6 Forum</a></p>
                   </li>
                   <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">Online Courses and Webinars</h4>
+                    <h4 class="text-xl font-medium mb-2">Learn IPv6</h4>
+                    <p class="text-lg text-gray-400"><a href="https://packetpushers.net/podcasts/ipv6-buzz/" target="_blank" class="a-gradient">IPv6 Buzz Podcast</a></p>
                     <p class="text-lg text-gray-400"><a href="https://ipv6.he.net/certification/" target="_blank" class="a-gradient">Hurricane Electric IPv6 Certification Project</a></p>
                     <p class="text-lg text-gray-400"><a href="https://www.coursera.org/projects/ip-address-v6" target="_blank" class="a-gradient">Getting Started with IPv6 (Coursera)</a></p>
                   </li>
