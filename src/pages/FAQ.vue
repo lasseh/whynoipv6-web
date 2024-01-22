@@ -47,15 +47,6 @@
                     <p class="text-md text-gray-400 mb-2">This could be due to various reasons like DNS propagation delays or temporary server issues. If you notice inconsistencies, please contact us.</p>
                     <p class="text-md text-gray-400">For instance, DNS propagation delays and the dynamic nature of Content Delivery Networks (CDNs) can alter the data based on the anycast DNS location.</p>
                   </li>
-                  <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">Contact</h4>
-                    <p class="text-md text-gray-400">Want to get in contact with me?</p>
-                    <p class="text-md text-gray-400">
-                      Twitter / X:
-                      <a href="https://twitter.com/WhyNoIPv6" target="_blank" class="a-gradient">@whynoipv6</a>
-                    </p>
-                    <p class="text-md text-gray-400">E-Mail: whynoipv6@protonmail.com</p>
-                  </li>
                 </ul>
               </div>
 
@@ -86,7 +77,7 @@
                     <h4 class="text-xl font-medium mb-2">How do i create my own campaign?</h4>
                     <p class="text-lg text-gray-400">
                       Create a new issue on the
-                      <a href="https://github.com/lasseh/whynoipv6-campaign" target="_blank" class="a-gradient">github repo</a>
+                      <a href="https://github.com/lasseh/whynoipv6-campaign" target="_blank" class="a-gradient">Github repo</a>
                     </p>
                   </li>
                   <li class="py-4">
@@ -116,10 +107,10 @@
                     <h4 class="text-xl font-medium mb-2">Community and Forums</h4>
                     <p class="text-lg text-gray-400"><a href="https://www.reddit.com/r/ipv6/" class="a-gradient">Reddit's r/ipv6</a></p>
                     <p class="text-lg text-gray-400"><a href="https://www.ipv6forum.com/" class="a-gradient">IPv6 Forum</a></p>
+                    <p class="text-lg text-gray-400"><a href="https://packetpushers.net/podcasts/ipv6-buzz/" class="a-gradient">IPv6 Buzz Podcast</a></p>
                   </li>
                   <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">Learn IPv6</h4>
-                    <p class="text-lg text-gray-400"><a href="https://packetpushers.net/podcasts/ipv6-buzz/" target="_blank" class="a-gradient">IPv6 Buzz Podcast</a></p>
+                    <h4 class="text-xl font-medium mb-2">Online Courses and Webinars</h4>
                     <p class="text-lg text-gray-400"><a href="https://ipv6.he.net/certification/" target="_blank" class="a-gradient">Hurricane Electric IPv6 Certification Project</a></p>
                     <p class="text-lg text-gray-400"><a href="https://www.coursera.org/projects/ip-address-v6" target="_blank" class="a-gradient">Getting Started with IPv6 (Coursera)</a></p>
                   </li>
@@ -143,6 +134,33 @@
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Is the API open?</h4>
                     <p class="text-lg text-gray-400">Yes, more info will be added later. If you want to use it now, check the github repo</p>
+                  </li>
+                </ul>
+              </div>
+              <!-- About Me -->
+              <div v-show="page === '6'">
+                <div class="mb-8">
+                  <h2 class="h2 mb-4">About Me</h2>
+                </div>
+                <ul class="-my-4">
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2"># whoami</h4>
+                    <p class="text-md text-gray-400 mb-1">Hello! I'm Lasse, Norway's own network maestro, on a personal crusade to spread the magic of IPv6 across every corner of the internet.</p>
+                    <p class="text-md text-gray-400 mb-1">By day, I'm a wizard of wires and a sorcerer of switches, tirelessly weaving the intricate web of networks that keep our digital world in motion.</p>
+                    <p class="text-md text-gray-400 mb-1">By night, I prowl the internet, seeking out IPv6 slackers, nudging them to embrace the future of the internet.</p>
+                    <p class="text-md text-gray-400">Join me on this journey towards an IPv6-enabled future, where 'IP exhaustion' becomes just a spooky story of the past!</p>
+                  </li>
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2">Contact</h4>
+                    <p class="text-md text-gray-400">Want to get in contact with me?</p>
+                    <p class="text-md text-gray-400">
+                      Twitter / X:
+                      <a href="https://twitter.com/WhyNoIPv6" target="_blank" class="a-gradient">@whynoipv6</a>
+                    </p>
+                    <p class="text-md text-gray-400">
+                      E-Mail:
+                      <span class="a-gradient">whynoipv6@protonmail.com</span>
+                    </p>
                   </li>
                 </ul>
               </div>
@@ -193,6 +211,14 @@
                       </svg>
                     </a>
                   </li>
+                  <li class="py-2 border-b border-gray-800">
+                    <a :class="{ 'text-fuchsia-600': page === '6' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '6'">
+                      <span>About Me</span>
+                      <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
+                      </svg>
+                    </a>
+                  </li>
                 </ul>
               </nav>
             </aside>
@@ -224,7 +250,7 @@ export default defineComponent({
     const route = useRoute();
     const page = ref("1"); // Initialize to '1'
 
-    const validPages = ["1", "2", "3", "4", "5"];
+    const validPages = ["1", "2", "3", "4", "5", "6"];
 
     // Set initial value from the query parameter if it's valid
     onMounted(() => {
