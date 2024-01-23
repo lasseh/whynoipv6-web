@@ -4,6 +4,7 @@ export namespace Changelog {
     id: number;
     ts: Date;
     domain: string;
+    domain_url: string;
     message: string;
     ipv6_status: DomainStatus;
   }

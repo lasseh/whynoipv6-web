@@ -33,7 +33,9 @@
               </td>
               <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap text-right">
                 <div class="flex">
-                  <div class="text-slate-100">{{ logItem.domain }}</div>
+                  <div class="text-slate-100">
+                    <router-link :to="logItem.domain_url">{{ logItem.domain }}</router-link>
+                  </div>
                 </div>
               </td>
               <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap md:w-1/2 w-1/2">
