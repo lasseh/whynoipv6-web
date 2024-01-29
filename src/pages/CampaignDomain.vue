@@ -150,6 +150,7 @@ import CampaignService from "@/services/CampaignService";
 import ChangelogService from "@/services/ChangelogService";
 import { Changelog } from "@/types/Changelog";
 import { Campaign } from "@/types/Campaign";
+import { off } from "process";
 
 export default defineComponent({
   name: "CampaignDomainDetail",
@@ -168,18 +169,18 @@ export default defineComponent({
       campaign: {} as Campaign.Campaign,
     });
 
-    async function getDomainDetails(uuid: any, domain: any) {
+    async function getDomainDetails(uuid: string, domain: string) {
       const response = await CampaignService.getCampaignDomain(uuid, domain);
       state.domain = response.data;
 
       document.title = `${state.domain.domain} - Why No IPv6?`;
     }
-    async function getDomainChangelog(uuid: any, domain: any) {
+    async function getDomainChangelog(uuid: string, domain: string) {
       const response = await ChangelogService.getChangelogByCampaignDomain(uuid, domain);
       state.changelogs = response.data;
     }
     async function getCampaign(uuid: string, offset: number) {
-      const response = await CampaignService.getCampaign(uuid, 0);
+      const response = await CampaignService.getCampaign(uuid, offset);
       state.campaign = response.data.campaign;
     }
 
@@ -203,8 +204,8 @@ export default defineComponent({
     onMounted(() => {
       window.scrollTo(0, 0);
       getCampaign(route.params.uuid.toString(), 0);
-      getDomainDetails(route.params.uuid, route.params.domain);
-      getDomainChangelog(route.params.uuid, route.params.domain);
+      getDomainDetails(route.params.uuid as string, route.params.domain as string);
+      getDomainChangelog(route.params.uuid as string, route.params.domain as string);
     });
 
     onUnmounted(() => {
