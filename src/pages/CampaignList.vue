@@ -108,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -167,7 +167,13 @@ export default defineComponent({
     });
 
     onMounted(() => {
+      document.title = "Campaign Overview - Why No IPv6?";
       fetchCampaignList();
+    });
+
+    onUnmounted(() => {
+      state.campaignList = [];
+      document.title = "Why No IPv6?";
     });
 
     return {

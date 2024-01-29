@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -109,7 +109,17 @@ export default defineComponent({
       return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
     });
 
-    onMounted(fetchDomains);
+     // Fetch the campaign on component mount
+    onMounted(() => {
+      window.scrollTo(0, 0);
+      document.title = "IPv6 Sinners & Heroes";
+      fetchDomains();
+    });
+     
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
+    });
+
 
     watch([() => state.offset, queryFilter], fetchDomains);
 

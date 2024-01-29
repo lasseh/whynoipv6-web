@@ -135,7 +135,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -171,6 +171,8 @@ export default defineComponent({
     async function getDomainDetails(uuid: any, domain: any) {
       const response = await CampaignService.getCampaignDomain(uuid, domain);
       state.domain = response.data;
+
+      document.title = `${state.domain.domain} - Why No IPv6?`;
     }
     async function getDomainChangelog(uuid: any, domain: any) {
       const response = await ChangelogService.getChangelogByCampaignDomain(uuid, domain);
@@ -203,6 +205,10 @@ export default defineComponent({
       getCampaign(route.params.uuid.toString(), 0);
       getDomainDetails(route.params.uuid, route.params.domain);
       getDomainChangelog(route.params.uuid, route.params.domain);
+    });
+
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
     });
 
     return {

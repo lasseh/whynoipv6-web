@@ -148,6 +148,8 @@ export default defineComponent({
       const { rating, colorClass } = calculateRating(state.campaign);
       state.campaign.rating = rating;
       state.campaign.colorClass = colorClass;
+
+      document.title = `${state.campaign.name} - Why No IPv6?`;
     }
 
     // Fetch changelog details

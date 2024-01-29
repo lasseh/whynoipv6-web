@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onMounted } from "vue";
+import { defineComponent, ref, watch, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 // Page Layout
@@ -111,9 +111,14 @@ export default defineComponent({
 
     // Initialize queryFilter from URL on mount
     onMounted(() => {
+      document.title = "Metrics - Why No IPv6?";
       if (typeof route.query.t === "string") {
         queryFilter.value = route.query.t;
       }
+    });
+
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
     });
 
     return {

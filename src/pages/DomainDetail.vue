@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -221,8 +221,13 @@ export default defineComponent({
     // Fetch the campaign on component mount
     onMounted(() => {
       window.scrollTo(0, 0);
+      document.title = `${route.params.domain} - Why No IPv6?`;
       getDomainDetails(route.params.domain);
       getDomainChangelog(route.params.domain);
+    });
+
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
     });
 
     return {

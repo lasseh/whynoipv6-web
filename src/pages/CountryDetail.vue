@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -147,6 +147,7 @@ export default defineComponent({
       state.countryInfo.rating = rating;
       state.countryInfo.colorClass = colorClass;
       state.countryInfo.gradientColor = gradientColor;
+      document.title = `${state.countryInfo.country} - Why No IPv6?`;
     }
 
     async function fetchDomains() {
@@ -190,6 +191,10 @@ export default defineComponent({
       window.scrollTo(0, 0);
       getCountryInfo(route.params.id.toString());
       fetchDomains();
+    });
+
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
     });
 
     watch([() => state.offset, queryFilter], fetchDomains);

@@ -54,5 +54,11 @@ export default defineComponent({
     PageIllustration,
     Footer,
   },
+  onMounted() {
+    document.title = "Why No Page?";
+  },
+  onUnmounted() {
+    document.title = "Why No IPv6?";
+  },
 });
 </script>

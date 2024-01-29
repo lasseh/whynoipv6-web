@@ -233,7 +233,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref, onMounted } from "vue";
+import { defineComponent, watch, ref, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
 // Page Layout
@@ -254,10 +254,15 @@ export default defineComponent({
 
     // Set initial value from the query parameter if it's valid
     onMounted(() => {
+      document.title = "FAQ - Why No IPv6?";
       const pageFromQuery = route.query.page;
       if (pageFromQuery && validPages.includes(String(pageFromQuery))) {
         page.value = String(pageFromQuery);
       }
+    });
+
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
     });
 
     // Watch for changes to $route object

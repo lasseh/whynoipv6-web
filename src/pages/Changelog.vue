@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onBeforeUnmount } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onBeforeUnmount, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout components
@@ -119,6 +119,11 @@ export default defineComponent({
     onMounted(() => {
       fetchChangelog();
       intervalId = window.setInterval(fetchChangelog, 30000);
+      document.title = "Changelog | IPv6 Crawler";
+    });
+    
+    onUnmounted(() => {
+      document.title = "Why No IPv6?";
     });
 
     // Clear the component before unmounting

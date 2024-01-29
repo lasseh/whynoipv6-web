@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, PropType } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch, ref, PropType, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -123,7 +123,17 @@ export default defineComponent({
       state.searchString = props.query;
     }
 
-    onMounted(fetchSearchResult);
+       onMounted(() => {
+      document.title = "Search Result - Why No IPv6?";
+      fetchSearchResult();
+    });
+
+      onUnmounted(() => {
+      document.title = "Why No IPv6?";
+      state.domainList = [];
+      state.campaignDomains = [];
+    });
+
     watch(() => props.query, fetchSearchResult);
 
     return {

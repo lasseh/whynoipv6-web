@@ -51,5 +51,8 @@ export default defineComponent({
     TopSinners,
     HomeDomains,
   },
+  onMounted() {
+    document.title = "Why No IPv6?";
+  },
 });
 </script>
