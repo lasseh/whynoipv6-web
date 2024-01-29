@@ -1,5 +1,4 @@
 import API from "./API";
-import { Metric } from "@/types/Metric";
 
 class MetricService {
   getQueryParam(order?: string) {

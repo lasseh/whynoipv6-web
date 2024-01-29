@@ -1,5 +1,4 @@
 import API from "./API";
-import { Country } from "@/types/Country";
 
 class CountryService {
   getCountryList() {

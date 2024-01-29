@@ -1,5 +1,4 @@
 import API from "./API";
-import { Campaign } from "@/types/Campaign";
 
 class CampaignService {
   getCampaignList() {

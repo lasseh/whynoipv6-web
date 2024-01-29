@@ -1,5 +1,4 @@
 import API from "./API";
-import { Changelog } from "@/types/Changelog";
 
 class ChangelogService {
   getChangelog(offset: number) {

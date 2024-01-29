@@ -1,5 +1,4 @@
 import API from "./API";
-import { Domain } from "@/types/Domain";
 
 class DomainService {
   getQueryParam(offset?: number) {
