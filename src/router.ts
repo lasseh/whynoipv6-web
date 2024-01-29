@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import { RouteRecordRaw } from "vue-router";
 
 // Ensure trailing slash
+// TODO: Fix this properly
 const ensureTrailingSlash = (to: any, from: any, next: any) => {
   if (to.path.slice(-1) !== "/") {
     next(`${to.path}/`);
@@ -23,8 +24,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/domain/:domain",
     name: "DomainDetail",
-    component: () => import("@/pages/DomainDetail.vue"),
     beforeEnter: ensureTrailingSlash,
+    component: () => import("@/pages/DomainDetail.vue"),
   },
   {
     path: "/search",
