@@ -172,12 +172,12 @@ export default defineComponent({
       changelogs: [] as Changelog.Log[],
     });
 
-    async function getDomainDetails(domain: any) {
+    async function getDomainDetails(domain: string) {
       const response = await DomainService.getDomainDetails(domain);
       state.domain = response.data;
     }
 
-    async function getDomainChangelog(domain: any) {
+    async function getDomainChangelog(domain: string) {
       const response = await ChangelogService.getChangelogByDomain(domain);
       state.changelogs = response.data;
     }
@@ -222,8 +222,8 @@ export default defineComponent({
     onMounted(() => {
       window.scrollTo(0, 0);
       document.title = `${route.params.domain} - Why No IPv6?`;
-      getDomainDetails(route.params.domain);
-      getDomainChangelog(route.params.domain);
+      getDomainDetails(route.params.domain as string);
+      getDomainChangelog(route.params.domain as string);
     });
 
     onUnmounted(() => {
