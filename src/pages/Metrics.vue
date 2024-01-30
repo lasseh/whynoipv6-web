@@ -83,25 +83,22 @@ export default defineComponent({
     const queryFilter = ref<string>((route.query.t as string) || "overview");
     const error = ref<string | null>(null);
 
-    // Watch for changes in route query and update the local state
+    // Watch for changes in route query
     watch(
       () => route.query.t,
       newFilter => {
-        if (typeof newFilter === "string") {
+        if (typeof newFilter === "string" && newFilter !== queryFilter.value) {
           queryFilter.value = newFilter;
         }
       }
     );
 
+    // Function to update the route
     const updateRoute = (filterType: string) => {
-      router.push({ query: { ...route.query, t: filterType } }).catch(err => {
-        error.value = "Failed to update route";
-        console.error(error.value, err);
-      });
+      router.push({ query: { t: filterType } }).catch(err => {});
     };
 
     const applyFilterAndUpdateRoute = (filterType: string) => {
-      queryFilter.value = filterType;
       updateRoute(filterType);
     };
 

@@ -202,7 +202,7 @@ export default defineComponent({
       // Define common variables
       let tweetText: string;
       // const currentURL = "https://ipv6.fail/domain/google.com/"; // For development
-      const currentURL = window.location.href; // For production
+      const currentURL = window.location.href;
 
       // If numberOfStars is 3 or more, generate a positive tweet
       if (numberOfStars >= 3) {

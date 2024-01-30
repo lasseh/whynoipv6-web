@@ -50,7 +50,7 @@
                 </ul>
               </div>
 
-              <!-- What is Open PRO -->
+              <!-- Crawler -->
               <div v-show="page === '2'">
                 <div class="mb-8">
                   <h2 class="h2 mb-4">Domain Crawler</h2>
@@ -64,10 +64,14 @@
                     <h4 class="text-xl font-medium mb-2">Crawler Frequency</h4>
                     <p class="text-lg text-gray-400">The crawler will check the domain every 3 days.</p>
                   </li>
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2">Crawler Errors</h4>
+                    <p class="text-lg text-gray-400">Did you find any errors from the crawler? PR's are welcome</p>
+                  </li>
                 </ul>
               </div>
 
-              <!-- Open PRO plan’s features -->
+              <!-- Campaigns -->
               <div v-show="page === '3'">
                 <div class="mb-8">
                   <h2 class="h2 mb-4">Campaigns</h2>
@@ -172,7 +176,7 @@
               <nav>
                 <ul>
                   <li class="py-2 border-b border-gray-800">
-                    <a :class="{ 'text-pink-600': page === '1' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '1'">
+                    <a :class="{ 'text-pink-600': page === '1' }" @click.prevent="applyFilterAndUpdateRoute('1')" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>Frequently Asked Questions</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -180,7 +184,7 @@
                     </a>
                   </li>
                   <li class="py-2 border-b border-gray-800">
-                    <a :class="{ 'text-fuchsia-600': page === '2' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '2'">
+                    <a :class="{ 'text-fuchsia-600': page === '2' }" @click.prevent="applyFilterAndUpdateRoute('2')" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>Domain Crawler</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -188,7 +192,7 @@
                     </a>
                   </li>
                   <li class="py-2 border-b border-gray-800">
-                    <a :class="{ 'text-fuchsia-600': page === '3' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '3'">
+                    <a :class="{ 'text-fuchsia-600': page === '3' }" @click.prevent="applyFilterAndUpdateRoute('3')" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>Campaigns</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -196,7 +200,7 @@
                     </a>
                   </li>
                   <li class="py-2 border-b border-gray-800">
-                    <a :class="{ 'text-fuchsia-600': page === '4' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '4'">
+                    <a :class="{ 'text-fuchsia-600': page === '4' }" @click.prevent="applyFilterAndUpdateRoute('4')" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>Resources</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -204,7 +208,7 @@
                     </a>
                   </li>
                   <li class="py-2 border-b border-gray-800">
-                    <a :class="{ 'text-fuchsia-600': page === '5' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '5'">
+                    <a :class="{ 'text-fuchsia-600': page === '5' }" @click.prevent="applyFilterAndUpdateRoute('5')" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>API</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -212,7 +216,7 @@
                     </a>
                   </li>
                   <li class="py-2 border-b border-gray-800">
-                    <a :class="{ 'text-fuchsia-600': page === '6' }" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0" @click.prevent="page = '6'">
+                    <a :class="{ 'text-fuchsia-600': page === '6' }" @click.prevent="applyFilterAndUpdateRoute('6')" class="flex items-center px-3 group text-gray-400 hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>About Me</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -234,7 +238,7 @@
 
 <script lang="ts">
 import { defineComponent, watch, ref, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
@@ -248,9 +252,20 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    const page = ref("1"); // Initialize to '1'
-
+    const router = useRouter();
+    // const page = ref("1"); // Initialize to '1'
+    const page = ref<string>((route.query.page as string) || "1");
     const validPages = ["1", "2", "3", "4", "5", "6"];
+
+    // Function to update the route
+    const updateRoute = (filterType: string) => {
+      router.push({ query: { page: filterType } }).catch(err => {});
+    };
+
+    const applyFilterAndUpdateRoute = (filterType: string) => {
+      page.value = filterType; // Update page state
+      updateRoute(filterType); // Update the route
+    };
 
     // Set initial value from the query parameter if it's valid
     onMounted(() => {
@@ -265,7 +280,7 @@ export default defineComponent({
       document.title = "Why No IPv6?";
     });
 
-    // Watch for changes to $route object
+    // Watch for changes in route query
     watch(
       () => route.query.page,
       newPage => {
@@ -278,6 +293,7 @@ export default defineComponent({
     );
 
     return {
+      applyFilterAndUpdateRoute,
       page,
     };
   },

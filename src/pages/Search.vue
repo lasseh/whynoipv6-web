@@ -123,12 +123,12 @@ export default defineComponent({
       state.searchString = props.query;
     }
 
-       onMounted(() => {
+    onMounted(() => {
       document.title = "Search Result - Why No IPv6?";
       fetchSearchResult();
     });
 
-      onUnmounted(() => {
+    onUnmounted(() => {
       document.title = "Why No IPv6?";
       state.domainList = [];
       state.campaignDomains = [];

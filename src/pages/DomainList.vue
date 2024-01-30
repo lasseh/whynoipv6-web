@@ -109,17 +109,16 @@ export default defineComponent({
       return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
     });
 
-     // Fetch the campaign on component mount
+    // Fetch the campaign on component mount
     onMounted(() => {
       window.scrollTo(0, 0);
       document.title = "IPv6 Sinners & Heroes";
       fetchDomains();
     });
-     
+
     onUnmounted(() => {
       document.title = "Why No IPv6?";
     });
-
 
     watch([() => state.offset, queryFilter], fetchDomains);
 

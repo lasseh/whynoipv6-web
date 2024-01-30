@@ -121,7 +121,7 @@ export default defineComponent({
       intervalId = window.setInterval(fetchChangelog, 30000);
       document.title = "Changelog | IPv6 Crawler";
     });
-    
+
     onUnmounted(() => {
       document.title = "Why No IPv6?";
     });
