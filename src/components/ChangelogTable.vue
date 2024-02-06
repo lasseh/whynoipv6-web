@@ -28,12 +28,12 @@
             <tr v-for="(logItem, index) in changelogs" :key="index" :class="index % 2 === 0 ? '' : 'bg-gray-800'">
               <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap">
                 <div class="flex">
-                  <div class="text-slate-100">{{ formatDateTime(logItem.ts) }}</div>
+                  <div class="text-violet-500">{{ formatDateTime(logItem.ts) }}</div>
                 </div>
               </td>
               <td class="px-2 first:pl-5 last:pr-5 py-2 whitespace-nowrap text-right">
                 <div class="flex">
-                  <div class="text-slate-100">
+                  <div class="text-fuchsia-600">
                     <router-link :to="logItem.domain_url">{{ logItem.domain }}</router-link>
                   </div>
                 </div>

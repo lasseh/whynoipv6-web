@@ -24,7 +24,7 @@
 
             <div class="mb-4">
               <div class="w-full flex flex-wrap -space-x-px">
-                <button @click="applyFilter('alexa')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'alexa' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Alexa 1M</button>
+                <button @click="applyFilter('alexa')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'alexa' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Alexa</button>
                 <button @click="applyFilter('campaign')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'campaign' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Campaigns</button>
               </div>
             </div>
