@@ -15,6 +15,7 @@
       <Searchbar />
       <TopSinners />
       <HomeDomains />
+      <Notification />
     </main>
 
     <!-- Site footer -->
@@ -35,6 +36,7 @@ import MetricTotals from "@/partials/HomeMetric.vue";
 import TopSinners from "@/partials/HomeSinners.vue";
 import Searchbar from "@/partials/Searchbar.vue";
 import HomeDomains from "@/partials/HomeDomains.vue";
+import Notification from "@/components/Notification.vue";
 
 // Services
 
@@ -50,6 +52,7 @@ export default defineComponent({
     MetricTotals,
     TopSinners,
     HomeDomains,
+    Notification,
   },
   onMounted() {
     document.title = "Why No IPv6?";
