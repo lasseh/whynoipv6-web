@@ -19,42 +19,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script lang="ts" setup>
+import { computed, toRefs } from "vue";
 import { Metric } from "@/types/Metric";
 
-export default defineComponent({
-  name: "ASNProgress",
-  props: {
-    asn: {
-      type: Object as () => Metric.ASN,
-      required: true,
-    },
-  },
-  setup(props) {
-    const calculatePercentage = (count_v4 = 0, count_v6 = 0) => {
-      const total = count_v4 + count_v6;
-      if (total === 0) return ["0%", "0%"];
-      return [`${((count_v4 / total) * 100).toFixed(2)}%`, `${((count_v6 / total) * 100).toFixed(2)}%`];
-    };
+const props = defineProps<{
+  asn: Metric.ASN;
+}>();
 
-    const percentages = computed(() => calculatePercentage(props.asn.count_v4, props.asn.count_v6));
-    const [percentIPv4, percentIPv6] = percentages.value;
+const { asn } = toRefs(props);
 
-    const formattedCountV4 = computed(() => formatLargeNumber(props.asn.count_v4));
-    const formattedCountV6 = computed(() => formatLargeNumber(props.asn.count_v6));
+const calculatePercentage = (count_v4 = 0, count_v6 = 0) => {
+  const total = count_v4 + count_v6;
+  if (total === 0) return ["0%", "0%"];
+  return [`${((count_v4 / total) * 100).toFixed(2)}%`, `${((count_v6 / total) * 100).toFixed(2)}%`];
+};
 
-    function formatLargeNumber(number?: number): string {
-      if (!number) return "0";
-      return number >= 1000 ? `${(number / 1000).toFixed(0)}k` : number.toString();
-    }
+const percentages = computed(() => calculatePercentage(props.asn.count_v4, props.asn.count_v6));
+const [percentIPv4, percentIPv6] = percentages.value;
 
-    return {
-      percentIPv4,
-      percentIPv6,
-      formattedCountV4,
-      formattedCountV6,
-    };
-  },
-});
+const formattedCountV4 = computed(() => formatLargeNumber(props.asn.count_v4));
+const formattedCountV6 = computed(() => formatLargeNumber(props.asn.count_v6));
+
+function formatLargeNumber(number?: number): string {
+  if (!number) return "0";
+  return number >= 1000 ? `${(number / 1000).toFixed(0)}k` : number.toString();
+}
 </script>

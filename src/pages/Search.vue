@@ -63,8 +63,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, PropType, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, watch, ref, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -80,66 +80,49 @@ import CampaignService from "@/services/CampaignService";
 import { Domain } from "@/types/Domain";
 import { Campaign } from "@/types/Campaign";
 
-export default defineComponent({
-  name: "SearchPage",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    DomainTable,
-    CampaignDomainTable,
-  },
-  props: {
-    query: {
-      type: String as PropType<string>,
-      default: "",
-    },
-  },
-  setup(props) {
-    const router = useRouter();
-    const route = useRoute();
-    const initialOffset = parseInt(route.query.offset as string) || 0;
-    const state = reactive({
-      domainList: Array<Domain.Domain>(),
-      campaignDomains: Array<Campaign.CampaignDomain>(),
-      searchString: ref(props.query),
-      offset: initialOffset,
-    });
+const props = defineProps<{
+  query: string;
+}>();
 
-    async function fetchSearchResult() {
-      // If the query is empty, don't fetch anything
-      if (!props.query || props.query === "undefined") {
-        state.domainList = [];
-        state.campaignDomains = [];
-        return;
-      }
-
-      const domainResponse = await DomainService.searchDomain(props.query, state.offset);
-      state.domainList = domainResponse.data.data;
-
-      const campaignResponse = await CampaignService.searchDomain(props.query, state.offset);
-      state.campaignDomains = campaignResponse.data.data;
-
-      state.searchString = props.query;
-    }
-
-    onMounted(() => {
-      document.title = "Search Result - Why No IPv6?";
-      fetchSearchResult();
-    });
-
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-      state.domainList = [];
-      state.campaignDomains = [];
-    });
-
-    watch(() => props.query, fetchSearchResult);
-
-    return {
-      ...toRefs(state),
-      fetchSearchResult,
-    };
-  },
+const router = useRouter();
+const route = useRoute();
+const initialOffset = parseInt(route.query.offset as string) || 0;
+const state = reactive({
+  domainList: Array<Domain.Domain>(),
+  campaignDomains: Array<Campaign.CampaignDomain>(),
+  searchString: ref(props.query),
+  offset: initialOffset,
 });
+
+const { domainList, campaignDomains, searchString, offset } = toRefs(state);
+
+async function fetchSearchResult() {
+  // If the query is empty, don't fetch anything
+  if (!props.query || props.query === "undefined") {
+    state.domainList = [];
+    state.campaignDomains = [];
+    return;
+  }
+
+  const domainResponse = await DomainService.searchDomain(props.query, state.offset);
+  state.domainList = domainResponse.data.data;
+
+  const campaignResponse = await CampaignService.searchDomain(props.query, state.offset);
+  state.campaignDomains = campaignResponse.data.data;
+
+  state.searchString = props.query;
+}
+
+onMounted(() => {
+  document.title = "Search Result - Why No IPv6?";
+  fetchSearchResult();
+});
+
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
+  state.domainList = [];
+  state.campaignDomains = [];
+});
+
+watch(() => props.query, fetchSearchResult);
 </script>

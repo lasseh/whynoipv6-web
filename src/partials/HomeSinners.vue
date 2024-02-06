@@ -50,8 +50,8 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs } from "vue";
 
 // Page Layout
 import { CrossIcon } from "@/partials";
@@ -62,55 +62,45 @@ import { Domain } from "@/types/Domain";
 
 // Images
 
-export default defineComponent({
-  name: "Sinners",
-  components: {
-    CrossIcon,
+const state = reactive({
+  domainSinners: [] as Domain.Domain[],
+  splitDomainShamers: [] as Domain.Domain[][], // Split domains
+  randomTestimonial: {} as { statement: string; name: string; url: string; urlTitle: string; imageUrl: string },
+});
+
+const { domainSinners, splitDomainShamers, randomTestimonial } = toRefs(state);
+
+const testimonials = [
+  {
+    statement: "IPv6 is no longer an option, it's mandatory",
+    name: "Scott Hogg",
+    url: "https://packetpushers.net/series/ipv6-buzz/",
+    urlTitle: "IPv6 Buzz",
+    imageUrl: "/images/scott.jpg",
   },
-  setup() {
-    const state = reactive({
-      domainSinners: [] as Domain.Domain[],
-      splitDomainShamers: [] as Domain.Domain[][], // Split domains
-      randomTestimonial: {} as { statement: string; name: string; url: string; urlTitle: string; imageUrl: string },
-    });
-
-    const testimonials = [
-      {
-        statement: "IPv6 is no longer an option, it's mandatory",
-        name: "Scott Hogg",
-        url: "https://packetpushers.net/series/ipv6-buzz/",
-        urlTitle: "IPv6 Buzz",
-        imageUrl: "/images/scott.jpg",
-      },
-      {
-        statement: "Get IPv6, or get bust!",
-        name: "Karl Gustav",
-        url: "https://example.com",
-        urlTitle: "king.se",
-        imageUrl: "/images/sweden.png",
-      },
-      // Add more testimonials here
-    ];
-
-    function getRandomTestimonial() {
-      const randomIndex = Math.floor(Math.random() * testimonials.length);
-      state.randomTestimonial = testimonials[randomIndex];
-    }
-
-    async function getDomainShamers() {
-      const response = await DomainService.getTopShame();
-      state.domainSinners = response.data;
-      const midpoint = Math.ceil(state.domainSinners.length / 2);
-      state.splitDomainShamers = [state.domainSinners.slice(0, midpoint), state.domainSinners.slice(midpoint)];
-    }
-    onMounted(() => {
-      getDomainShamers();
-      getRandomTestimonial();
-    });
-    return {
-      ...toRefs(state),
-      getDomainShamers,
-    };
+  {
+    statement: "Get IPv6, or get bust!",
+    name: "Karl Gustav",
+    url: "https://example.com",
+    urlTitle: "king.se",
+    imageUrl: "/images/sweden.png",
   },
+  // Add more testimonials here
+];
+
+function getRandomTestimonial() {
+  const randomIndex = Math.floor(Math.random() * testimonials.length);
+  state.randomTestimonial = testimonials[randomIndex];
+}
+
+async function getDomainShamers() {
+  const response = await DomainService.getTopShame();
+  state.domainSinners = response.data;
+  const midpoint = Math.ceil(state.domainSinners.length / 2);
+  state.splitDomainShamers = [state.domainSinners.slice(0, midpoint), state.domainSinners.slice(midpoint)];
+}
+onMounted(() => {
+  getDomainShamers();
+  getRandomTestimonial();
 });
 </script>

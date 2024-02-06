@@ -45,8 +45,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onBeforeUnmount, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, watch, ref, Ref, computed, onBeforeUnmount, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout components
@@ -62,102 +62,82 @@ import ChangelogService from "@/services/ChangelogService";
 // Types
 import { Changelog } from "@/types/Changelog";
 
-export default defineComponent({
-  name: "Changelog",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    ChangelogTable,
-    Pagination,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const initialOffset = parseInt(route.query.offset as string) || 0;
-    let intervalId: number | undefined;
-    const state = reactive({
-      changelog: [] as Changelog.Log[],
-      offset: initialOffset,
-    });
-
-    async function fetchChangelog() {
-      await getChangelog(state.offset, queryFilter.value);
-    }
-
-    async function getChangelog(offset: number, filter: string): Promise<void> {
-      let response;
-      switch (filter.toLowerCase()) {
-        case "campaign":
-          response = await ChangelogService.getCampaignChangelog(offset);
-          break;
-        case "alexa":
-        default:
-          response = await ChangelogService.getChangelog(offset);
-          break;
-      }
-      state.changelog = response.data;
-    }
-
-    function applyFilter(filter: string) {
-      state.offset = 0; // Reset offset to 0 when a new filter is applied
-      router.push({ query: { filter } });
-    }
-
-    const queryFilter = computed(() => {
-      const filterValue = route.query.filter;
-      if (filterValue === null || typeof filterValue === "undefined") return "alexa";
-      return Array.isArray(filterValue) ? filterValue[0] || "alexa" : filterValue;
-    });
-
-    // Computed property for header text
-    const changelogHeader = computed(() => {
-      return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Alexa";
-    });
-
-    // Fetch the campaign details on component mount
-    onMounted(() => {
-      fetchChangelog();
-      intervalId = window.setInterval(fetchChangelog, 30000);
-      document.title = "Changelog | IPv6 Crawler";
-    });
-
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
-
-    // Clear the component before unmounting
-    onBeforeUnmount(() => {
-      if (intervalId !== undefined) {
-        clearInterval(intervalId);
-      }
-    });
-
-    // Pagination
-    const anchorTop: Ref<HTMLElement | null> = ref(null);
-    const scrollToAnchor = () => {
-      if (anchorTop.value) {
-        anchorTop.value.scrollIntoView({ behavior: "auto" });
-      }
-    };
-    const updateOffset = (newOffset: number) => {
-      scrollToAnchor();
-      state.offset = newOffset;
-      router.push({ query: { ...route.query, offset: newOffset.toString() } });
-    };
-
-    // Watch for changes in the offset query parameter
-    watch([() => state.offset, queryFilter], fetchChangelog);
-
-    return {
-      ...toRefs(state),
-      scrollToAnchor,
-      anchorTop,
-      updateOffset,
-      applyFilter,
-      queryFilter,
-      changelogHeader,
-    };
-  },
+const router = useRouter();
+const route = useRoute();
+const initialOffset = parseInt(route.query.offset as string) || 0;
+let intervalId: number | undefined;
+const state = reactive({
+  changelog: [] as Changelog.Log[],
+  offset: initialOffset,
 });
+
+const { changelog, offset } = toRefs(state);
+
+async function fetchChangelog() {
+  await getChangelog(state.offset, queryFilter.value);
+}
+
+async function getChangelog(offset: number, filter: string): Promise<void> {
+  let response;
+  switch (filter.toLowerCase()) {
+    case "campaign":
+      response = await ChangelogService.getCampaignChangelog(offset);
+      break;
+    case "alexa":
+    default:
+      response = await ChangelogService.getChangelog(offset);
+      break;
+  }
+  state.changelog = response.data;
+}
+
+function applyFilter(filter: string) {
+  state.offset = 0; // Reset offset to 0 when a new filter is applied
+  router.push({ query: { filter } });
+}
+
+const queryFilter = computed(() => {
+  const filterValue = route.query.filter;
+  if (filterValue === null || typeof filterValue === "undefined") return "alexa";
+  return Array.isArray(filterValue) ? filterValue[0] || "alexa" : filterValue;
+});
+
+// Computed property for header text
+const changelogHeader = computed(() => {
+  return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Alexa";
+});
+
+// Fetch the campaign details on component mount
+onMounted(() => {
+  fetchChangelog();
+  intervalId = window.setInterval(fetchChangelog, 30000);
+  document.title = "Changelog | IPv6 Crawler";
+});
+
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
+});
+
+// Clear the component before unmounting
+onBeforeUnmount(() => {
+  if (intervalId !== undefined) {
+    clearInterval(intervalId);
+  }
+});
+
+// Pagination
+const anchorTop: Ref<HTMLElement | null> = ref(null);
+const scrollToAnchor = () => {
+  if (anchorTop.value) {
+    anchorTop.value.scrollIntoView({ behavior: "auto" });
+  }
+};
+const updateOffset = (newOffset: number) => {
+  scrollToAnchor();
+  state.offset = newOffset;
+  router.push({ query: { ...route.query, offset: newOffset.toString() } });
+};
+
+// Watch for changes in the offset query parameter
+watch([() => state.offset, queryFilter], fetchChangelog);
 </script>

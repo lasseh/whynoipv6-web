@@ -80,10 +80,4 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "HomeSaaS",
-});
-</script>
+<script lang="ts" setup></script>

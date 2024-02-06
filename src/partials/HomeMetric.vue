@@ -27,44 +27,35 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs } from "vue";
 
 // Services
 import MetricService from "@/services/MetricService";
 import { Metric } from "@/types/Metric";
 
-export default defineComponent({
-  name: "Metrics",
-  components: {},
-  setup() {
-    const state = reactive({
-      totalsData: [] as Metric.Totals,
-      isLoading: true,
-    });
-    async function getTotals() {
-      const response = await MetricService.getTotals();
-      state.totalsData = response.data;
-      state.isLoading = false;
-    }
-
-    onMounted(() => {
-      getTotals();
-    });
-
-    return {
-      ...toRefs(state),
-      getTotals,
-    };
-  },
-  methods: {
-    formatLargeNumber(number: number): string {
-      if (number >= 1000) {
-        return (number / 1000).toFixed(0) + "K";
-      } else {
-        return number.toString();
-      }
-    },
-  },
+const state = reactive({
+  totalsData: [] as Metric.Totals,
+  isLoading: true,
 });
+
+const { totalsData, isLoading } = toRefs(state);
+
+async function getTotals() {
+  const response = await MetricService.getTotals();
+  state.totalsData = response.data;
+  state.isLoading = false;
+}
+
+onMounted(() => {
+  getTotals();
+});
+
+const formatLargeNumber = (number: number) => {
+  if (number >= 1000) {
+    return (number / 1000).toFixed(0) + "K";
+  } else {
+    return number.toString();
+  }
+};
 </script>

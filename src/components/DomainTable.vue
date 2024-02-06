@@ -95,8 +95,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+<script lang="ts" setup>
+import { ref, computed, toRefs } from "vue";
 
 // Page Layout
 import { CheckIcon, CrossIcon, MinusIcon } from "@/partials";
@@ -104,37 +104,26 @@ import { CheckIcon, CrossIcon, MinusIcon } from "@/partials";
 // Services
 import { Domain } from "@/types/Domain";
 
-export default defineComponent({
-  name: "DomainTable",
-  props: {
-    domains: {
-      type: Array as () => Domain.Domain[],
-      default: () => [],
-    },
-  },
-  components: {
-    CheckIcon,
-    CrossIcon,
-    MinusIcon,
-  },
-  setup() {
-    // Ref for tracking hover state
-    const hoverIndex = ref<number | null>(null);
+interface Props {
+  domains: Array<Domain.Domain>;
+}
 
-    // Handler for mouseover and mouseout events
-    const handleMouseOver = (index: number, isHovered: boolean) => {
-      hoverIndex.value = isHovered ? index : null;
-    };
+const props = withDefaults(defineProps<Props>(), {
+  domains: () => [],
+});
 
-    // Compute class for rank based on hover state
-    const computeRankClass = computed(() => (index: number) => {
-      return hoverIndex.value === index ? "bg-fuchsia-900" : "bg-zinc-700/50";
-    });
+const { domains } = toRefs(props);
 
-    return {
-      handleMouseOver,
-      computeRankClass,
-    };
-  },
+// Ref for tracking hover state
+const hoverIndex = ref<number | null>(null);
+
+// Handler for mouseover and mouseout events
+const handleMouseOver = (index: number, isHovered: boolean) => {
+  hoverIndex.value = isHovered ? index : null;
+};
+
+// Compute class for rank based on hover state
+const computeRankClass = computed(() => (index: number) => {
+  return hoverIndex.value === index ? "bg-fuchsia-900" : "bg-zinc-700/50";
 });
 </script>

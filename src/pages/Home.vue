@@ -23,39 +23,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { onMounted } from "vue";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
-import HomeInfo from "@/partials/HomeInfo.vue";
 import HomeSaaS from "@/partials/HomeSaaS.vue";
-import MetricTotals from "@/partials/HomeMetric.vue";
 import TopSinners from "@/partials/HomeSinners.vue";
 import Searchbar from "@/partials/Searchbar.vue";
 import HomeDomains from "@/partials/HomeDomains.vue";
 import Notification from "@/components/Notification.vue";
 
 // Services
-
-export default defineComponent({
-  name: "Home",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    HomeInfo,
-    HomeSaaS,
-    Searchbar,
-    MetricTotals,
-    TopSinners,
-    HomeDomains,
-    Notification,
-  },
-  onMounted() {
-    document.title = "Why No IPv6?";
-  },
+onMounted(() => {
+  document.title = "Why No IPv6?";
 });
 </script>

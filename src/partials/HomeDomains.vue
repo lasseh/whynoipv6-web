@@ -31,8 +31,8 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs } from "vue";
 
 // Partials
 import DomainTable from "@/components/DomainTable.vue";
@@ -41,29 +41,19 @@ import DomainTable from "@/components/DomainTable.vue";
 import DomainService from "@/services/DomainService";
 import { Domain } from "@/types/Domain";
 
-export default defineComponent({
-  name: "HomeDomains",
-  components: {
-    DomainTable,
-  },
-  setup() {
-    const state = reactive({
-      domainList: [] as Domain.Domain[],
-    });
+const state = reactive({
+  domainList: [] as Domain.Domain[],
+});
 
-    async function getDomainList(offset: number) {
-      const response = await DomainService.getDomainList();
-      state.domainList = response.data;
-    }
+const { domainList } = toRefs(state);
 
-    // Fetch the campaign on component mount
-    onMounted(() => {
-      getDomainList(0);
-    });
+async function getDomainList(offset: number) {
+  const response = await DomainService.getDomainList();
+  state.domainList = response.data;
+}
 
-    return {
-      ...toRefs(state),
-    };
-  },
+// Fetch the campaign on component mount
+onMounted(() => {
+  getDomainList(0);
 });
 </script>

@@ -83,9 +83,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
@@ -98,57 +97,41 @@ import { calculateRating } from "@/utils/Rating";
 import CountryService from "@/services/CountryService";
 import { Country } from "@/types/Country";
 
-export default defineComponent({
-  name: "CountryList",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    CountryFlag,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const state = reactive({
-      countryList: [] as Country.Country[],
-      searchQuery: "",
-    });
+const state = reactive({
+  countryList: [] as Country.Country[],
+  searchQuery: "",
+});
 
-    async function fetchCountryList() {
-      const response = await CountryService.getCountryList();
-      state.countryList = response.data;
+const { countryList, searchQuery } = toRefs(state);
 
-      // calculate rating per country
-      state.countryList.forEach(country => {
-        const { rating, colorClass, gradientColor } = calculateRating(country);
-        country.rating = rating;
-        country.colorClass = colorClass;
-        country.gradientColor = gradientColor;
-      });
-    }
+async function fetchCountryList() {
+  const response = await CountryService.getCountryList();
+  state.countryList = response.data;
 
-    // A computed property to get the filtered country list based on the search query
-    const filteredCountryList = computed(() => {
-      if (!state.searchQuery) {
-        return state.countryList;
-      }
-      return state.countryList.filter(country => country.country.toLowerCase().includes(state.searchQuery.toLowerCase()));
-    });
+  // calculate rating per country
+  state.countryList.forEach(country => {
+    const { rating, colorClass, gradientColor } = calculateRating(country);
+    country.rating = rating;
+    country.colorClass = colorClass;
+    country.gradientColor = gradientColor;
+  });
+}
 
-    onMounted(() => {
-      document.title = "Country Overview - Why No IPv6?";
-      fetchCountryList();
-    });
+// A computed property to get the filtered country list based on the search query
+const filteredCountryList = computed(() => {
+  if (!state.searchQuery) {
+    return state.countryList;
+  }
+  return state.countryList.filter(country => country.country.toLowerCase().includes(state.searchQuery.toLowerCase()));
+});
 
-    onUnmounted(() => {
-      state.countryList = [];
-      document.title = "Why No IPv6?";
-    });
+onMounted(() => {
+  document.title = "Country Overview - Why No IPv6?";
+  fetchCountryList();
+});
 
-    return {
-      ...toRefs(state),
-      filteredCountryList,
-    };
-  },
+onUnmounted(() => {
+  state.countryList = [];
+  document.title = "Why No IPv6?";
 });
 </script>

@@ -47,8 +47,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, watch, ref, Ref, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -62,87 +62,68 @@ import Pagination from "@/components/Pagination.vue";
 import DomainService from "@/services/DomainService";
 import { Domain } from "@/types/Domain";
 
-export default defineComponent({
-  name: "DomainList",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    DomainTable,
-    Pagination,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const initialOffset = parseInt(route.query.offset as string) || 0;
-    const state = reactive({
-      domainList: [] as Domain.Domain[],
-      offset: initialOffset,
-    });
-
-    async function fetchDomains() {
-      await getDomains(state.offset, queryFilter.value);
-    }
-
-    async function getDomains(offset: number, filter: string) {
-      let response;
-      switch (filter.toLowerCase()) {
-        case "heroes":
-          response = await DomainService.getDomainHeroes(offset);
-          break;
-        case "sinners":
-        default:
-          response = await DomainService.getDomainList(offset);
-          break;
-      }
-      state.domainList = response.data;
-    }
-
-    function applyFilter(filter: string) {
-      state.offset = 0; // Reset offset to 0 when a new filter is applied
-      router.push({ query: { filter } });
-    }
-
-    const queryFilter = computed(() => {
-      const filterValue = route.query.filter;
-      if (filterValue === null || typeof filterValue === "undefined") return "sinners";
-      return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
-    });
-
-    // Fetch the campaign on component mount
-    onMounted(() => {
-      window.scrollTo(0, 0);
-      document.title = "IPv6 Sinners & Heroes";
-      fetchDomains();
-    });
-
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
-
-    watch([() => state.offset, queryFilter], fetchDomains);
-
-    // Pagination
-    const anchorTop: Ref<HTMLElement | null> = ref(null);
-    const scrollToAnchor = () => {
-      if (anchorTop.value) {
-        anchorTop.value.scrollIntoView({ behavior: "auto" });
-      }
-    };
-    const updateOffset = (newOffset: number) => {
-      scrollToAnchor();
-      state.offset = newOffset;
-      router.push({ query: { ...route.query, offset: newOffset.toString() } });
-    };
-
-    return {
-      ...toRefs(state),
-      scrollToAnchor,
-      anchorTop,
-      applyFilter,
-      updateOffset,
-      queryFilter,
-    };
-  },
+const router = useRouter();
+const route = useRoute();
+const initialOffset = parseInt(route.query.offset as string) || 0;
+const state = reactive({
+  domainList: [] as Domain.Domain[],
+  offset: initialOffset,
 });
+
+const { domainList, offset } = toRefs(state);
+
+async function fetchDomains() {
+  await getDomains(state.offset, queryFilter.value);
+}
+
+async function getDomains(offset: number, filter: string) {
+  let response;
+  switch (filter.toLowerCase()) {
+    case "heroes":
+      response = await DomainService.getDomainHeroes(offset);
+      break;
+    case "sinners":
+    default:
+      response = await DomainService.getDomainList(offset);
+      break;
+  }
+  state.domainList = response.data;
+}
+
+function applyFilter(filter: string) {
+  state.offset = 0; // Reset offset to 0 when a new filter is applied
+  router.push({ query: { filter } });
+}
+
+const queryFilter = computed(() => {
+  const filterValue = route.query.filter;
+  if (filterValue === null || typeof filterValue === "undefined") return "sinners";
+  return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
+});
+
+// Fetch the campaign on component mount
+onMounted(() => {
+  window.scrollTo(0, 0);
+  document.title = "IPv6 Sinners & Heroes";
+  fetchDomains();
+});
+
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
+});
+
+watch([() => state.offset, queryFilter], fetchDomains);
+
+// Pagination
+const anchorTop: Ref<HTMLElement | null> = ref(null);
+const scrollToAnchor = () => {
+  if (anchorTop.value) {
+    anchorTop.value.scrollIntoView({ behavior: "auto" });
+  }
+};
+const updateOffset = (newOffset: number) => {
+  scrollToAnchor();
+  state.offset = newOffset;
+  router.push({ query: { ...route.query, offset: newOffset.toString() } });
+};
 </script>

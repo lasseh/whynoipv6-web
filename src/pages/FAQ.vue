@@ -266,66 +266,51 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, watch, ref, onMounted, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { watch, ref, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
 
-export default defineComponent({
-  name: "FAQ",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-  },
-  setup() {
-    const route = useRoute();
-    const router = useRouter();
-    // const page = ref("1"); // Initialize to '1'
-    const page = ref<string>((route.query.page as string) || "1");
-    const validPages = ["1", "2", "3", "4", "5", "6", "7"];
+const route = useRoute();
+const router = useRouter();
+// const page = ref("1"); // Initialize to '1'
+const page = ref<string>((route.query.page as string) || "1");
+const validPages = ["1", "2", "3", "4", "5", "6", "7"];
 
-    // Function to update the route
-    const updateRoute = (filterType: string) => {
-      router.push({ query: { page: filterType } }).catch(err => {});
-    };
+// Function to update the route
+const updateRoute = (filterType: string) => {
+  router.push({ query: { page: filterType } }).catch(err => {});
+};
 
-    const applyFilterAndUpdateRoute = (filterType: string) => {
-      page.value = filterType; // Update page state
-      updateRoute(filterType); // Update the route
-    };
+const applyFilterAndUpdateRoute = (filterType: string) => {
+  page.value = filterType; // Update page state
+  updateRoute(filterType); // Update the route
+};
 
-    // Set initial value from the query parameter if it's valid
-    onMounted(() => {
-      document.title = "FAQ - Why No IPv6?";
-      const pageFromQuery = route.query.page;
-      if (pageFromQuery && validPages.includes(String(pageFromQuery))) {
-        page.value = String(pageFromQuery);
-      }
-    });
-
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
-
-    // Watch for changes in route query
-    watch(
-      () => route.query.page,
-      newPage => {
-        if (newPage && validPages.includes(String(newPage))) {
-          page.value = String(newPage);
-        } else {
-          page.value = "1";
-        }
-      }
-    );
-
-    return {
-      applyFilterAndUpdateRoute,
-      page,
-    };
-  },
+// Set initial value from the query parameter if it's valid
+onMounted(() => {
+  document.title = "FAQ - Why No IPv6?";
+  const pageFromQuery = route.query.page;
+  if (pageFromQuery && validPages.includes(String(pageFromQuery))) {
+    page.value = String(pageFromQuery);
+  }
 });
+
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
+});
+
+// Watch for changes in route query
+watch(
+  () => route.query.page,
+  newPage => {
+    if (newPage && validPages.includes(String(newPage))) {
+      page.value = String(newPage);
+    } else {
+      page.value = "1";
+    }
+  }
+);
 </script>

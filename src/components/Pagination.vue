@@ -17,49 +17,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from "vue";
+<script lang="ts" setup>
+import { computed } from "vue";
 
-export default defineComponent({
-  name: "PaginationComponent",
-  props: {
-    offset: {
-      type: Number,
-      required: true,
-    },
-    domainsLength: {
-      type: Number,
-      required: true,
-    },
-    updateOffset: {
-      type: Function as PropType<(newOffset: number) => void>,
-      required: true,
-    },
-    scrollToAnchor: {
-      type: Function as PropType<() => void>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const isPreviousDisabled = computed(() => props.offset === 0);
-    const isNextDisabled = computed(() => props.domainsLength < 50);
+const props = defineProps<{
+  offset: number;
+  domainsLength: number;
+  updateOffset: (newOffset: number) => void;
+  scrollToAnchor: () => void;
+}>();
 
-    const goPrevious = () => {
-      props.scrollToAnchor();
-      props.updateOffset(Math.max(0, props.offset - 50));
-    };
+const isPreviousDisabled = computed(() => props.offset === 0);
+const isNextDisabled = computed(() => props.domainsLength < 50);
 
-    const goNext = () => {
-      props.scrollToAnchor();
-      props.updateOffset(props.offset + 50);
-    };
+const goPrevious = () => {
+  props.scrollToAnchor();
+  props.updateOffset(Math.max(0, props.offset - 50));
+};
 
-    return {
-      isPreviousDisabled,
-      isNextDisabled,
-      goPrevious,
-      goNext,
-    };
-  },
-});
+const goNext = () => {
+  props.scrollToAnchor();
+  props.updateOffset(props.offset + 50);
+};
 </script>
