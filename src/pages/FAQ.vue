@@ -141,8 +141,30 @@
                   </li>
                 </ul>
               </div>
-              <!-- About Me -->
+              <!-- Swag -->
               <div v-show="page === '6'">
+                <div class="mb-8">
+                  <h2 class="h2 mb-4">Swag</h2>
+                </div>
+                <ul class="-my-4">
+                  <li class="py-4">
+                    <h4 class="text-xl font-medium mb-2">Stickers!</h4>
+                    <p class="text-lg text-gray-400">Vandalize your local IPv6 sinners!</p>
+                    <!-- Image -->
+                    <div class="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1" data-aos="fade-up" data-aos-anchor="[data-aos-id-features-home]">
+                      <div class="relative">
+                        <img class="hidden md:block md:max-w-none" src="/images/WhyNoSticker-2.png" height="200" alt="Shame" />
+                      </div>
+                    </div>
+                    <p class="text-lg text-gray-400">
+                      Order your's today here:
+                      <a href="#" class="a-gradient">StickerMule</a>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <!-- About Me -->
+              <div v-show="page === '7'">
                 <div class="mb-8">
                   <h2 class="h2 mb-4">About Me</h2>
                 </div>
@@ -217,6 +239,14 @@
                   </li>
                   <li class="py-2 border-b border-gray-800">
                     <a :class="page === '6' ? 'text-fuchsia-600' : 'text-gray-400'" @click.prevent="applyFilterAndUpdateRoute('6')" class="flex items-center px-3 group hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
+                      <span>Swag</span>
+                      <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
+                      </svg>
+                    </a>
+                  </li>
+                  <li class="py-2 border-b border-gray-800">
+                    <a :class="page === '7' ? 'text-fuchsia-600' : 'text-gray-400'" @click.prevent="applyFilterAndUpdateRoute('7')" class="flex items-center px-3 group hover:text-fuchsia-600 transition duration-150 ease-in-out" href="#0">
                       <span>About Me</span>
                       <svg class="w-3 h-3 fill-current shrink-0 ml-2 opacity-0 group-hover:opacity-100 group-hover:text-fuchsia-600 group-hover:translate-x-1 transition duration-150 ease-in-out transform" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" />
@@ -255,7 +285,7 @@ export default defineComponent({
     const router = useRouter();
     // const page = ref("1"); // Initialize to '1'
     const page = ref<string>((route.query.page as string) || "1");
-    const validPages = ["1", "2", "3", "4", "5", "6"];
+    const validPages = ["1", "2", "3", "4", "5", "6", "7"];
 
     // Function to update the route
     const updateRoute = (filterType: string) => {
