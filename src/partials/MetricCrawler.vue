@@ -2,8 +2,20 @@
   <section v-if="!isLoading && totalsData.length > 0">
     <header class="mb-8">
       <div class="text-left">
-        <h3 class="h4 mb-1">Data Overview</h3>
-        <p class="text-l text-gray-400">The Alexa list contains 1 million domains, but not all of them exist. Here's the data for valid domains and their support for IPv6.</p>
+        <h3 class="h4 mb-1">Overview</h3>
+        <!-- <p class="text-l text-gray-400">The Alexa list contains 1 million domains, but not all of them exist. Here's the data for valid domains and their support for IPv6.</p> -->
+        <p class="text-lg text-gray-400 mb-2">
+          In a detailed examination of IPv6 adoption, it's observed that among the top 1000 websites ranked by Alexa, only
+          <span class="text-fuchsia-600">{{ totalsData[0].data.top_heroes }}</span>
+          have IPv6 enabled. Furthermore, while
+          <span class="text-fuchsia-600">{{ totalsData[0].data.top_nameserver }}</span>
+          of these sites' nameservers support IPv6, indicating a slightly better uptake in infrastructure readiness, the overall picture across a wider dataset of
+          <span class="text-fuchsia-600">{{ totalsData[0].data.domains }}</span>
+          sites is less optimistic, with just
+          <span class="text-fuchsia-600">{{ percentages }}</span>
+          adopting IPv6.
+        </p>
+        <p class="text-lg text-gray-400">This slow transition to the more advanced, secure, and efficient IPv6 is concerning, especially considering its importance for the future scalability of the internet. The data highlights a significant lag in the global shift towards modern internet protocols, emphasizing the need for accelerated adoption efforts.</p>
       </div>
     </header>
 
@@ -53,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, toRefs } from "vue";
+import { onMounted, reactive, toRefs, computed } from "vue";
 
 // Services
 import MetricService from "@/services/MetricService";
@@ -71,6 +83,14 @@ async function getTotals() {
   state.totalsData = response.data;
   state.isLoading = false;
 }
+
+const calculatePercentage = (count_v4 = 0, count_v6 = 0) => {
+  const total = count_v4 + count_v6;
+  if (total === 0) return ["0%", "0%"];
+  return `${((count_v6 / total) * 100).toFixed(1)}%`;
+};
+
+const percentages = computed(() => calculatePercentage(state.totalsData[0].data.domains, state.totalsData[0].data.heroes));
 
 onMounted(() => {
   getTotals();
