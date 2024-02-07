@@ -51,8 +51,8 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, onUnmounted, computed, ref, PropType, watch } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, onUnmounted, computed, ref, PropType, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 // Services
@@ -60,102 +60,90 @@ import MetricService from "@/services/MetricService";
 import { Metric } from "@/types/Metric";
 import NetworkProvider from "@/components/NetworkProvider.vue";
 
-export default defineComponent({
-  name: "MetricsASN",
-  components: {
-    NetworkProvider,
-  },
-  props: {
-    query: {
-      type: String as PropType<string>,
-      default: "",
-    },
-  },
-  setup(props) {
-    const router = useRouter();
-    const route = useRoute();
-    const searchQuery = ref(props.query);
-    const state = reactive({
-      isLoading: true,
-      asnData: [] as Metric.ASN[],
-    });
-    const orderBy = computed(() => (route.query.order as string) || "ipv4");
+interface Props {
+  query: string;
+}
 
-    /**
-     * Fetches ASN data based on the specified order.
-     * @param {string} order - The order criterion for ASN data.
-     */
-    async function getAsnData(order: string = "ipv4") {
-      try {
-        state.isLoading = true;
-        const response = await MetricService.fetchAsnData(order);
-        state.asnData = response.data;
-      } catch (error) {
-        console.error("Failed to fetch ASN data:", error);
-      } finally {
-        state.isLoading = false;
-      }
-    }
-    async function getOrderedAsnData(order: string) {
-      getAsnData(order);
-      // Update the route without adding history and without refreshing the page
-      router.replace({ query: { ...route.query, order } }).catch(err => {
+const props = withDefaults(defineProps<Props>(), {
+  query: "",
+});
+
+const router = useRouter();
+const route = useRoute();
+const searchQuery = ref(props.query);
+const state = reactive({
+  isLoading: true,
+  asnData: [] as Metric.ASN[],
+});
+const orderBy = computed(() => (route.query.order as string) || "ipv4");
+
+const { query } = toRefs(props);
+const { isLoading, asnData } = toRefs(state);
+
+/**
+ * Fetches ASN data based on the specified order.
+ * @param {string} order - The order criterion for ASN data.
+ */
+async function getAsnData(order: string = "ipv4") {
+  try {
+    state.isLoading = true;
+    const response = await MetricService.fetchAsnData(order);
+    state.asnData = response.data;
+  } catch (error) {
+    console.error("Failed to fetch ASN data:", error);
+  } finally {
+    state.isLoading = false;
+  }
+}
+async function getOrderedAsnData(order: string) {
+  getAsnData(order);
+  // Update the route without adding history and without refreshing the page
+  router.replace({ query: { ...route.query, order } }).catch(err => {
+    console.error("Failed to update route:", err);
+  });
+}
+
+// Search for ASN data
+async function searchAsn(searchQuery: string) {
+  if (searchQuery.length < 2) {
+    // Optionally, handle this condition outside of the function
+    console.error("Search query is too short.");
+    return;
+  }
+
+  state.asnData = [];
+  MetricService.searchAsn(searchQuery)
+    .then(response => {
+      state.asnData = response.data;
+      // Update the URL with the search query
+      router.replace({ query: { ...route.query, q: searchQuery } }).catch(err => {
         console.error("Failed to update route:", err);
       });
-    }
-
-    // Search for ASN data
-    async function searchAsn(searchQuery: string) {
-      if (searchQuery.length < 2) {
-        // Optionally, handle this condition outside of the function
-        console.error("Search query is too short.");
-        return;
-      }
-
-      state.asnData = [];
-      MetricService.searchAsn(searchQuery)
-        .then(response => {
-          state.asnData = response.data;
-          // Update the URL with the search query
-          router.replace({ query: { ...route.query, q: searchQuery } }).catch(err => {
-            console.error("Failed to update route:", err);
-          });
-        })
-        .catch(error => {
-          console.error("Failed to search ASN data:", error);
-          // Update state to reflect that an error occurred, if needed
-        });
-    }
-
-    const tabClass = (orderType: string): string[] => {
-      return ["btn border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r", orderBy.value === orderType ? "text-fuchsia-600 bg-zinc-500/20" : "text-slate-300"];
-    };
-
-    onMounted(() => {
-      const urlSearchQuery = route.query.q;
-
-      if (typeof urlSearchQuery === "string" && urlSearchQuery.length >= 2) {
-        searchQuery.value = urlSearchQuery; // Correctly use .value here
-        searchAsn(searchQuery.value);
-      } else {
-        // If there is no valid search query in the URL, fetch ASN data normally
-        getAsnData(orderBy.value);
-      }
+    })
+    .catch(error => {
+      console.error("Failed to search ASN data:", error);
+      // Update state to reflect that an error occurred, if needed
     });
+}
 
-    onUnmounted(() => {
-      // reset the query parameter for order
-      router.push({ query: { ...router.currentRoute.value.query, order: undefined } }).catch(err => {});
-    });
+const tabClass = (orderType: string): string[] => {
+  return ["btn border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r", orderBy.value === orderType ? "text-fuchsia-600 bg-zinc-500/20" : "text-slate-300"];
+};
 
-    return {
-      ...toRefs(state),
-      getAsnData,
-      getOrderedAsnData,
-      tabClass,
-      searchAsn,
-      searchQuery,
-    };
-  },
+onMounted(() => {
+  const urlSearchQuery = route.query.q;
+
+  if (typeof urlSearchQuery === "string" && urlSearchQuery.length >= 2) {
+    searchQuery.value = urlSearchQuery; // Correctly use .value here
+    searchAsn(searchQuery.value);
+  } else {
+    // If there is no valid search query in the URL, fetch ASN data normally
+    getAsnData(orderBy.value);
+  }
+});
+
+onUnmounted(() => {
+  // reset the query parameter for order
+  router.push({ query: { ...router.currentRoute.value.query, order: undefined } }).catch(err => {});
 });
 </script>

@@ -82,8 +82,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, watch, ref, Ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout components
@@ -103,99 +103,80 @@ import ChangelogService from "@/services/ChangelogService";
 import { Campaign } from "@/types/Campaign";
 import { Changelog } from "@/types/Changelog";
 
-export default defineComponent({
-  name: "CampaignDetail",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    ChangelogTable,
-    CampaignDomainTable,
-    Pagination,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const initialOffset = parseInt(route.query.offset as string) || 0;
-    const state = reactive({
-      campaign: {} as Campaign.Campaign,
-      domains: [] as Campaign.CampaignDomain[],
-      campaignChangelog: [] as Changelog.Log[],
-      offset: initialOffset,
-    });
-
-    // Fetch campaign and domain details
-    async function getCampaign(uuid: string, offset: number): Promise<void> {
-      const response = await CampaignService.getCampaign(uuid, state.offset);
-
-      // Check if the response status is 404
-      // TODO: Fix this
-      if (response.status === 404) {
-        // Redirect to the catchall route
-        router.push("/:catchAll(.*)");
-        return;
-      }
-
-      // Populate the campaign_uuid field in the domains
-      response.data.domains.forEach((domain: Campaign.CampaignDomain) => {
-        domain.campaign_uuid = response.data.campaign.uuid;
-      });
-
-      state.domains = response.data.domains;
-      state.campaign = response.data.campaign;
-
-      // Calculate campaign rating
-      const { rating, colorClass } = calculateRating(state.campaign);
-      state.campaign.rating = rating;
-      state.campaign.colorClass = colorClass;
-
-      document.title = `${state.campaign.name} - Why No IPv6?`;
-    }
-
-    // Fetch changelog details
-    async function getCampaignChangelog(uuid: string): Promise<void> {
-      const response = await ChangelogService.getChangelogByCampaign(uuid);
-      state.campaignChangelog = response.data;
-    }
-
-    // Fetch the campaign details on component mount
-    onMounted(() => {
-      getCampaign(route.params.uuid.toString(), initialOffset);
-      getCampaignChangelog(route.params.uuid.toString());
-    });
-
-    // Pagination stuff
-    const anchorTop: Ref<HTMLElement | null> = ref(null);
-    const scrollToAnchor = () => {
-      if (anchorTop.value) {
-        anchorTop.value.scrollIntoView({ behavior: "auto" });
-      }
-    };
-    // Update offset and update URL
-    const updateOffset = (newOffset: number) => {
-      scrollToAnchor();
-      state.offset = newOffset;
-      router.push({ query: { ...route.query, offset: newOffset.toString() } });
-    };
-    // Watch for changes in the offset query parameter
-    watch(
-      () => route.query.offset,
-      newOffset => {
-        const offsetValue = parseInt(newOffset as string);
-        if (!isNaN(offsetValue)) {
-          state.offset = offsetValue;
-          getCampaign(route.params.uuid.toString(), offsetValue);
-        }
-      }
-    );
-
-    return {
-      ...toRefs(state),
-      route,
-      scrollToAnchor,
-      anchorTop,
-      updateOffset,
-    };
-  },
+const router = useRouter();
+const route = useRoute();
+const initialOffset = parseInt(route.query.offset as string) || 0;
+const state = reactive({
+  campaign: {} as Campaign.Campaign,
+  domains: [] as Campaign.CampaignDomain[],
+  campaignChangelog: [] as Changelog.Log[],
+  offset: initialOffset,
 });
+
+const { campaign, domains, campaignChangelog, offset } = toRefs(state);
+
+// Fetch campaign and domain details
+async function getCampaign(uuid: string, offset: number): Promise<void> {
+  const response = await CampaignService.getCampaign(uuid, state.offset);
+
+  // Check if the response status is 404
+  // TODO: Fix this
+  if (response.status === 404) {
+    // Redirect to the catchall route
+    router.push("/:catchAll(.*)");
+    return;
+  }
+
+  // Populate the campaign_uuid field in the domains
+  response.data.domains.forEach((domain: Campaign.CampaignDomain) => {
+    domain.campaign_uuid = response.data.campaign.uuid;
+  });
+
+  state.domains = response.data.domains;
+  state.campaign = response.data.campaign;
+
+  // Calculate campaign rating
+  const { rating, colorClass } = calculateRating(state.campaign);
+  state.campaign.rating = rating;
+  state.campaign.colorClass = colorClass;
+
+  document.title = `${state.campaign.name} - Why No IPv6?`;
+}
+
+// Fetch changelog details
+async function getCampaignChangelog(uuid: string): Promise<void> {
+  const response = await ChangelogService.getChangelogByCampaign(uuid);
+  state.campaignChangelog = response.data;
+}
+
+// Fetch the campaign details on component mount
+onMounted(() => {
+  getCampaign(route.params.uuid.toString(), initialOffset);
+  getCampaignChangelog(route.params.uuid.toString());
+});
+
+// Pagination stuff
+const anchorTop: Ref<HTMLElement | null> = ref(null);
+const scrollToAnchor = () => {
+  if (anchorTop.value) {
+    anchorTop.value.scrollIntoView({ behavior: "auto" });
+  }
+};
+// Update offset and update URL
+const updateOffset = (newOffset: number) => {
+  scrollToAnchor();
+  state.offset = newOffset;
+  router.push({ query: { ...route.query, offset: newOffset.toString() } });
+};
+// Watch for changes in the offset query parameter
+watch(
+  () => route.query.offset,
+  newOffset => {
+    const offsetValue = parseInt(newOffset as string);
+    if (!isNaN(offsetValue)) {
+      state.offset = offsetValue;
+      getCampaign(route.params.uuid.toString(), offsetValue);
+    }
+  }
+);
 </script>

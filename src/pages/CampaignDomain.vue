@@ -134,8 +134,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -152,72 +152,56 @@ import { Changelog } from "@/types/Changelog";
 import { Campaign } from "@/types/Campaign";
 import { off } from "process";
 
-export default defineComponent({
-  name: "CampaignDomainDetail",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    ChangelogTable,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const state = reactive({
-      domain: {} as Campaign.CampaignDomain,
-      changelogs: [] as Changelog.Log[],
-      campaign: {} as Campaign.Campaign,
-    });
+const router = useRouter();
+const route = useRoute();
+const state = reactive({
+  domain: {} as Campaign.CampaignDomain,
+  changelogs: [] as Changelog.Log[],
+  campaign: {} as Campaign.Campaign,
+});
 
-    async function getDomainDetails(uuid: string, domain: string) {
-      const response = await CampaignService.getCampaignDomain(uuid, domain);
-      state.domain = response.data;
+const { domain, changelogs, campaign } = toRefs(state);
 
-      document.title = `${state.domain.domain} - Why No IPv6?`;
-    }
-    async function getDomainChangelog(uuid: string, domain: string) {
-      const response = await ChangelogService.getChangelogByCampaignDomain(uuid, domain);
-      state.changelogs = response.data;
-    }
-    async function getCampaign(uuid: string, offset: number) {
-      const response = await CampaignService.getCampaign(uuid, offset);
-      state.campaign = response.data.campaign;
-    }
+async function getDomainDetails(uuid: string, domain: string) {
+  const response = await CampaignService.getCampaignDomain(uuid, domain);
+  state.domain = response.data;
 
-    const formattedTsCheck = computed(() => {
-      if (state.domain.ts_check) {
-        return formatDateTime(state.domain.ts_check);
-      }
-      return "Not Checked Yet";
-    });
+  document.title = `${state.domain.domain} - Why No IPv6?`;
+}
+async function getDomainChangelog(uuid: string, domain: string) {
+  const response = await ChangelogService.getChangelogByCampaignDomain(uuid, domain);
+  state.changelogs = response.data;
+}
+async function getCampaign(uuid: string, offset: number) {
+  const response = await CampaignService.getCampaign(uuid, offset);
+  state.campaign = response.data.campaign;
+}
 
-    const numberOfStars = computed(() => {
-      let count = 0;
-      if (state.domain.base_domain == "supported") count++;
-      if (state.domain.www_domain == "supported") count++;
-      if (state.domain.nameserver == "supported") count++;
-      if (state.domain.mx_record == "supported") count++;
-      return count;
-    });
+const formattedTsCheck = computed(() => {
+  if (state.domain.ts_check) {
+    return formatDateTime(state.domain.ts_check);
+  }
+  return "Not Checked Yet";
+});
 
-    // Fetch the campaign on component mount
-    onMounted(() => {
-      window.scrollTo(0, 0);
-      getCampaign(route.params.uuid.toString(), 0);
-      getDomainDetails(route.params.uuid as string, route.params.domain as string);
-      getDomainChangelog(route.params.uuid as string, route.params.domain as string);
-    });
+const numberOfStars = computed(() => {
+  let count = 0;
+  if (state.domain.base_domain == "supported") count++;
+  if (state.domain.www_domain == "supported") count++;
+  if (state.domain.nameserver == "supported") count++;
+  if (state.domain.mx_record == "supported") count++;
+  return count;
+});
 
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
+// Fetch the campaign on component mount
+onMounted(() => {
+  window.scrollTo(0, 0);
+  getCampaign(route.params.uuid.toString(), 0);
+  getDomainDetails(route.params.uuid as string, route.params.domain as string);
+  getDomainChangelog(route.params.uuid as string, route.params.domain as string);
+});
 
-    return {
-      ...toRefs(state),
-      route,
-      formattedTsCheck,
-      numberOfStars,
-    };
-  },
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
 });
 </script>

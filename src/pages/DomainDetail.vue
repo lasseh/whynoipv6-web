@@ -139,8 +139,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, computed, onUnmounted, toRef } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -156,87 +156,70 @@ import ChangelogService from "@/services/ChangelogService";
 import { Changelog } from "@/types/Changelog";
 import { Domain } from "@/types/Domain";
 
-export default defineComponent({
-  name: "DomainDetail",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    ChangelogTable,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const state = reactive({
-      domain: {} as Domain.Domain,
-      changelogs: [] as Changelog.Log[],
-    });
+const router = useRouter();
+const route = useRoute();
+const state = reactive({
+  domain: {} as Domain.Domain,
+  changelogs: [] as Changelog.Log[],
+});
 
-    async function getDomainDetails(domain: string) {
-      const response = await DomainService.getDomainDetails(domain);
-      state.domain = response.data;
-    }
+const { domain, changelogs } = toRefs(state);
 
-    async function getDomainChangelog(domain: string) {
-      const response = await ChangelogService.getChangelogByDomain(domain);
-      state.changelogs = response.data;
-    }
+async function getDomainDetails(domain: string) {
+  const response = await DomainService.getDomainDetails(domain);
+  state.domain = response.data;
+}
 
-    const formattedTsCheck = computed(() => {
-      if (state.domain.ts_check) {
-        return formatDateTime(state.domain.ts_check);
-      }
-      return "Not Checked Yet";
-    });
+async function getDomainChangelog(domain: string) {
+  const response = await ChangelogService.getChangelogByDomain(domain);
+  state.changelogs = response.data;
+}
 
-    const numberOfStars = computed(() => {
-      let count = 0;
-      if (state.domain.base_domain == "supported") count++;
-      if (state.domain.www_domain == "supported") count++;
-      if (state.domain.nameserver == "supported") count++;
-      if (state.domain.mx_record == "supported") count++;
-      return count;
-    });
+const formattedTsCheck = computed(() => {
+  if (state.domain.ts_check) {
+    return formatDateTime(state.domain.ts_check);
+  }
+  return "Not Checked Yet";
+});
 
-    const tweetShame = (numberOfStars: number) => {
-      // Define common variables
-      let tweetText: string;
-      // const currentURL = "https://ipv6.fail/domain/google.com/"; // For development
-      const currentURL = window.location.href;
+const numberOfStars = computed(() => {
+  let count = 0;
+  if (state.domain.base_domain == "supported") count++;
+  if (state.domain.www_domain == "supported") count++;
+  if (state.domain.nameserver == "supported") count++;
+  if (state.domain.mx_record == "supported") count++;
+  return count;
+});
 
-      // If numberOfStars is 3 or more, generate a positive tweet
-      if (numberOfStars >= 3) {
-        tweetText = `Hey ${state.domain.domain}, thanks for supporting IPv6! #IPv6`;
-      } else {
-        // Generate a negative tweet
-        tweetText = `Hey ${state.domain.domain}, it's time to support IPv6! #WhyNoIPv6`;
-      }
-      // Create Twitter URL
-      const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(currentURL)}`;
+const tweetShame = (numberOfStars: number) => {
+  // Define common variables
+  let tweetText: string;
+  // const currentURL = "https://ipv6.fail/domain/google.com/"; // For development
+  const currentURL = window.location.href;
 
-      // Open Twitter in a new tab
-      window.open(twitterURL, "_blank");
-    };
+  // If numberOfStars is 3 or more, generate a positive tweet
+  if (numberOfStars >= 3) {
+    tweetText = `Hey ${state.domain.domain}, thanks for supporting IPv6! #IPv6`;
+  } else {
+    // Generate a negative tweet
+    tweetText = `Hey ${state.domain.domain}, it's time to support IPv6! #WhyNoIPv6`;
+  }
+  // Create Twitter URL
+  const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(currentURL)}`;
 
-    // Fetch the campaign on component mount
-    onMounted(() => {
-      window.scrollTo(0, 0);
-      document.title = `${route.params.domain} - Why No IPv6?`;
-      getDomainDetails(route.params.domain as string);
-      getDomainChangelog(route.params.domain as string);
-    });
+  // Open Twitter in a new tab
+  window.open(twitterURL, "_blank");
+};
 
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
+// Fetch the campaign on component mount
+onMounted(() => {
+  window.scrollTo(0, 0);
+  document.title = `${route.params.domain} - Why No IPv6?`;
+  getDomainDetails(route.params.domain as string);
+  getDomainChangelog(route.params.domain as string);
+});
 
-    return {
-      ...toRefs(state),
-      route,
-      formattedTsCheck,
-      numberOfStars,
-      tweetShame,
-    };
-  },
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
 });
 </script>

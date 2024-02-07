@@ -100,8 +100,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch, ref, Ref, computed, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, watch, ref, Ref, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -118,108 +118,88 @@ import CountryService from "@/services/CountryService";
 import { Domain } from "@/types/Domain";
 import { Country } from "@/types/Country";
 
-export default defineComponent({
-  name: "CountryDetail",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    DomainTable,
-    Pagination,
-    CountryFlag,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const initialOffset = parseInt(route.query.offset as string) || 0;
-    const state = reactive({
-      countryInfo: {} as Country.Country,
-      domainList: [] as Domain.Domain[],
-      offset: initialOffset,
-      isLoading: false,
-    });
-
-    async function getCountryInfo(country: string) {
-      const response = await CountryService.getCountryInfo(country);
-      state.countryInfo = response.data;
-      // Calculate rating and color class
-      const { rating, colorClass, gradientColor } = calculateRating(state.countryInfo);
-      state.countryInfo.rating = rating;
-      state.countryInfo.colorClass = colorClass;
-      state.countryInfo.gradientColor = gradientColor;
-      document.title = `${state.countryInfo.country} - Why No IPv6?`;
-    }
-
-    async function fetchDomains() {
-      state.isLoading = true;
-      try {
-        await getDomains(route.params.id.toString(), state.offset, queryFilter.value);
-      } finally {
-        state.isLoading = false;
-      }
-    }
-
-    async function getDomains(country: string, offset: number, filter: string) {
-      let response;
-      switch (filter.toLowerCase()) {
-        case "heroes":
-          response = await CountryService.getCountryHeroes(country, offset);
-          break;
-        case "sinners":
-        default:
-          response = await CountryService.getCountrySinners(country, offset);
-          break;
-      }
-      state.domainList = response.data || [];
-    }
-
-    function applyFilter(filter: string) {
-      state.isLoading = true;
-      state.domainList = []; // Clear the table data
-
-      state.offset = 0; // Reset offset to 0 when a new filter is applied
-      router.push({ query: { filter } });
-    }
-
-    const queryFilter = computed(() => {
-      const filterValue = route.query.filter;
-      if (filterValue === null || typeof filterValue === "undefined") return "sinners";
-      return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
-    });
-
-    onMounted(() => {
-      window.scrollTo(0, 0);
-      getCountryInfo(route.params.id.toString());
-      fetchDomains();
-    });
-
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
-
-    watch([() => state.offset, queryFilter], fetchDomains);
-
-    // Pagination
-    const anchorTop: Ref<HTMLElement | null> = ref(null);
-    const scrollToAnchor = () => {
-      if (anchorTop.value) {
-        anchorTop.value.scrollIntoView({ behavior: "auto" });
-      }
-    };
-    const updateOffset = (newOffset: number) => {
-      scrollToAnchor();
-      state.offset = newOffset;
-      router.push({ query: { ...route.query, offset: newOffset.toString() } });
-    };
-
-    return {
-      ...toRefs(state),
-      scrollToAnchor,
-      anchorTop,
-      applyFilter,
-      updateOffset,
-      queryFilter,
-    };
-  },
+const router = useRouter();
+const route = useRoute();
+const initialOffset = parseInt(route.query.offset as string) || 0;
+const state = reactive({
+  countryInfo: {} as Country.Country,
+  domainList: [] as Domain.Domain[],
+  offset: initialOffset,
+  isLoading: false,
 });
+
+const { countryInfo, domainList, offset, isLoading } = toRefs(state);
+
+async function getCountryInfo(country: string) {
+  const response = await CountryService.getCountryInfo(country);
+  state.countryInfo = response.data;
+  // Calculate rating and color class
+  const { rating, colorClass, gradientColor } = calculateRating(state.countryInfo);
+  state.countryInfo.rating = rating;
+  state.countryInfo.colorClass = colorClass;
+  state.countryInfo.gradientColor = gradientColor;
+  document.title = `${state.countryInfo.country} - Why No IPv6?`;
+}
+
+async function fetchDomains() {
+  state.isLoading = true;
+  try {
+    await getDomains(route.params.id.toString(), state.offset, queryFilter.value);
+  } finally {
+    state.isLoading = false;
+  }
+}
+
+async function getDomains(country: string, offset: number, filter: string) {
+  let response;
+  switch (filter.toLowerCase()) {
+    case "heroes":
+      response = await CountryService.getCountryHeroes(country, offset);
+      break;
+    case "sinners":
+    default:
+      response = await CountryService.getCountrySinners(country, offset);
+      break;
+  }
+  state.domainList = response.data || [];
+}
+
+function applyFilter(filter: string) {
+  state.isLoading = true;
+  state.domainList = []; // Clear the table data
+
+  state.offset = 0; // Reset offset to 0 when a new filter is applied
+  router.push({ query: { filter } });
+}
+
+const queryFilter = computed(() => {
+  const filterValue = route.query.filter;
+  if (filterValue === null || typeof filterValue === "undefined") return "sinners";
+  return Array.isArray(filterValue) ? filterValue[0] || "sinners" : filterValue;
+});
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+  getCountryInfo(route.params.id.toString());
+  fetchDomains();
+});
+
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
+});
+
+watch([() => state.offset, queryFilter], fetchDomains);
+
+// Pagination
+const anchorTop: Ref<HTMLElement | null> = ref(null);
+const scrollToAnchor = () => {
+  if (anchorTop.value) {
+    anchorTop.value.scrollIntoView({ behavior: "auto" });
+  }
+};
+const updateOffset = (newOffset: number) => {
+  scrollToAnchor();
+  state.offset = newOffset;
+  router.push({ query: { ...route.query, offset: newOffset.toString() } });
+};
 </script>

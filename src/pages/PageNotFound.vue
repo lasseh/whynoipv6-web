@@ -42,23 +42,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { onMounted, onUnmounted } from "vue";
 // Page Layout
 import { Header, PageIllustration, Footer } from "@/partials";
 
-export default defineComponent({
-  name: "PageNotFound",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-  },
-  onMounted() {
-    document.title = "Why No Page?";
-  },
-  onUnmounted() {
-    document.title = "Why No IPv6?";
-  },
+onMounted(() => {
+  document.title = "Why No Page?";
+});
+
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
 });
 </script>

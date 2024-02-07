@@ -107,8 +107,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, reactive, toRefs, computed, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -122,64 +122,50 @@ import { calculateRating } from "@/utils/Rating";
 import CampaignService from "@/services/CampaignService";
 import { Campaign } from "@/types/Campaign";
 
-export default defineComponent({
-  name: "CampaignList",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    Pagination,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const initialOffset = parseInt(route.query.offset as string) || 0;
-    const state = reactive({
-      campaignList: [] as Campaign.Campaign[],
-      searchQuery: "",
-      offset: initialOffset,
-    });
+const router = useRouter();
+const route = useRoute();
+const initialOffset = parseInt(route.query.offset as string) || 0;
+const state = reactive({
+  campaignList: [] as Campaign.Campaign[],
+  searchQuery: "",
+  offset: initialOffset,
+});
 
-    async function fetchCampaignList() {
-      try {
-        const response = await CampaignService.getCampaignList();
-        state.campaignList = response.data;
-      } catch (error) {
-        console.error("Failed to fetch campaign list:", error);
-        // Optionally handle error here, e.g. set an error message in the state.
-      }
-      // calculate rating per campaign
-      state.campaignList.forEach(campaign => {
-        const { rating, colorClass } = calculateRating(campaign);
-        campaign.rating = rating;
-        campaign.colorClass = colorClass;
-        // Calculate percentage of domains with IPv6
-        campaign.percent = Math.round((campaign.v6_ready / campaign.count) * 100);
-      });
-    }
+const { campaignList, searchQuery, offset } = toRefs(state);
 
-    // A computed property to get the filtered country list based on the search query
-    const filteredCampaignList = computed(() => {
-      if (!state.searchQuery) {
-        return state.campaignList;
-      }
-      return state.campaignList.filter(campaign => campaign.name.toLowerCase().includes(state.searchQuery.toLowerCase()));
-    });
+async function fetchCampaignList() {
+  try {
+    const response = await CampaignService.getCampaignList();
+    state.campaignList = response.data;
+  } catch (error) {
+    console.error("Failed to fetch campaign list:", error);
+    // Optionally handle error here, e.g. set an error message in the state.
+  }
+  // calculate rating per campaign
+  state.campaignList.forEach(campaign => {
+    const { rating, colorClass } = calculateRating(campaign);
+    campaign.rating = rating;
+    campaign.colorClass = colorClass;
+    // Calculate percentage of domains with IPv6
+    campaign.percent = Math.round((campaign.v6_ready / campaign.count) * 100);
+  });
+}
 
-    onMounted(() => {
-      document.title = "Campaign Overview - Why No IPv6?";
-      fetchCampaignList();
-    });
+// A computed property to get the filtered country list based on the search query
+const filteredCampaignList = computed(() => {
+  if (!state.searchQuery) {
+    return state.campaignList;
+  }
+  return state.campaignList.filter(campaign => campaign.name.toLowerCase().includes(state.searchQuery.toLowerCase()));
+});
 
-    onUnmounted(() => {
-      state.campaignList = [];
-      document.title = "Why No IPv6?";
-    });
+onMounted(() => {
+  document.title = "Campaign Overview - Why No IPv6?";
+  fetchCampaignList();
+});
 
-    return {
-      ...toRefs(state),
-      filteredCampaignList,
-    };
-  },
+onUnmounted(() => {
+  state.campaignList = [];
+  document.title = "Why No IPv6?";
 });
 </script>

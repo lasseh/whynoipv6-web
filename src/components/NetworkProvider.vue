@@ -35,34 +35,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from "vue";
+<script lang="ts" setup>
+import { computed, toRefs } from "vue";
 import { Metric } from "@/types/Metric";
 
-export default defineComponent({
-  name: "NetworkProvider",
-  props: {
-    asnData: {
-      type: Array as () => Metric.ASN[],
-      required: true,
-    },
-  },
-  setup(props) {
-    const calculatePercentage = computed(() => (asn: Metric.ASN) => {
-      const total = asn.count_v4 + asn.count_v6;
-      if (total === 0) return ["0%", "0%"];
-      return [`${((asn.count_v4 / total) * 100).toFixed(2)}%`, `${((asn.count_v6 / total) * 100).toFixed(2)}%`];
-    });
+const props = defineProps<{
+  asnData: Metric.ASN[];
+}>();
 
-    const formatLargeNumber = computed(() => (number?: number): string => {
-      if (!number) return "0";
-      return number >= 1000 ? `${(number / 1000).toFixed(0)}k` : number.toString();
-    });
+const { asnData } = toRefs(props);
 
-    return {
-      calculatePercentage,
-      formatLargeNumber,
-    };
-  },
+const calculatePercentage = computed(() => (asn: Metric.ASN) => {
+  const total = asn.count_v4 + asn.count_v6;
+  if (total === 0) return ["0%", "0%"];
+  return [`${((asn.count_v4 / total) * 100).toFixed(2)}%`, `${((asn.count_v6 / total) * 100).toFixed(2)}%`];
+});
+
+const formatLargeNumber = computed(() => (number?: number): string => {
+  if (!number) return "0";
+  return number >= 1000 ? `${(number / 1000).toFixed(0)}k` : number.toString();
 });
 </script>

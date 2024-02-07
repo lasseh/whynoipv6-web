@@ -14,9 +14,4 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "PageIllustration",
-});
-</script>
+<script lang="ts" setup></script>

@@ -58,27 +58,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { Changelog } from "@/types/Changelog";
 import { formatDateTime } from "@/utils/Date";
+import { toRefs } from "vue";
 
-export default defineComponent({
-  name: "ChangelogTable",
-  props: {
-    changelogs: {
-      type: Array as () => Changelog.Log[],
-      default: () => [],
-    },
-    header: {
-      type: String,
-      default: "Changelog",
-    },
-  },
-  setup() {
-    return {
-      formatDateTime,
-    };
-  },
+interface Props {
+  changelogs?: Array<Changelog.Log>;
+  header?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  changelogs: () => [],
+  header: "Changelog",
 });
+
+const { changelogs, header } = toRefs(props);
 </script>

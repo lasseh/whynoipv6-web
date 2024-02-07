@@ -91,62 +91,46 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeUnmount, computed } from "vue";
+<script lang="ts" setup>
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import Dropdown from "@/utils/Dropdown.vue";
 
-export default defineComponent({
-  name: "Header",
-  components: {
-    Dropdown,
-  },
-  setup() {
-    const route = useRoute();
-    const mobileNav = ref<HTMLElement | null>(null);
-    const mobileNavOpen = ref(false);
+const route = useRoute();
+const mobileNav = ref<HTMLElement | null>(null);
+const mobileNavOpen = ref(false);
 
-    // Computed style based on mobileNavOpen and mobileNav refs
-    const mobileNavStyle = computed(() => ({
-      maxHeight: mobileNavOpen.value ? `${mobileNav.value?.scrollHeight}px` : "0",
-      opacity: mobileNavOpen.value ? 1 : 0.8,
-    }));
+// Computed style based on mobileNavOpen and mobileNav refs
+const mobileNavStyle = computed(() => ({
+  maxHeight: mobileNavOpen.value ? `${mobileNav.value?.scrollHeight}px` : "0",
+  opacity: mobileNavOpen.value ? 1 : 0.8,
+}));
 
-    // Close the mobile nav on click outside
-    const clickOutside = (e: Event) => {
-      if (!mobileNavOpen.value || mobileNav.value?.contains(e.target as Node) || document.querySelector(".hamburger")?.contains(e.target as Node)) return;
-      mobileNavOpen.value = false;
-    };
-    // Close the mobile nav on escape key press
-    const keyPress = (event: KeyboardEvent) => {
-      if (!mobileNavOpen.value || event.key !== "Escape") return;
-      mobileNavOpen.value = false;
-    };
+// Close the mobile nav on click outside
+const clickOutside = (e: Event) => {
+  if (!mobileNavOpen.value || mobileNav.value?.contains(e.target as Node) || document.querySelector(".hamburger")?.contains(e.target as Node)) return;
+  mobileNavOpen.value = false;
+};
+// Close the mobile nav on escape key press
+const keyPress = (event: KeyboardEvent) => {
+  if (!mobileNavOpen.value || event.key !== "Escape") return;
+  mobileNavOpen.value = false;
+};
 
-    // Underline the active route
-    const isActiveRoute = (basePath: string): boolean => {
-      return route.path.startsWith(basePath);
-    };
+// Underline the active route
+const isActiveRoute = (basePath: string): boolean => {
+  return route.path.startsWith(basePath);
+};
 
-    // Lifecycle hooks
-    onMounted(() => {
-      document.addEventListener("click", clickOutside);
-      document.addEventListener("keydown", keyPress);
-    });
+// Lifecycle hooks
+onMounted(() => {
+  document.addEventListener("click", clickOutside);
+  document.addEventListener("keydown", keyPress);
+});
 
-    onBeforeUnmount(() => {
-      document.removeEventListener("click", clickOutside);
-      document.removeEventListener("keydown", keyPress);
-    });
-
-    // Expose the required variables and methods to the template
-    return {
-      mobileNav,
-      mobileNavOpen,
-      isActiveRoute,
-      mobileNavStyle,
-    };
-  },
+onBeforeUnmount(() => {
+  document.removeEventListener("click", clickOutside);
+  document.removeEventListener("keydown", keyPress);
 });
 </script>

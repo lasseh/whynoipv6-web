@@ -57,8 +57,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch, onMounted, onUnmounted } from "vue";
+<script lang="ts" setup>
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 // Page Layout
@@ -68,62 +68,43 @@ import { Header, PageIllustration, Footer } from "@/partials";
 import MetricCrawler from "@/partials/MetricCrawler.vue";
 import MetricASN from "@/partials/MetricASN.vue";
 
-export default defineComponent({
-  name: "Metrics",
-  components: {
-    Header,
-    PageIllustration,
-    Footer,
-    MetricCrawler,
-    MetricASN,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const queryFilter = ref<string>((route.query.t as string) || "overview");
-    const error = ref<string | null>(null);
+const router = useRouter();
+const route = useRoute();
+const queryFilter = ref<string>((route.query.t as string) || "overview");
+const error = ref<string | null>(null);
 
-    // Watch for changes in route query
-    watch(
-      () => route.query.t,
-      newFilter => {
-        if (typeof newFilter === "string" && newFilter !== queryFilter.value) {
-          queryFilter.value = newFilter;
-        }
-      }
-    );
+// Watch for changes in route query
+watch(
+  () => route.query.t,
+  newFilter => {
+    if (typeof newFilter === "string" && newFilter !== queryFilter.value) {
+      queryFilter.value = newFilter;
+    }
+  }
+);
 
-    // Function to update the route
-    const updateRoute = (filterType: string) => {
-      router.push({ query: { t: filterType } }).catch(err => {});
-    };
+// Function to update the route
+const updateRoute = (filterType: string) => {
+  router.push({ query: { t: filterType } }).catch(err => {});
+};
 
-    const applyFilterAndUpdateRoute = (filterType: string) => {
-      updateRoute(filterType);
-    };
+const applyFilterAndUpdateRoute = (filterType: string) => {
+  updateRoute(filterType);
+};
 
-    const tabClass = (filterType: string): string[] => {
-      return ["btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r", queryFilter.value === filterType ? "text-fuchsia-600 bg-zinc-500/20" : "text-slate-300"];
-    };
+const tabClass = (filterType: string): string[] => {
+  return ["btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r", queryFilter.value === filterType ? "text-fuchsia-600 bg-zinc-500/20" : "text-slate-300"];
+};
 
-    // Initialize queryFilter from URL on mount
-    onMounted(() => {
-      document.title = "Metrics - Why No IPv6?";
-      if (typeof route.query.t === "string") {
-        queryFilter.value = route.query.t;
-      }
-    });
+// Initialize queryFilter from URL on mount
+onMounted(() => {
+  document.title = "Metrics - Why No IPv6?";
+  if (typeof route.query.t === "string") {
+    queryFilter.value = route.query.t;
+  }
+});
 
-    onUnmounted(() => {
-      document.title = "Why No IPv6?";
-    });
-
-    return {
-      applyFilterAndUpdateRoute,
-      queryFilter,
-      tabClass,
-      error,
-    };
-  },
+onUnmounted(() => {
+  document.title = "Why No IPv6?";
 });
 </script>

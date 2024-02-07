@@ -87,8 +87,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { toRefs } from "vue";
 
 // Page Layout
 import { CheckIcon, CrossIcon, MinusIcon } from "@/partials";
@@ -96,18 +96,13 @@ import { CheckIcon, CrossIcon, MinusIcon } from "@/partials";
 // Services
 import { Campaign } from "@/types/Campaign";
 
-export default defineComponent({
-  name: "CampaignDomainTable",
-  props: {
-    domains: {
-      type: Array as () => Campaign.CampaignDomain[],
-      default: () => [],
-    },
-  },
-  components: {
-    CheckIcon,
-    CrossIcon,
-    MinusIcon,
-  },
+interface Props {
+  domains: Array<Campaign.CampaignDomain>;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  domains: () => [],
 });
+
+const { domains } = toRefs(props);
 </script>
