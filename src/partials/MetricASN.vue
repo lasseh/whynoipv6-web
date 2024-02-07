@@ -61,7 +61,7 @@ import { Metric } from "@/types/Metric";
 import NetworkProvider from "@/components/NetworkProvider.vue";
 
 interface Props {
-  query: string;
+  query?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
