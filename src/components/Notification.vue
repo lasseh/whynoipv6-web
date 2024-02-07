@@ -33,12 +33,12 @@ let autoHideTimeout: ReturnType<typeof setTimeout>;
 
 const checkIPv6 = async () => {
   try {
-    const response = await axios.get("https://api64.ipify.org?format=json");
+    const response = await axios.get("https://api4.ipify.org?format=json");
     const ip = response.data.ip;
     const isIPv6 = ip.includes(":");
     if (!isIPv6) {
       showNotification.value = true;
-      // Auto-hide after 10 seconds
+      // Auto-hide after 15 seconds
       autoHideTimeout = setTimeout(() => {
         showNotification.value = false;
       }, 15000);
@@ -49,8 +49,13 @@ const checkIPv6 = async () => {
 };
 
 const hideNotification = () => {
-  showNotification.value = false;
-  clearTimeout(autoHideTimeout); // Clear timeout if user manually closes the notification
+  // Clear any existing timeout to prevent multiple hide actions from stacking
+  clearTimeout(autoHideTimeout);
+
+  // Hide the notification after 1 second when the user scrolls
+  autoHideTimeout = setTimeout(() => {
+    showNotification.value = false;
+  }, 1000);
 };
 
 onMounted(() => {
@@ -67,7 +72,7 @@ onUnmounted(() => {
 /* Define enter and leave transitions */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 1s ease;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
