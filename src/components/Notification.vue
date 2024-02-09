@@ -33,7 +33,7 @@ let autoHideTimeout: ReturnType<typeof setTimeout>;
 
 const checkIPv6 = async () => {
   try {
-    const response = await axios.get("https://api4.ipify.org?format=json");
+    const response = await axios.get("https://api64.ipify.org?format=json");
     const ip = response.data.ip;
     const isIPv6 = ip.includes(":");
     if (!isIPv6) {
