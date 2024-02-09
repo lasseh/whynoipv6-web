@@ -37,6 +37,15 @@
               <li>
                 <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
               </li>
+              <li>
+                <router-link to="/faq?page=5" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">API</router-link>
+              </li>
+              <li>
+                <router-link to="/faq?page=6" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Swag</router-link>
+              </li>
+              <li>
+                <router-link to="/faq?page=7" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
+              </li>
             </Dropdown>
           </ul>
 
