@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite --port 3344",
     "build": "vue-tsc && vite build",
+    "deploy": "vue-tsc && vite build && cp -rf dist/* /usr/share/nginx/html/ipv6/",
     "preview": "vite preview",
     "lint": "eslint",
     "format": "prettier --write ."
