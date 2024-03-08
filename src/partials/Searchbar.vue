@@ -1,6 +1,6 @@
 <template>
   <section class="relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6" data-aos="flip-down" data-aos-delay="200">
       <div class="p-2 pb-2 md:pt-2 md:pb-2">
         <form action="/search" method="get">
           <label for="search" class="mb-2 text-sm font-medium sr-only text-white">Search</label>

@@ -13,7 +13,7 @@
       <!-- Page sections -->
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+          <div class="pt-24 pb-12 md:pt-32 md:pb-20">
             <header class="mb-8" ref="anchorTop">
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4" data-aos="fade-up">Unmasking the Top 1M Websites of the World</h1>
