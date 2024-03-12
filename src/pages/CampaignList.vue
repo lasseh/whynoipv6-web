@@ -115,7 +115,6 @@ import { useRouter, useRoute } from "vue-router";
 import { Header, PageIllustration, Footer } from "@/partials";
 
 // Partials
-import Pagination from "@/components/Pagination.vue";
 import { calculateRating } from "@/utils/Rating";
 
 // Services

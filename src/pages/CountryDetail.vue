@@ -111,7 +111,6 @@ import { Header, PageIllustration, Footer } from "@/partials";
 import DomainTable from "@/components/DomainTable.vue";
 import Pagination from "@/components/Pagination.vue";
 import { calculateRating } from "@/utils/Rating";
-import CountryFlag from "@/components/CountryFlag.vue";
 
 // Services
 import CountryService from "@/services/CountryService";
