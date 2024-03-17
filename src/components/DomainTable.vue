@@ -13,19 +13,17 @@
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-center">Apex</div>
-            <!-- <div class="font-semibold text-center md:block hidden">Base Domain</div>
-            <div class="font-semibold text-center md:hidden">Apex</div> -->
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-center">WWW</div>
           </th>
           <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-center md:block hidden">Nameserver</div>
-            <div class="font-semibold text-center md:hidden">NS</div>
-          </th>
-          <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-center md:block hidden">E-Mail</div>
             <div class="font-semibold text-center md:hidden">MX</div>
+          </th>
+          <th class="first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div class="font-semibold text-center md:block hidden">Nameserver</div>
+            <div class="font-semibold text-center md:hidden">NS</div>
           </th>
           <!-- Disable until crawler is ready -->
           <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -65,16 +63,16 @@
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.nameserver == 'supported'" class="text-emerald-500" />
-              <CrossIcon v-if="domain.nameserver == 'unsupported'" class="text-pink-500" />
-              <MinusIcon v-if="domain.nameserver == 'no_record'" class="text-amber-500" />
+              <CheckIcon v-if="domain.mx_record == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.mx_record == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.mx_record == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
             <div class="inline-flex px-2.5 py-1">
-              <CheckIcon v-if="domain.mx_record == 'supported'" class="text-emerald-500" />
-              <CrossIcon v-if="domain.mx_record == 'unsupported'" class="text-pink-500" />
-              <MinusIcon v-if="domain.mx_record == 'no_record'" class="text-amber-500" />
+              <CheckIcon v-if="domain.nameserver == 'supported'" class="text-emerald-500" />
+              <CrossIcon v-if="domain.nameserver == 'unsupported'" class="text-pink-500" />
+              <MinusIcon v-if="domain.nameserver == 'no_record'" class="text-amber-500" />
             </div>
           </td>
           <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px text-center">
