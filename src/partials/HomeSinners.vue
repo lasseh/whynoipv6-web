@@ -79,11 +79,11 @@ const testimonials = [
     imageUrl: "/images/scott.jpg",
   },
   {
-    statement: "Get IPv6, or get bust!",
-    name: "Karl Gustav",
-    url: "https://example.com",
-    urlTitle: "king.se",
-    imageUrl: "/images/sweden.png",
+    statement: "IPv4 is the dial-up of our era. Embrace IPv6 or stay stuck in the slow lane.",
+    name: "Ivan Pepelnjak",
+    url: "https://www.ipspace.net/",
+    urlTitle: "ipspace.net",
+    imageUrl: "/images/ivan.jpeg",
   },
   // Add more testimonials here
 ];
