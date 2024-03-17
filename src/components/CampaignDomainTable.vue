@@ -1,7 +1,7 @@
 <template>
   <!-- Table -->
   <div class="overflow-x-auto">
-    <table v-if="domains.length > 0" class="table-auto w-full text-slate-300">
+    <table v-if="domains.length > 0" class="table-auto min-w-full text-slate-300">
       <!-- Table header -->
       <thead class="text-xs font-semibold uppercase text-fuchsia-600 border-t border-b border-slate-700">
         <tr>
@@ -18,7 +18,7 @@
             <div class="font-semibold text-center md:block hidden">E-Mail</div>
             <div class="font-semibold text-center md:hidden">MX</div>
           </th>
-          <th class="py-3 whitespace-nowrap">
+          <th class="first:pl-5 last:pr-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-center md:block hidden">Nameserver</div>
             <div class="font-semibold text-center md:hidden">NS</div>
           </th>

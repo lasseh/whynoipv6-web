@@ -104,7 +104,7 @@ const queryFilter = computed(() => {
 
 // Computed property for header text
 const changelogHeader = computed(() => {
-  return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Tranco Changelogs";
+  return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Domain Changelogs";
 });
 
 // Fetch the campaign details on component mount
