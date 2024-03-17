@@ -144,21 +144,23 @@
               <!-- Swag -->
               <div v-show="page === '6'">
                 <div class="mb-8">
-                  <h2 class="h2 mb-4">Swag</h2>
+                  <h2 class="h2 mb-4">Stickers</h2>
                 </div>
                 <ul class="-my-4">
                   <li class="py-4">
-                    <h4 class="text-xl font-medium mb-2">Stickers!</h4>
-                    <p class="text-lg text-gray-400">Vandalize your local IPv6 sinners!</p>
+                    <!-- <h4 class="text-xl font-medium mb-2">Stickers!</h4> -->
+                    <p class="text-lg text-gray-400">Become part of a community of like-minded individuals, show your support for IPv6.</p>
+                    <p class="text-lg text-gray-400">Add stickers to your laptop, or vandalize a building of a IPv6 sinner!</p>
                     <!-- Image -->
                     <div class="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1" data-aos="fade-up" data-aos-anchor="[data-aos-id-features-home]">
-                      <div class="relative">
-                        <img class="md:block md:max-w-none" src="/images/WhyNoSticker.png" :width="250" alt="Shame" />
+                      <div class="items-center">
+                        <img class="md:block md:max-w-none" src="/images/WhyNoSticker.webp" :width="380" :height="472" alt="Sticker" />
                       </div>
                     </div>
                     <p class="text-lg text-gray-400">
-                      Order your's today here:
-                      <a href="#" class="a-gradient">StickerMule</a>
+                      Order your's today here:<br />
+                      <a href="https://www.stickermule.com/u/89ea0892a27fc29/item/14732767" class="a-gradient">Small (2.4"×3")</a><br />
+                      <a href="https://www.stickermule.com/u/89ea0892a27fc29/item/14732768" class="a-gradient">Large (3.19"×4")</a><br />
                     </p>
                   </li>
                 </ul>
@@ -171,9 +173,8 @@
                 <ul class="-my-4">
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2"># whoami</h4>
-                    <p class="text-md text-gray-400 mb-1">Hello! I'm Lasse, Norway's own network maestro, on a personal crusade to spread the magic of IPv6 across every corner of the internet.</p>
-                    <p class="text-md text-gray-400 mb-1">By day, I'm a wizard of wires and a sorcerer of switches, tirelessly weaving the intricate web of networks that keep our digital world in motion.</p>
-                    <p class="text-md text-gray-400 mb-1">By night, I prowl the internet, seeking out IPv6 slackers, nudging them to embrace the future of the internet.</p>
+                    <p class="text-md text-gray-400 mb-2">Hello! I'm Lasse, Norway's own network maestro, on a personal crusade to spread the magic of IPv6 across every corner of the internet.</p>
+                    <p class="text-md text-gray-400 mb-2">By day, I'm a wizard of wires and a sorcerer of switches, tirelessly weaving the intricate web of networks that keep our digital world in motion. By night, I prowl the internet, seeking out IPv6 slackers, nudging them to embrace the future of the internet.</p>
                     <p class="text-md text-gray-400">Join me on this journey towards an IPv6-enabled future, where 'IP exhaustion' becomes just a spooky story of the past!</p>
                   </li>
                   <li class="py-4">
