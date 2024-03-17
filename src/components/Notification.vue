@@ -35,7 +35,7 @@ const checkIPv6 = async () => {
   try {
     // const response = await axios.get("https://api64.ipify.org?format=json");
     // TODO: Move this to services
-    const response = await axios.get("https://api.ipv6.fail/ip");
+    const response = await axios.get("https://api.whynoipv6.com/ip");
     const ip = response.data.ip;
     const isIPv6 = ip.includes(":");
     if (!isIPv6) {
