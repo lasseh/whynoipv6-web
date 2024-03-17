@@ -32,19 +32,16 @@
                 <router-link to="/changelog" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Changelog</router-link>
               </li>
               <li>
-                <router-link to="/faq" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">FAQ</router-link>
+                <router-link to="/faq" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">FAQ's</router-link>
               </li>
               <li>
-                <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
+                <router-link to="/faq?page=2" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Rules and API</router-link>
               </li>
               <li>
-                <router-link to="/faq?page=5" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">API</router-link>
+                <router-link to="/faq?page=3" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Resources</router-link>
               </li>
               <li>
-                <router-link to="/faq?page=6" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Swag</router-link>
-              </li>
-              <li>
-                <router-link to="/faq?page=7" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
+                <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
               </li>
             </Dropdown>
           </ul>
