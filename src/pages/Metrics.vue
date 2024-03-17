@@ -21,7 +21,7 @@
                 <!-- Left: Title -->
                 <div class="mb-4 sm:mb-0">
                   <h1 class="text-2xl md:text-3xl text-zinc-100 font-bold">Metrics</h1>
-                  <p class="text-lg text-gray-400">Insights into IPv6 Deployment Statistics within the Alexa Dataset.</p>
+                  <p class="text-lg text-gray-400">Insights into IPv6 Deployment Statistics within the Tranco Dataset.</p>
                 </div>
               </div>
             </div>

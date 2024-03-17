@@ -45,8 +45,7 @@
                 <p class="text-base text-gray-400 pl-1">Provider: {{ domain.asn }}</p>
               </div>
               <div class="text-center">
-                <div class="inline-flex text-center font-mono py-1 px-3 rounded-sm bg-fuchsia-900 hover:bg-fuchsia-900 transition duration-150 ease-in-out">{{ domain.rank }}</div>
-                <p class="text-base text-gray-400">Alexa Rank</p>
+                <div class="inline-flex text-center font-mono py-1 px-3 rounded-sm bg-fuchsia-900 hover:bg-fuchsia-900 transition duration-150 ease-in-out">Rank: {{ domain.rank }}</div>
               </div>
             </div>
 

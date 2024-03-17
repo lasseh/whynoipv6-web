@@ -24,7 +24,7 @@
 
     <!-- info content -->
     <div class="text-lg text-gray-400">
-      <p class="mb-4">Unveil the stark reality of network providers' shortcomings in promoting IPv6 adoption and supporting their customers. Our analysis, based on Alexa data, shines a spotlight on the persisting gaps in IPv6 readiness among these providers. It's time to hold them accountable for hindering progress and leaving customers behind. Explore our data and demand better connectivity for all.</p>
+      <p class="mb-4">Unveil the stark reality of network providers' shortcomings in promoting IPv6 adoption and supporting their customers. Our analysis, based on the Tranco dataset, shines a spotlight on the persisting gaps in IPv6 readiness among these providers. It's time to hold them accountable for hindering progress and leaving customers behind. Explore our data and demand better connectivity for all.</p>
     </div>
 
     <!-- Search Mobile -->

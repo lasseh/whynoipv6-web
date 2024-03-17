@@ -16,15 +16,15 @@
           <div class="pt-32 pb-4 md:pt-32 md:pb-4">
             <header class="mb-8" ref="anchorTop">
               <!-- Title and excerpt -->
-              <div class="text-center md:text-left">
-                <h1 class="h2 mb-4" data-aos="fade-up">Changelog</h1>
-                <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">Live changelog from the crawler</p>
-              </div>
+              <!-- <div class="text-center md:text-left">
+                <h1 class="h3 mb-4" data-aos="fade-up">Changelog</h1>
+                <p class="text-md text-gray-400" data-aos="fade-up" data-aos-delay="200">Live changelog from the crawler</p>
+              </div> -->
             </header>
 
             <div class="mb-4">
               <div class="w-full flex flex-wrap -space-x-px">
-                <button @click="applyFilter('alexa')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'alexa' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Alexa</button>
+                <button @click="applyFilter('tranco')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'tranco' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Tranco</button>
                 <button @click="applyFilter('campaign')" :class="['btn grow border-zinc-700 hover:bg-zinc-800/20 rounded-none first:rounded-l last:rounded-r', queryFilter === 'campaign' ? 'text-fuchsia-600 bg-zinc-500/20' : 'text-slate-300 bg-zinc-700/20']">Campaigns</button>
               </div>
             </div>
@@ -83,7 +83,7 @@ async function getChangelog(offset: number, filter: string): Promise<void> {
     case "campaign":
       response = await ChangelogService.getCampaignChangelog(offset);
       break;
-    case "alexa":
+    case "tranco":
     default:
       response = await ChangelogService.getChangelog(offset);
       break;
@@ -98,13 +98,13 @@ function applyFilter(filter: string) {
 
 const queryFilter = computed(() => {
   const filterValue = route.query.filter;
-  if (filterValue === null || typeof filterValue === "undefined") return "alexa";
-  return Array.isArray(filterValue) ? filterValue[0] || "alexa" : filterValue;
+  if (filterValue === null || typeof filterValue === "undefined") return "tranco";
+  return Array.isArray(filterValue) ? filterValue[0] || "tranco" : filterValue;
 });
 
 // Computed property for header text
 const changelogHeader = computed(() => {
-  return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Alexa";
+  return queryFilter.value === "campaign" ? "Campaign Changelogs" : "Tranco Changelogs";
 });
 
 // Fetch the campaign details on component mount

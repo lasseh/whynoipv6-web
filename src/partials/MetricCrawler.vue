@@ -3,9 +3,8 @@
     <header class="mb-8">
       <div class="text-left">
         <h3 class="h4 mb-1">Overview</h3>
-        <!-- <p class="text-l text-gray-400">The Alexa list contains 1 million domains, but not all of them exist. Here's the data for valid domains and their support for IPv6.</p> -->
         <p class="text-lg text-gray-400 mb-2">
-          In a detailed examination of IPv6 adoption, it's observed that among the top 1000 websites ranked by Alexa, only
+          In a detailed examination of IPv6 adoption, it's observed that among the top 1000 websites ranked by Tranco, only
           <span class="text-fuchsia-600">{{ totalsData[0].data.top_heroes }}</span>
           have IPv6 enabled. Furthermore, while
           <span class="text-fuchsia-600">{{ totalsData[0].data.top_nameserver }}</span>
@@ -45,8 +44,8 @@
     <!-- Top 1k -->
     <header class="mb-8">
       <div class="text-left">
-        <h3 class="h4 mb-1">Alexa Top 1000</h3>
-        <p class="text-l text-gray-400">Among the top 1000 domains listed on Alexa, the following are equipped with IPv6 support:</p>
+        <h3 class="h4 mb-1">Top 1000</h3>
+        <p class="text-l text-gray-400">Among the top 1000 domains, the following are equipped with IPv6 support:</p>
       </div>
     </header>
     <div class="grid md:grid-cols-2 bg-gray-800 divide-y md:divide-y-0 md:divide-x divide-gray-700 px-6 md:px-0 md:py-4 text-center">
