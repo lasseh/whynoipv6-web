@@ -47,28 +47,28 @@
               </router-link>
             </div>
           </td>
-          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[5%] text-center">
+          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[10%] text-center">
             <div class="inline-flex px-2.5 py-1">
               <CheckIcon v-if="domain.base_domain == 'supported'" class="text-emerald-500" />
               <CrossIcon v-if="domain.base_domain == 'unsupported'" class="text-pink-500" />
               <MinusIcon v-if="domain.base_domain == 'no_record'" class="text-amber-500" />
             </div>
           </td>
-          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[5%] text-center">
+          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[10%] text-center">
             <div class="inline-flex px-2.5 py-1">
               <CheckIcon v-if="domain.www_domain == 'supported'" class="text-emerald-500" />
               <CrossIcon v-if="domain.www_domain == 'unsupported'" class="text-pink-500" />
               <MinusIcon v-if="domain.www_domain == 'no_record'" class="text-amber-500" />
             </div>
           </td>
-          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[5%] text-center">
+          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[10%] text-center">
             <div class="inline-flex px-2.5 py-1">
               <CheckIcon v-if="domain.mx_record == 'supported'" class="text-emerald-500" />
               <CrossIcon v-if="domain.mx_record == 'unsupported'" class="text-pink-500" />
               <MinusIcon v-if="domain.mx_record == 'no_record'" class="text-amber-500" />
             </div>
           </td>
-          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[5%] text-center">
+          <td class="px-2 py-3 whitespace-nowrap w-px md:w-[10%] text-center">
             <div class="inline-flex px-2.5 py-1">
               <CheckIcon v-if="domain.nameserver == 'supported'" class="text-emerald-500" />
               <CrossIcon v-if="domain.nameserver == 'unsupported'" class="text-pink-500" />
