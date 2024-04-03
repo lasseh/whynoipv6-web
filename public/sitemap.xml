@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://ipv6.fail/</loc>
+      <loc>https://whynoipv6.com/</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/domain</loc>
+      <loc>https://whynoipv6.com/domain</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/search</loc>
+      <loc>https://whynoipv6.com/search</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/metrics</loc>
+      <loc>https://whynoipv6.com/metrics</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/country</loc>
+      <loc>https://whynoipv6.com/country</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/campaign</loc>
+      <loc>https://whynoipv6.com/campaign</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/changelog</loc>
+      <loc>https://whynoipv6.com/changelog</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ipv6.fail/faq</loc>
+      <loc>https://whynoipv6.com/faq</loc>
       <lastmod>2023-11-29T22:23:24+01:00</lastmod>
       <priority>1.0</priority>
    </url>
