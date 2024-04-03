@@ -79,7 +79,7 @@ const testimonials = [
     imageUrl: "/images/scott.jpg",
   },
   {
-    statement: "IPv4 is the dial-up of our era. Embrace IPv6 or stay stuck in the slow lane.",
+    statement: "It's a shame some people still can't deploy a protocol that could buy its own beer, even in the US.",
     name: "Ivan Pepelnjak",
     url: "https://www.ipspace.net/",
     urlTitle: "ipspace.net",

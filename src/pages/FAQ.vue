@@ -144,10 +144,10 @@
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Stickers</h4>
-                    <p class="text-md text-gray-400">Become part of a community of like-minded individuals, show your support for IPv6.</p>
+                    <p class="text-md text-gray-400">Become part of a community of like-minded individuals and show your support for IPv6.</p>
                     <p class="text-md text-gray-400 mb-2">Add stickers to your laptop, or vandalize a building of a IPv6 sinner!</p>
                     <p class="text-md text-gray-400">
-                      Order your's today here:
+                      Order your's today:
                       <br />
                       <a href="https://www.stickermule.com/u/89ea0892a27fc29/item/14732767" class="a-gradient">Small (2.4" x 3")</a>
                       <br />
@@ -177,7 +177,7 @@
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Contact</h4>
-                    <p class="text-md text-gray-400">Want to get in contact with me?</p>
+                    <!-- <p class="text-md text-gray-400">Want to get in contact with me?</p> -->
                     <p class="text-md text-gray-400">
                       Twitter / X:
                       <a href="https://twitter.com/WhyNoIPv6" target="_blank" class="a-gradient">@whynoipv6</a>

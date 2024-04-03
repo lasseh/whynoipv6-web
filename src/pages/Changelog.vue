@@ -16,10 +16,10 @@
           <div class="pt-32 pb-4 md:pt-32 md:pb-4">
             <header class="mb-8" ref="anchorTop">
               <!-- Title and excerpt -->
-              <!-- <div class="text-center md:text-left">
-                <h1 class="h3 mb-4" data-aos="fade-up">Changelog</h1>
+              <div class="text-center md:text-left">
+                <!-- <h1 class="h3 mb-4" data-aos="fade-up">Changelog</h1> -->
                 <p class="text-md text-gray-400" data-aos="fade-up" data-aos-delay="200">Live changelog from the crawler</p>
-              </div> -->
+              </div>
             </header>
 
             <div class="mb-4">

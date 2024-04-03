@@ -17,7 +17,7 @@
             <header class="mb-8" ref="anchorTop">
               <div class="text-center md:text-left">
                 <h1 class="h2 mb-4" data-aos="fade-up">Unmasking the Top 1M Websites of the World</h1>
-                <p class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="200">Within the elite realm of the internet's top 1 million websites lies a distinct divide: the forward-thinking Heroes who've embraced IPv6, propelling us toward a brighter digital future, and the Sinners, who, despite their influence, hold us back by neglecting this advancement. Dive in as we spotlight these websites, celebrating the innovators and calling out those resisting progress.</p>
+                <p class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="200">Within the elite realm of the internet's top 1 million websites lies a distinct divide: the forward-thinking Heroes who've embraced IPv6, propelling us toward a brighter digital future, and the Sinners, who despite their influence, hold us back by neglecting this advancement. Dive in as we spotlight these websites, celebrating the innovators and calling out those resisting progress.</p>
               </div>
             </header>
 

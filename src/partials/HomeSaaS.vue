@@ -13,7 +13,7 @@
           <!-- Content -->
           <div class="text-lg text-gray-400">
             <p class="mb-2" data-aos="fade-down">
-              No, we're not talking about Software as a Service; we're talking about "Shame as a Service!" In the technology-driven world, where SaaS platforms solve complex business problems, we've innovated a new kind of service aimed squarely at solving a critical internet problem,
+              No, we're not talking about Software as a Service; we're talking about "Shame as a Service". In the technology-driven world, where SaaS platforms solve complex business problems, we've innovated a new kind of service aimed squarely at solving a critical internet problem,
               <span class="font-semibold a-gradient">the lack of IPv6 adoption.</span>
             </p>
           </div>
