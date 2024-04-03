@@ -26,8 +26,14 @@
             <li>
               <router-link to="/metrics" :class="[isActiveRoute('/metrics') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Metrics</router-link>
             </li>
+            <li>
+              <router-link to="/changelog" :class="[isActiveRoute('/changelog') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">Changelog</router-link>
+            </li>
+            <li>
+              <router-link to="/faq" :class="[isActiveRoute('/faq') ? 'underline' : '', 'text-gray-300 hover:text-gray-200 px-4 py-2 flex items-center transition duration-150 ease-in-out font-bold']">FAQ</router-link>
+            </li>
             <!-- Hover -->
-            <Dropdown title="More">
+            <!-- <Dropdown title="More">
               <li>
                 <router-link to="/changelog" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">Changelog</router-link>
               </li>
@@ -43,7 +49,7 @@
               <li>
                 <router-link to="/faq?page=4" class="font-medium text-sm text-gray-400 hover:text-fuchsia-600 flex py-2 px-4 leading-tight">About</router-link>
               </li>
-            </Dropdown>
+            </Dropdown> -->
           </ul>
 
           <!-- Hidden button to keep menu placement -->
