@@ -31,7 +31,7 @@
       </thead>
       <!-- Table body -->
       <tbody class="text-sm divide-y divide-slate-700 border-b border-slate-700">
-        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.base_domain == 'supported' && domain.www_domain == 'supported' && domain.nameserver == 'supported' }, { 'hover:bg-gray-800': true }]">
+        <tr v-for="(domain, index) in domains" :key="index" :class="[{ 'bg-emerald-900/50': domain.base_domain == 'supported' && domain.www_domain == 'supported' && domain.nameserver == 'supported' && domain.mx_record != 'unsupported' }, { 'hover:bg-gray-800': true }]">
           <td class="px-5 py-3 whitespace-nowrap text-left">
             <div class="flex items-center">
               <router-link :to="{ name: 'CampaignDomainDetail', params: { uuid: domain.campaign_uuid, domain: domain.domain } }" class="font-medium text-slate-100">
