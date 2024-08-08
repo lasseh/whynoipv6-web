@@ -5,21 +5,37 @@
       <!-- Table header -->
       <thead class="text-xs font-semibold uppercase text-fuchsia-600 border-t border-b border-slate-700">
         <tr>
-          <th class="px-5 py-3 whitespace-nowrap text-left">
+          <th class="md:px-2 px-5 py-3 whitespace-nowrap text-left">
             <div class="font-semibold text-left">Domain</div>
           </th>
           <th class="px-2 py-3 whitespace-nowrap">
-            <div class="font-semibold text-center">Apex</div>
+            <div class="has-tooltip">
+              <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">Toplevel domain: dig aaaa domain.com</span>
+              Apex
+            </div>
           </th>
           <th class="px-2 py-3 whitespace-nowrap">
-            <div class="font-semibold text-center">WWW</div>
+            <div class="has-tooltip">
+              <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">dig aaaa www.domain.com</span>
+              WWW
+            </div>
           </th>
           <th class="px-2 py-3 whitespace-nowrap">
-            <div class="font-semibold text-center md:block hidden">E-Mail</div>
+            <div class="font-semibold text-center md:block hidden">
+              <div class="has-tooltip">
+                <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">dig mx domain.com</span>
+                E-Mail
+              </div>
+            </div>
             <div class="font-semibold text-center md:hidden">MX</div>
           </th>
           <th class="px-5 py-3 whitespace-nowrap">
-            <div class="font-semibold text-center md:block hidden">Nameserver</div>
+            <div class="font-semibold text-center md:block hidden">
+              <div class="has-tooltip">
+                <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">dig ns domain.com</span>
+                Nameserver
+              </div>
+            </div>
             <div class="font-semibold text-center md:hidden">NS</div>
           </th>
           <!-- Disable until crawler is ready -->
@@ -105,3 +121,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { domains } = toRefs(props);
 </script>
+
+<style scoped>
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  visibility: visible;
+  z-index: 50;
+}
+</style>
