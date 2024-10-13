@@ -10,20 +10,20 @@
           </th>
           <th class="px-2 py-3 whitespace-nowrap">
             <div class="has-tooltip">
-              <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">Toplevel domain: dig aaaa domain.com</span>
+              <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">Top-level domain query: dig AAAA domain.com</span>
               Apex
             </div>
           </th>
           <th class="px-2 py-3 whitespace-nowrap">
             <div class="has-tooltip">
-              <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">dig aaaa www.domain.com</span>
+              <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">Query AAAA record for www.domain.com</span>
               WWW
             </div>
           </th>
           <th class="px-2 py-3 whitespace-nowrap">
             <div class="font-semibold text-center md:block hidden">
               <div class="has-tooltip">
-                <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">dig mx domain.com</span>
+                <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">Query MX record for domain.com</span>
                 E-Mail
               </div>
             </div>
@@ -32,7 +32,7 @@
           <th class="px-5 py-3 whitespace-nowrap">
             <div class="font-semibold text-center md:block hidden">
               <div class="has-tooltip">
-                <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">dig ns domain.com</span>
+                <span class="tooltip rounded border border-slate-700 shadow-lg p-1 bg-gray-800 text-fuchsia-600 -mt-8 normal-case">Query NS record for domain.com</span>
                 Nameserver
               </div>
             </div>
