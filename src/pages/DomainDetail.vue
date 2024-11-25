@@ -76,11 +76,20 @@
               </div>
             </div>
 
+
             <!-- Domain Status -->
             <ul class="my-4 space-y-3">
               <li>
                 <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.base_domain == 'supported' ? 'border-emerald-600' : domain.base_domain == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
                   <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">{{ domain.domain }}</span>
+             <!-- <span class="">
+              <Tracker
+                 :data="blocks"
+                 defaultBackgroundColor="bg-gray-300"
+                 :hoverEffect="true"
+                />
+             </span> -->
+
                   <span :class="domain.base_domain == 'supported' ? 'text-emerald-600' : domain.base_domain == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
                     {{ domain.base_domain == "supported" ? "Success" : domain.base_domain == "unsupported" ? "Missing" : "No Record" }}
                   </span>
@@ -148,6 +157,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 // Partials
 import ChangelogTable from "@/components/ChangelogTable.vue";
 import { formatDateTime } from "@/utils/Date";
+// import Tracker from "@/partials/Tracker.vue";
 
 // Services
 import DomainService from "@/services/DomainService";
@@ -221,4 +231,487 @@ onMounted(() => {
 onUnmounted(() => {
   document.title = "Why No IPv6?";
 });
+
+// const blocks = [
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 2,
+//     color: "bg-red-500",
+//     tooltip: "Block 2: Moderate Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 2,
+//     color: "bg-red-500",
+//     tooltip: "Block 2: Moderate Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 2,
+//     color: "bg-red-500",
+//     tooltip: "Block 2: Moderate Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 2,
+//     color: "bg-red-500",
+//     tooltip: "Block 2: Moderate Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+//   {
+//     key: 1,
+//     color: "bg-red-500",
+//     tooltip: "Block 1: High Risk",
+//   },
+//   {
+//     key: 3,
+//     color: "bg-green-500",
+//     tooltip: "Block 3: Low Risk",
+//   },
+// ];
 </script>
