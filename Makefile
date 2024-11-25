@@ -4,6 +4,9 @@ update: ## Updates all deps
 build: ## Builds the application
 	npm run build 
 
+dev: ## Sets the environment to DEV and starts npm run dev
+	npm run dev
+
 ## Help display.
 ## Pulls comments from beside commands and prints a nicely formatted
 ## display with the commands and their usage information.
