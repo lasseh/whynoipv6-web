@@ -100,13 +100,11 @@
           </ul>
 
           <!-- Copyrights note -->
-          <noscript>
-            <div class="text-gray-400 text-sm mr-4" data-nosnippet>
-              Hosted on Native IPv6 co-location from
-              <a href="https://blix.com/" class="underline whitespace-nowrap a-gradient" target="_blank">Blix Solutions</a>
-              since 2008
-            </div>
-          </noscript>
+          <div class="text-gray-400 text-sm mr-4" data-nosnippet>
+            Hosted on Native IPv6 co-location from
+            <a href="https://blix.com/" class="underline whitespace-nowrap a-gradient" target="_blank">Blix Solutions</a>
+            since 2008
+          </div>
         </div>
       </div>
     </div>
