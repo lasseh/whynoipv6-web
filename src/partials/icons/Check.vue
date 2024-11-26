@@ -11,7 +11,7 @@
 .tooltip {
   visibility: hidden;
   left: 50%; /* Center horizontally */
-  bottom: -50%; 
+  bottom: -50%;
   white-space: nowrap; /* Prevent tooltip text from wrapping */
 }
 
