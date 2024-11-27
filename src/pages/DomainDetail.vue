@@ -76,20 +76,61 @@
               </div>
             </div>
 
+            <!-- Domain Status TEST -->
+            <ul class="my-4 space-y-3">
+              <li>
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4 cursor-pointer" :class="domain.base_domain == 'supported' ? 'border-emerald-600' : domain.base_domain == 'unsupported' ? 'border-pink-600' : 'border-amber-500'" @click="toggleBase">
+                  <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">{{ domain.domain }}</span>
+                  <span :class="domain.base_domain == 'supported' ? 'text-emerald-600' : domain.base_domain == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.base_domain == "supported" ? "Success" : domain.base_domain == "unsupported" ? "Missing" : "No Record" }}
+                  </span>
+                </div>
+                <div v-show="openBase" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
+                  <Tracker :data="data" :hoverEffect="true" />
+                </div>
+              </li>
+              <li>
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4 cursor-pointer" :class="domain.www_domain == 'supported' ? 'border-emerald-600' : domain.www_domain == 'unsupported' ? 'border-pink-600' : 'border-amber-500'" @click="toggleWWW">
+                  <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">www.{{ domain.domain }}</span>
+                  <span :class="domain.www_domain == 'supported' ? 'text-emerald-600' : domain.www_domain == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.www_domain == "supported" ? "Success" : domain.www_domain == "unsupported" ? "Missing" : "No Record" }}
+                  </span>
+                </div>
+                <div v-show="openWWW" class="mt-2 p-4 bg-gray-800/30 rounded-md">
+                  <Tracker :data="data" :hoverEffect="true" />
+                </div>
+              </li>
+              <li>
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4 cursor-pointer" :class="domain.nameserver == 'supported' ? 'border-emerald-600' : domain.nameserver == 'unsupported' ? 'border-pink-600' : 'border-amber-500'" @click="toggleNS">
+                  <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">Nameserver</span>
+                  <span :class="domain.nameserver == 'supported' ? 'text-emerald-600' : domain.nameserver == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.nameserver == "supported" ? "Success" : domain.nameserver == "unsupported" ? "Missing" : "No Record" }}
+                  </span>
+                </div>
+                <div v-show="openNS" class="mt-2 p-4 bg-gray-800/30 rounded-md">
+                  <Tracker :data="data" :hoverEffect="true" />
+                </div>
+              </li>
+              <li>
+                <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4 cursor-pointer" :class="domain.mx_record == 'supported' ? 'border-emerald-600' : domain.mx_record == 'unsupported' ? 'border-pink-600' : 'border-amber-500'" @click="toggleMX">
+                  <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">E-Mail</span>
+                  <span :class="domain.mx_record == 'supported' ? 'text-emerald-600' : domain.mx_record == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
+                    {{ domain.mx_record == "supported" ? "Success" : domain.mx_record == "unsupported" ? "Missing" : "No Record" }}
+                  </span>
+                </div>
+                <div v-show="openMX" class="mt-2 p-4 bg-gray-800/30 rounded-md">
+                  <Tracker :data="data" :hoverEffect="true" />
+                </div>
+              </li>
+            </ul>
+            <hr class="my-4 border-gray-800" />
+            <!-- END TEST -->
 
             <!-- Domain Status -->
-            <ul class="my-4 space-y-3">
+            <!-- <ul class="my-4 space-y-3">
               <li>
                 <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.base_domain == 'supported' ? 'border-emerald-600' : domain.base_domain == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
                   <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm">{{ domain.domain }}</span>
-             <!-- <span class="">
-              <Tracker
-                 :data="blocks"
-                 defaultBackgroundColor="bg-gray-300"
-                 :hoverEffect="true"
-                />
-             </span> -->
-
                   <span :class="domain.base_domain == 'supported' ? 'text-emerald-600' : domain.base_domain == 'unsupported' ? 'text-pink-600' : 'text-amber-500'" class="inline-flex items-center justify-center px-2 py-0.5 ml-3">
                     {{ domain.base_domain == "supported" ? "Success" : domain.base_domain == "unsupported" ? "Missing" : "No Record" }}
                   </span>
@@ -118,7 +159,7 @@
                     {{ domain.mx_record == "supported" ? "Success" : domain.mx_record == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                 </div>
-              </li>
+              </li> -->
               <!-- Implement v6 Only checker -->
               <!-- <li>
                 <div class="flex justify-between items-center p-3 text-base rounded group hover:shadow bg-gray-800 hover:bg-gray-800/30 text-white border-l-4" :class="domain.v6_only == 'supported' ? 'border-emerald-600' : domain.v6_only == 'unsupported' ? 'border-pink-600' : 'border-amber-500'">
@@ -128,7 +169,7 @@
                   </span>
                 </div>
               </li> -->
-            </ul>
+            <!-- </ul> -->
 
             <div class="inline-flex items-center text-xs font-normal text-gray-400">Last checked: {{ formattedTsCheck }}</div>
             <!-- End Domain Status Card -->
@@ -148,7 +189,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, toRefs, computed, onUnmounted, toRef } from "vue";
+import { onMounted, reactive, toRefs, computed, onUnmounted, toRef, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // Page Layout
@@ -157,7 +198,7 @@ import { Header, PageIllustration, Footer } from "@/partials";
 // Partials
 import ChangelogTable from "@/components/ChangelogTable.vue";
 import { formatDateTime } from "@/utils/Date";
-// import Tracker from "@/partials/Tracker.vue";
+import Tracker from "@/components/Tracker.vue";
 
 // Services
 import DomainService from "@/services/DomainService";
@@ -200,25 +241,46 @@ const numberOfStars = computed(() => {
   return count;
 });
 
-const tweetShame = (numberOfStars: number) => {
-  // Define common variables
-  let tweetText: string;
-  // const currentURL = "https://ipv6.fail/domain/google.com/"; // For development
-  const currentURL = window.location.href;
+// Accordion state
+const openBase = ref(false);
+const openWWW = ref(false);
+const openNS = ref(false);
+const openMX = ref(false);
 
-  // If numberOfStars is 3 or more, generate a positive tweet
-  if (numberOfStars >= 3) {
-    tweetText = `Hey ${state.domain.domain}, thanks for supporting IPv6! #IPv6`;
-  } else {
-    // Generate a negative tweet
-    tweetText = `Hey ${state.domain.domain}, it's time to support IPv6! #WhyNoIPv6`;
-  }
-  // Create Twitter URL
-  const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(currentURL)}`;
-
-  // Open Twitter in a new tab
-  window.open(twitterURL, "_blank");
+// Toggle functions
+const toggleBase = () => {
+  openBase.value = !openBase.value;
 };
+const toggleWWW = () => {
+  openWWW.value = !openWWW.value;
+};
+const toggleNS = () => {
+  openNS.value = !openNS.value;
+};
+const toggleMX = () => {
+  openMX.value = !openMX.value;
+};
+
+// Removed button, comment out this function
+// const tweetShame = (numberOfStars: number) => {
+//   // Define common variables
+//   let tweetText: string;
+//   // const currentURL = "https://ipv6.fail/domain/google.com/"; // For development
+//   const currentURL = window.location.href;
+
+//   // If numberOfStars is 3 or more, generate a positive tweet
+//   if (numberOfStars >= 3) {
+//     tweetText = `Hey ${state.domain.domain}, thanks for supporting IPv6! #IPv6`;
+//   } else {
+//     // Generate a negative tweet
+//     tweetText = `Hey ${state.domain.domain}, it's time to support IPv6! #WhyNoIPv6`;
+//   }
+//   // Create Twitter URL
+//   const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(currentURL)}`;
+
+//   // Open Twitter in a new tab
+//   window.open(twitterURL, "_blank");
+// };
 
 // Fetch the campaign on component mount
 onMounted(() => {
@@ -232,486 +294,93 @@ onUnmounted(() => {
   document.title = "Why No IPv6?";
 });
 
-// const blocks = [
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 2,
-//     color: "bg-red-500",
-//     tooltip: "Block 2: Moderate Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 2,
-//     color: "bg-red-500",
-//     tooltip: "Block 2: Moderate Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 2,
-//     color: "bg-red-500",
-//     tooltip: "Block 2: Moderate Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 2,
-//     color: "bg-red-500",
-//     tooltip: "Block 2: Moderate Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-//   {
-//     key: 1,
-//     color: "bg-red-500",
-//     tooltip: "Block 1: High Risk",
-//   },
-//   {
-//     key: 3,
-//     color: "bg-green-500",
-//     tooltip: "Block 3: Low Risk",
-//   },
-// ];
+// Data type for the Tracker component
+type DataItem = {
+  id: number;
+  timestamp: string;
+  status: "supported" | "unsupported" | "no_record";
+};
+
+const data = ref<DataItem[]>([
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 1, timestamp: "2023-11-01T10:00:00Z", status: "supported" },
+  { id: 2, timestamp: "2023-11-02T11:00:00Z", status: "unsupported" },
+  { id: 3, timestamp: "2023-11-03T12:00:00Z", status: "no_record" },
+  { id: 4, timestamp: "2023-11-04T13:00:00Z", status: "supported" },
+  { id: 5, timestamp: "2023-11-05T14:00:00Z", status: "unsupported" },
+  { id: 6, timestamp: "2023-11-06T15:00:00Z", status: "no_record" },
+]);
+
+const colorMapping = ref<Record<"supported" | "unsupported" | "no_record", string>>({
+  supported: "bg-emerald-600",
+  unsupported: "bg-pink-600",
+  no_record: "bg-amber-500",
+});
+
+// Transformed data with color information (if needed separately)
+const transformedData = computed(() =>
+  data.value.map(item => ({
+    ...item,
+    color: colorMapping.value[item.status], // Map status to its corresponding color
+  }))
+);
+
+// Combined data with color information (reactive)
+const combinedData = computed(() =>
+  data.value.map(item => ({
+    ...item,
+    color: colorMapping.value[item.status] || "bg-gray-500", // Fallback color for invalid status
+  }))
+);
 </script>
