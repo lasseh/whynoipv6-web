@@ -81,7 +81,7 @@
                     {{ domain.base_domain == "supported" ? "Success" : domain.base_domain == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                   <!-- Up/Down Icon -->
-                  <span class="ml-2">
+                  <span class="ml-2" v-show="state.domainLog.length > 0">
                     <svg v-if="!openBase" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -91,7 +91,7 @@
                     </svg>
                   </span>
                 </div>
-                <div v-show="openBase" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
+                <div v-show="openBase && state.domainLog.length > 0" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
                   <Tracker :data="largeData(state.domainLog, 'base_domain')" :hoverEffect="true" class="mt-3 hidden lg:block" />
                   <Tracker :data="mediumData(state.domainLog, 'base_domain')" :hoverEffect="true" class="mt-3 hidden sm:block lg:hidden" />
                   <Tracker :data="mobileData(state.domainLog, 'base_domain')" :hoverEffect="true" class="mt-3 block sm:hidden" />
@@ -104,7 +104,7 @@
                     {{ domain.www_domain == "supported" ? "Success" : domain.www_domain == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                   <!-- Up/Down Icon -->
-                  <span class="ml-2">
+                  <span class="ml-2" v-show="state.domainLog.length > 0">
                     <svg v-if="!openWWW" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -114,7 +114,7 @@
                     </svg>
                   </span>
                 </div>
-                <div v-show="openWWW" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
+                <div v-show="openWWW && state.domainLog.length > 0" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
                   <Tracker :data="largeData(state.domainLog, 'www_domain')" :hoverEffect="true" class="mt-3 hidden lg:block" />
                   <Tracker :data="mediumData(state.domainLog, 'www_domain')" :hoverEffect="true" class="mt-3 hidden sm:block lg:hidden" />
                   <Tracker :data="mobileData(state.domainLog, 'www_domain')" :hoverEffect="true" class="mt-3 block sm:hidden" />
@@ -127,7 +127,7 @@
                     {{ domain.nameserver == "supported" ? "Success" : domain.nameserver == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                   <!-- Up/Down Icon -->
-                  <span class="ml-2">
+                  <span class="ml-2" v-show="state.domainLog.length > 0">
                     <svg v-if="!openNS" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -137,7 +137,7 @@
                     </svg>
                   </span>
                 </div>
-                <div v-show="openNS" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
+                <div v-show="openNS && state.domainLog.length > 0" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
                   <Tracker :data="largeData(state.domainLog, 'nameserver')" :hoverEffect="true" class="mt-3 hidden lg:block" />
                   <Tracker :data="mediumData(state.domainLog, 'nameserver')" :hoverEffect="true" class="mt-3 hidden sm:block lg:hidden" />
                   <Tracker :data="mobileData(state.domainLog, 'nameserver')" :hoverEffect="true" class="mt-3 block sm:hidden" />
@@ -150,7 +150,7 @@
                     {{ domain.mx_record == "supported" ? "Success" : domain.mx_record == "unsupported" ? "Missing" : "No Record" }}
                   </span>
                   <!-- Up/Down Icon -->
-                  <span class="ml-2">
+                 <span class="ml-2" v-show="state.domainLog.length > 0">
                     <svg v-if="!openMX" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -160,7 +160,7 @@
                     </svg>
                   </span>
                 </div>
-                <div v-show="openMX" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
+                <div v-show="openMX && state.domainLog.length > 0" class="mt-2 p-2 mr-1 ml-1 bg-gray-800/30 rounded-md">
                   <Tracker :data="largeData(state.domainLog, 'mx_record')" :hoverEffect="true" class="mt-3 hidden lg:block" />
                   <Tracker :data="mediumData(state.domainLog, 'mx_record')" :hoverEffect="true" class="mt-3 hidden sm:block lg:hidden" />
                   <Tracker :data="mobileData(state.domainLog, 'mx_record')" :hoverEffect="true" class="mt-3 block sm:hidden" />
@@ -256,10 +256,10 @@ const state = reactive({
   domain: {} as Campaign.CampaignDomain,
   changelogs: [] as Changelog.Log[],
   campaign: {} as Campaign.Campaign,
-  domainLog: [] as Campaign.CampainDomainLog[],
+  domainLog: [] as Campaign.CampaignDomainLog[],
 });
 
-const { domain, changelogs, campaign } = toRefs(state);
+const { domain, changelogs, campaign, domainLog } = toRefs(state);
 
 async function getDomainDetails(uuid: string, domain: string) {
   const response = await CampaignService.getCampaignDomain(uuid, domain);
@@ -275,10 +275,14 @@ async function getCampaign(uuid: string, offset: number) {
   const response = await CampaignService.getCampaign(uuid, offset);
   state.campaign = response.data.campaign;
 }
-
 async function getCampaignDomainLog(uuid: string, domain: string) {
-  const response = await CampaignService.getCampaignDomainLog(uuid, domain);
-  state.domainLog = response.data;
+  try {
+    const response = await CampaignService.getCampaignDomainLog(uuid, domain);
+    state.domainLog = response.data || []; // Handle no data scenario
+  } catch (error) {
+    console.error("Failed to fetch campaign domain log:", error);
+    state.domainLog = []; // Fallback to empty array
+  }
 }
 
 const formattedTsCheck = computed(() => {
@@ -317,29 +321,51 @@ const toggleMX = () => {
   openMX.value = !openMX.value;
 };
 
-// Function to prepare data for mobile
-const mobileData = (data: DomainLog[], key: keyof DomainLog) =>
-  data.slice(0, 30).map(record => ({
-    id: record.id,
-    timestamp: record.time,
-    status: record[key],
-  }));
+// // Function to prepare data for mobile
+// const mobileData = (data: Campaign.CampaignDomainLog[], key: keyof Campaign.CampaignDomainLog) =>
+//   data.slice(0, 30).map(record => ({
+//     id: record.id,
+//     timestamp: record.time,
+//     status: record[key],
+//   }));
 
-// Function to prepare data for medium screens
-const mediumData = (data: DomainLog[], key: keyof DomainLog) =>
-  data.slice(0, 60).map(record => ({
-    id: record.id,
-    timestamp: record.time,
-    status: record[key],
-  }));
+// // Function to prepare data for medium screens
+// const mediumData = (data: Campaign.CampaignDomainLog[], key: keyof Campaign.CampaignDomainLog) =>
+//   data.slice(0, 60).map(record => ({
+//     id: record.id,
+//     timestamp: record.time,
+//     status: record[key],
+//   }));
 
-// Function to prepare data for large screens
-const largeData = (data: DomainLog[], key: keyof DomainLog) =>
-  data.slice(0, 90).map(record => ({
+// // Function to prepare data for large screens
+// const largeData = (data: Campaign.CampaignDomainLog[], key: keyof Campaign.CampaignDomainLog) =>
+//   data.slice(0, 90).map(record => ({
+//     id: record.id,
+//     timestamp: record.time,
+//     status: record[key],
+//   }));
+
+// Function to prepare data with strict typing for Tracker
+function transformData(
+  data: Campaign.CampaignDomainLog[],
+  key: keyof Campaign.CampaignDomainLog
+) {
+  return data.map((record) => ({
     id: record.id,
     timestamp: record.time,
-    status: record[key],
+    status: record[key] as "supported" | "unsupported" | "no_record", // Explicit cast
   }));
+}
+
+// Data for different screen sizes
+const mobileData = (data: Campaign.CampaignDomainLog[], key: keyof Campaign.CampaignDomainLog) =>
+  transformData(data.slice(0, 30), key);
+
+const mediumData = (data: Campaign.CampaignDomainLog[], key: keyof Campaign.CampaignDomainLog) =>
+  transformData(data.slice(0, 60), key);
+
+const largeData = (data: Campaign.CampaignDomainLog[], key: keyof Campaign.CampaignDomainLog) =>
+  transformData(data.slice(0, 90), key);
 
 // Fetch the campaign on component mount
 onMounted(() => {
