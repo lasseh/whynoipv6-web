@@ -15,7 +15,9 @@
 
     <!-- Timeline Labels -->
     <div class="flex justify-between mt-2 text-xs text-gray-500">
-      <span>90 days ago</span>
+      <span class="hidden lg:block">90 days ago</span>
+      <span class="hidden sm:block lg:hidden">60 days ago</span>
+      <span class="sm:hidden">30 days ago</span>
       <span>Today</span>
     </div>
   </div>
@@ -67,5 +69,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
