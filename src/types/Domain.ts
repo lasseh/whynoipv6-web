@@ -17,4 +17,12 @@ export namespace Domain {
     asn: string;
     country: string;
   }
+  export interface DomainLog {
+    id: number; // Unique identifier
+    time: Date; // Timestamp for the record
+    mx_record: DomainStatus;
+    nameserver: DomainStatus;
+    www_domain: DomainStatus;
+    base_domain: DomainStatus;
+  }
 }

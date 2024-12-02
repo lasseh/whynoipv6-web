@@ -16,6 +16,9 @@ class DomainService {
   getDomainDetails(domain: string) {
     return API().get(`/domain/${encodeURIComponent(domain)}`);
   }
+  getDomainLog(domain: string) {
+    return API().get(`/domain/${encodeURIComponent(domain)}/log`);
+  }
   searchDomain(domain: string, offset: number) {
     return API().get(`/domain/search/${encodeURIComponent(domain)}${this.getQueryParam(offset)}`);
   }
