@@ -30,4 +30,12 @@ export namespace Campaign {
     country: string;
     campaign_uuid: string;
   }
+    export interface CampaignDomainLog {
+    id: number; // Unique identifier
+    time: Date; // Timestamp for the record
+    mx_record: DomainStatus;
+    nameserver: DomainStatus;
+    www_domain: DomainStatus;
+    base_domain: DomainStatus;
+  }
 }

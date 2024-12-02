@@ -10,6 +10,9 @@ class CampaignService {
   getCampaignDomain(uuid: string, domain: string) {
     return API().get(`/campaign/${encodeURIComponent(uuid)}/${encodeURIComponent(domain)}`);
   }
+  getCampaignDomainLog(uuid: string, domain: string) {
+    return API().get(`/campaign/${encodeURIComponent(uuid)}/${encodeURIComponent(domain)}/log`);
+  }
   searchDomain(domain: string, offset: number) {
     return API().get(`/campaign/search/${encodeURIComponent(domain)}?offset=${encodeURIComponent(offset)}`);
   }
