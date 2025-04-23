@@ -128,6 +128,7 @@
                     <p class="text-md text-gray-400"><a href="https://www.reddit.com/r/ipv6/" class="a-gradient">Reddit's r/ipv6</a></p>
                     <p class="text-md text-gray-400"><a href="https://www.ipv6forum.com/" class="a-gradient">IPv6 Forum</a></p>
                     <p class="text-md text-gray-400"><a href="https://packetpushers.net/podcasts/ipv6-buzz/" class="a-gradient">IPv6 Buzz Podcast</a></p>
+                    <p class="text-md text-gray-400"><a href="https://ipv6.social/" class="a-gradient">IPv6 Mastodon</a></p>
                   </li>
                   <li class="py-4">
                     <h4 class="text-xl font-medium mb-2">Online Courses and Webinars</h4>
